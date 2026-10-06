@@ -407,7 +407,7 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
     2. ✅ APIs `com.ibm.websphere.*` eliminadas y sustituidas por estándares Java EE
     3. ✅ JNDI propietario sustituido por inyección `@Resource`
     4. ✅ Descriptores WAS eliminados (ibm-web-bnd.xml, ibm-ejb-jar-bnd.xml)
-    5. ✅ JMS actualizado a la API JMS 2.0 estándar
+    5. ✅ JMS actualizado a la API JMS 3.0 estándar (Jakarta Messaging 3.1)
     6. ✅ EJB Home Interfaces eliminadas, reemplazadas por inyección `@EJB`
 
 ---

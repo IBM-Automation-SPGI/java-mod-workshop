@@ -324,3 +324,9 @@ spec:
     6. ✅ **[Lab 5]** Validating functional parity, health probes, and metrics
 
     PedjasApp has successfully evolved from a rigid tWAS monolith into a high-performance, container-ready cloud-native service.
+
+---
+
+## Optional Next Step
+
+If you want to go further, proceed to **[Lab 6 — Kubernetes & OpenShift](../lab6/index.en.md)** to deploy PedjasApp Liberty on a cloud-native cluster using the **Open Liberty Operator**.

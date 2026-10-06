@@ -49,6 +49,8 @@ podman ps | grep -i ama
 
 Access the web interface at: **[https://localhost/](https://localhost/)** (or **[http://localhost:3000](http://localhost:3000)** in legacy versions).
 
+![AMA home screen showing workspaces list](img/01-ama-home-workspaces.png)
+
 !!! note "Requirements"
     Requires Docker or Podman installed on your system. The script automatically pulls necessary images from ICR.
 
@@ -60,25 +62,21 @@ When accessing the Transformation Advisor interface for the first time:
 
 ### 2.1 Create a Workspace
 
-```
-Transformation Advisor → Add Workspace
-  Name: "PedjasApp-Migration"
-  Description: "Modernization analysis of PedjasApp tWAS → Liberty"
-  → Create
-```
-
-**Expected view of the workspace:**
+1. Click the **Create workspace** button on the main screen.
+2. Enter the workspace name in the **Workspace name** field:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  IBM Application Modernization Accelerator                  │
-│  Workspace: PedjasApp-Migration                             │
-│                                                             │
-│  [ Discovered estate / Assessment / Visualization ]         │
-│                                                             │
-│  [ Bulk data → Upload / Export ]                            │
-└─────────────────────────────────────────────────────────────┘
+Name: "Workshop_PedjasApp"
+→ Create
 ```
+
+![Create workspace dialog — empty field](img/02-create-workspace-dialog.png)
+
+![Create workspace dialog — name entered](img/03-create-workspace-name-filled.png)
+
+**Workspace view after creation:**
+
+![Workshop_PedjasApp workspace interior](img/04-workspace-interior-empty.png)
 
 ### 2.2 Explore data or import new scans
 
@@ -166,6 +164,8 @@ You have two methods available to ingest the `.zip` archive:
 5. Keep **Autodetect collection** selected or provide a name (e.g. `PedjasApp_tWAS`) and click the blue **Upload** button.
 6. Within seconds, the UI processes the binaries and displays the **Recommendations** view, **Visualization** charts, and modernization rule breakdown.
 
+![Workspace state after collection upload](img/05-workspace-upload-state.png)
+
 ---
 
 #### Method B — Automated Upload via CLI / AMA REST API
@@ -217,18 +217,9 @@ Upon completion, Transformation Advisor displays a summary structured as follows
 
 ### 4.1 Applications Summary View
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  Collection: initial-analysis                                       │
-│                                                                     │
-│  Application         │ Complexity  │ Issues │ Warnings │ Info  │
-│  ─────────────────── │ ─────────── │ ────── │ ──────── │ ───── │
-│  pedjasapp.ear       │  Moderate   │   12   │    8     │  15   │
-│                                                                     │
-│  Estimated effort: 3-5 days                                         │
-│  Recommended target: WebSphere Liberty                              │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![Assessment overview — applications summary](img/08-recommendations-overview.png)
+
+![Applications table with modernization metrics](img/09-applications-table.png)
 
 ### 4.2 Issue Classification
 
@@ -239,6 +230,10 @@ Upon completion, Transformation Advisor displays a summary structured as follows
 | **Informational** | 🔵 Blue | Best practice recommendation — does not block deployment |
 
 ### 4.3 Modernization Rules Triggered in PedjasApp
+
+![PedjasApp.ear application detail view](img/10-app-detail-pedjasapp.png)
+
+![Issues and rules list](img/11-issues-rules-list.png)
 
 The following rules will be reported by AMA for PedjasApp, detailing severity and corrective actions:
 
@@ -363,22 +358,13 @@ EJB Home Interfaces (`create()`, `findByPrimaryKey()`) represent the legacy patt
 
 ### 4.4 Detailed Analysis Panel — File View
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  pedjasapp.ear / pedjasapp-ejb.jar                                  │
-│  PedidoServiceBean.java                                             │
-│                                                                     │
-│  Line 34: import com.ibm.websphere.naming.JndiHelper;               │
-│  ▲ CRITICAL — IBM WebSphere API Usage                               │
-│    This class is not available on WebSphere Liberty.                │
-│    Action: Replace with javax.naming.InitialContext                 │
-│    [ View Details ] [ View Solution ] [ Mark Resolved ]             │
-│                                                                     │
-│  Line 67: DistributedMap cache = JndiHelper.lookup("cache/main");   │
-│  ▲ CRITICAL — Distributed Cache IBM API                             │
-│    See: RULE-0001                                                   │
-└─────────────────────────────────────────────────────────────────────┘
-```
+Expanding any rule from the list reveals the detailed panel with the issue description, affected files, and suggested fix:
+
+![Expanded critical rule detail panel](img/12-rule-detail-expanded.png)
+
+The **Visualization** tab provides a graphical dependency view and modernization status:
+
+![Visualization graph view of the application](img/13-visualization.png)
 
 ---
 

@@ -49,6 +49,8 @@ podman ps | grep -i ama
 
 Accede a la interfaz en: **[https://localhost/](https://localhost/)** (o **[http://localhost:3000](http://localhost:3000)** en versiones clásicas)
 
+![Pantalla de inicio de AMA con la lista de workspaces](img/01-ama-home-workspaces.png)
+
 !!! note "Requisitos"
     Requiere Docker o Podman instalado. El script descarga automáticamente las imágenes necesarias desde ICR.
 
@@ -60,25 +62,21 @@ Cuando accedas a la interfaz de Transformation Advisor por primera vez:
 
 ### 2.1 Crear un Workspace
 
-```
-Transformation Advisor → Add Workspace
-  Nombre: "PedjasApp-Migration"
-  Descripción: "Análisis de modernización de PedjasApp tWAS → Liberty"
-  → Create
-```
-
-**Vista esperada del workspace vacío:**
+1. Haz clic en el botón **Create workspace** en la pantalla principal.
+2. Introduce el nombre del workspace en el campo **Workspace name**:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  IBM Application Modernization Accelerator                  │
-│  Workspace: PedjasApp-Migration                             │
-│                                                             │
-│  [ Discovered estate / Assessment / Visualization ]         │
-│                                                             │
-│  [ Bulk data → Upload / Export ]                            │
-└─────────────────────────────────────────────────────────────┘
+Nombre: "Workshop_PedjasApp"
+→ Create
 ```
+
+![Diálogo de creación de workspace — campo vacío](img/02-create-workspace-dialog.png)
+
+![Diálogo de creación de workspace — nombre introducido](img/03-create-workspace-name-filled.png)
+
+**Vista del workspace tras la creación:**
+
+![Vista interior del workspace Workshop_PedjasApp](img/04-workspace-interior-empty.png)
 
 ### 2.2 Explorar datos o importar nuevo escaneo
 
@@ -167,6 +165,8 @@ Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 5. Puedes dejar marcada la opción **Autodetect collection** o asignarle un nombre (p. ej., `PedjasApp_tWAS`) y pulsa en el botón azul **Upload**.
 6. En unos segundos, la interfaz procesará los binarios y mostrará automáticamente la vista de **Recommendations**, los gráficos de **Visualization** y el desglose de reglas de modernización.
 
+![Estado del workspace tras la subida de la colección](img/05-workspace-upload-state.png)
+
 ---
 
 #### Método B — Subida Automatizada por Línea de Comandos / API REST de AMA
@@ -219,18 +219,9 @@ Tras completar el análisis, Transformation Advisor mostrará un resumen con la 
 
 ### 4.1 Pantalla de Resumen de Aplicaciones
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  Colección: analisis-inicial                                        │
-│                                                                     │
-│  Aplicación          │ Complejidad │ Issues │ Advertencias │ Info  │
-│  ─────────────────── │ ─────────── │ ─────── │ ──────────── │ ───── │
-│  pedjasapp.ear       │  Moderada  │   12   │      8       │  15   │
-│                                                                     │
-│  Esfuerzo estimado: 3-5 días                                        │
-│  Destino recomendado: WebSphere Liberty                             │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![Resumen de aplicaciones analizadas en AMA](img/08-recommendations-overview.png)
+
+![Tabla de aplicaciones con métricas de modernización](img/09-applications-table.png)
 
 ### 4.2 Clasificación de Issues
 
@@ -241,6 +232,10 @@ Tras completar el análisis, Transformation Advisor mostrará un resumen con la 
 | **Informativo** | 🔵 Azul | Mejora recomendada — no bloquea el despliegue |
 
 ### 4.3 Reglas Disparadas en PedjasApp
+
+![Detalle de la aplicación pedjasapp.ear en AMA](img/10-app-detail-pedjasapp.png)
+
+![Lista de issues y reglas detectadas](img/11-issues-rules-list.png)
 
 A continuación se describen las reglas que AMA generará para PedjasApp, junto con su nivel de severidad y la acción correctiva correspondiente:
 
@@ -365,22 +360,13 @@ El uso de EJB Home Interfaces (`create()`, `findByPrimaryKey()`) es la forma ant
 
 ### 4.4 Panel de Análisis Detallado — Vista de Fichero
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  pedjasapp.ear / pedjasapp-ejb.jar                                  │
-│  PedidoServiceBean.java                                             │
-│                                                                     │
-│  Línea 34: import com.ibm.websphere.naming.JndiHelper;              │
-│  ▲ CRÍTICO — IBM WebSphere API Usage                               │
-│    Esta clase no está disponible en WebSphere Liberty.              │
-│    Acción: Sustituir por javax.naming.InitialContext                │
-│    [ Ver Detalle ] [ Ver Solución Sugerida ] [ Marcar Resuelto ]    │
-│                                                                     │
-│  Línea 67: DistributedMap cache = JndiHelper.lookup("cache/main");  │
-│  ▲ CRÍTICO — Distributed Cache IBM API                             │
-│    Ver: RULE-0001                                                   │
-└─────────────────────────────────────────────────────────────────────┘
-```
+Al expandir cualquier regla de la lista se muestra el detalle de la incidencia con la descripción, los ficheros afectados y la solución propuesta:
+
+![Detalle expandido de una regla crítica](img/12-rule-detail-expanded.png)
+
+La vista **Visualization** ofrece una representación gráfica de las dependencias y el estado de modernización:
+
+![Vista de Visualization con el grafo de la aplicación](img/13-visualization.png)
 
 ---
 
@@ -410,7 +396,7 @@ El ZIP incluye:
 | RULE-0003 — JNDI propietario | 🔴 Crítico | Bajo | Configuración de recursos |
 | RULE-0004 — ibm-web-bnd.xml | 🟡 Advertencia | Bajo | Descriptores de despliegue |
 | RULE-0005 — JMS WAS | 🟡 Advertencia | Medio | Mensajería |
-| RULE-0006 — EJB Home Interface | 🔵 Info | Medio | Modernización de EJBs |
+| RULE-0006 — EJB Home Interface | 🔵 Informativo | Medio | Modernización de EJBs |
 
 **Esfuerzo total estimado: 3-5 días de trabajo de desarrollo**
 

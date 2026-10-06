@@ -332,3 +332,8 @@ spec:
 
 ---
 
+
+## Siguiente Paso (Opcional)
+
+Si quieres ir más allá, continúa con el **[Lab 6 — Kubernetes & OpenShift](../lab6/index.md)**, donde desplegarás PedjasApp Liberty en un clúster cloud-native usando el **Open Liberty Operator**.
+
