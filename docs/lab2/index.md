@@ -168,34 +168,46 @@ Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 
 ---
 
-#### Método B — Subida Automatizada mediante la API REST de AMA
+#### Método B — Subida Automatizada por Línea de Comandos / API REST de AMA
 
-AMA expone su API REST OpenAPI en el puerto seguro `2220` (`https://localhost:2220/lands_advisor/advisor/v2/...`).
+Puedes realizar la creación del workspace, la subida del `.zip` y la consulta del informe **100% por línea de comandos** utilizando la API REST de AMA expuesta en el puerto seguro `2220` (`https://localhost:2220/lands_advisor/advisor/v2/...`).
 
-##### 1. Crear el Workspace mediante API (si no existe)
+##### 1. Crear o Consultar el Workspace por Comando
 ```bash
-curl -k -X POST https://localhost:2220/lands_advisor/advisor/v2/workspaces \
+# Crear un nuevo workspace para el workshop
+WORKSPACE_ID=$(curl -k -s -X POST https://localhost:2220/lands_advisor/advisor/v2/workspaces \
   -H "Content-Type: application/json" \
-  -d '{"name": "Workshop_PedjasApp"}'
-```
-*Respuesta JSON (contiene el `id` del workspace, ej. `24cac24b-f766-4764-8d86-dd6a446a00a1`)*.
+  -d '{"name": "Workshop_PedjasApp"}' | python3 -c "import sys, json; print(json.load(sys.stdin).get('id'))")
 
-##### 2. Subir el ZIP de la Colección a la API
+echo "Workspace ID: $WORKSPACE_ID"
+```
+*(Si el workspace ya existe, puedes listar y obtener su ID con: `curl -k -s https://localhost:2220/lands_advisor/advisor/v2/workspaces | python3 -m json.tool`)*.
+
+##### 2. Subir el Archivo ZIP de la Colección por Comando (curl)
 ```bash
-# Subir el archivo de la colección generado por el Data Collector
-curl -k -X POST "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/collectionArchives?collectionName=PedjasApp_tWAS&overwrite=true" \
+# Opción 1: Subir desde el host local
+curl -k -X POST "https://localhost:2220/lands_advisor/advisor/v2/workspaces/${WORKSPACE_ID}/collectionArchives?collectionName=PedjasApp_tWAS&overwrite=true" \
   -H "Content-Type: application/octet-stream" \
   -H "archiveName: pedjasapp.zip" \
   --data-binary "@./pedjasapp-collection.zip"
+
+# Opción 2: Subir directamente desde el contenedor tWAS (sin copiar al host)
+podman exec pedjasapp-twas curl -k -X POST \
+  "https://taserver:9443/lands_advisor/advisor/v2/workspaces/${WORKSPACE_ID}/collectionArchives?collectionName=PedjasApp_tWAS&overwrite=true" \
+  -H "Content-Type: application/octet-stream" \
+  -H "archiveName: pedjasapp.zip" \
+  --data-binary "@/tmp/ta-output-pedjas/pedjasapp.zip"
 ```
 
-##### 3. Consultar las Unidades de Evaluación y Métricas por API
+##### 3. Consultar las Unidades de Evaluación y Métricas por Comando
 ```bash
 # Listar las aplicaciones procesadas en el Workspace
-curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/assessmentUnits" | python3 -m json.tool
+curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/${WORKSPACE_ID}/assessmentUnits" | python3 -m json.tool
 
-# Obtener desglose de costes, esfuerzo y reglas disparadas
-curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/costDetails/assessmentUnits/<ASSESSMENT_UNIT_ID>" | python3 -m json.tool
+# Obtener desglose de costes, esfuerzo y reglas disparadas para pedjasapp
+ASSESSMENT_ID=$(curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/${WORKSPACE_ID}/assessmentUnits" | python3 -c "import sys, json; print(json.load(sys.stdin)['assessmentUnits'][0]['id'])")
+
+curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/${WORKSPACE_ID}/costDetails/assessmentUnits/${ASSESSMENT_ID}" | python3 -m json.tool
 ```
 
 ---
