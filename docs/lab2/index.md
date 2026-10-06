@@ -159,12 +159,13 @@ podman exec pedjasapp-twas cat /tmp/ta-output-pedjas/pedjasapp.zip > ./pedjasapp
 
 Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 
-#### Método A — Subida a través de la Interfaz Web de AMA
-1. Accede a la consola de AMA en **[https://localhost/](https://localhost/)**.
-2. Entra en tu Workspace (o crea uno nuevo como `Workshop_PedjasApp`).
-3. En la barra de navegación superior izquierda, haz clic en **Bulk data → Upload**.
-4. Arrastra o selecciona tu archivo `pedjasapp.zip` / `pedjasapp-collection.zip`.
-5. Confirma la carga. AMA procesará las reglas y actualizará automáticamente la tabla de **Recommendations** y **Assessment Units**.
+#### Método A — Subida a través de la Interfaz Web (GUI) de AMA
+1. Abre tu navegador web y accede a la consola de AMA en **[https://localhost/](https://localhost/)**.
+2. Selecciona tu Workspace en la pantalla principal (por ejemplo, `Workshop_PedjasApp` o crea uno nuevo haciendo clic en **Add Workspace**).
+3. En el menú superior o lateral de la interfaz, haz clic en **Bulk data → Upload** (o usa el botón de subida dentro de la colección).
+4. Arrastra o haz clic para seleccionar tu archivo ZIP generado (`pedjasapp.zip` / `pedjasapp-collection.zip` o `AppSrv01-collection.zip`).
+5. Asigna el nombre de la colección (p. ej., `PedjasApp_tWAS`) y pulsa en **Upload**.
+6. En unos segundos, la interfaz procesará los binarios y mostrará automáticamente la vista de **Recommendations**, los gráficos de **Visualization** y el desglose de reglas de modernización.
 
 ---
 
