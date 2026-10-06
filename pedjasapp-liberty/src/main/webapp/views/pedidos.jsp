@@ -167,12 +167,14 @@
 <body>
 
 <div class="header">
-    <a href="${pageContext.request.contextPath}/" class="brand" title="Ir al Inicio">
+    <a href="${pageContext.request.contextPath}/catalogo" class="brand" title="Ir al Catálogo">
         <span>🛒 PedjasApp</span>
         <span class="badge">Liberty</span>
     </a>
     <nav class="nav">
         <a href="${pageContext.request.contextPath}/catalogo" class="nav-link">🏷️ Catálogo</a>
+        <a href="${pageContext.request.contextPath}/info" class="nav-link">ℹ️ Info</a>
+        <a href="${pageContext.request.contextPath}/metrics" class="nav-link" target="_blank">📊 Métricas</a>
         <a href="${pageContext.request.contextPath}/inicio?accion=logout" class="nav-link logout">Cerrar Sesión</a>
     </nav>
 </div>
