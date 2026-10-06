@@ -118,6 +118,7 @@ podman run -d \
   --name pedjasapp-twas \
   -p 9080:9080 \
   -p 9443:9443 \
+  -p 9043:9043 \
   -p 9060:9060 \
   -e LICENSE=accept \
   pedjasapp-twas:1.0
@@ -143,7 +144,7 @@ Si has optado por desplegar la aplicación de forma separada mediante la consola
 
 ### 5.1 Acceder a la consola de administración de tWAS
 
-Abre el navegador en: **[https://localhost:9060/ibm/console](https://localhost:9060/ibm/console)**
+Abre el navegador en: **[https://localhost:9043/ibm/console](https://localhost:9043/ibm/console)** (o vía HTTP sin cifrar en **[http://localhost:9060/ibm/console](http://localhost:9060/ibm/console)**)
 
 - **Usuario:** `wsadmin`
 - **Contraseña:** (consultar variable de entorno del contenedor)
