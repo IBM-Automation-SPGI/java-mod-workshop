@@ -2,17 +2,44 @@
 <server description="PedjasApp Liberty Server">
 
     <featureManager>
-        <feature>servlet-5.0</feature>
-        <feature>pages-3.0</feature>
-        <feature>ejb-3.2</feature>
-        <feature>cdi-3.0</feature>
-        <feature>jpa-2.2</feature>
-        <feature>transaction-2.0</feature>
-        <feature>jms-2.0</feature>
-        <feature>wasJmsServer-1.0</feature>
-        <feature>wasJmsClient-2.0</feature>
+        <!-- ===== Jakarta EE 10 — features individuales ===== -->
+
+        <!-- Jakarta Servlet 6.0 -->
+        <feature>servlet-6.0</feature>
+
+        <!-- Jakarta Server Pages 3.1 -->
+        <feature>pages-3.1</feature>
+
+        <!-- Jakarta Enterprise Beans 4.0 (antiguo EJB) -->
+        <feature>enterpriseBeans-4.0</feature>
+
+        <!-- Jakarta CDI 4.0 -->
+        <feature>cdi-4.0</feature>
+
+        <!-- Jakarta Persistence 3.1 (incluye transactionClient-2.0) -->
+        <feature>persistence-3.1</feature>
+
+        <!-- Jakarta Messaging 3.1 API (EE10) -->
+        <feature>messaging-3.1</feature>
+
+        <!-- Servidor de mensajería Liberty para Jakarta Messaging 3.x -->
+        <feature>messagingServer-3.0</feature>
+
+        <!-- Cliente Liberty para Jakarta Messaging 3.x -->
+        <feature>messagingClient-3.0</feature>
+
+        <!-- Message-Driven Beans Jakarta EE 10 -->
+        <feature>mdb-4.0</feature>
+
+        <!-- JNDI -->
         <feature>jndi-1.0</feature>
+
+        <!-- ===== MicroProfile ===== -->
+
+        <!-- MicroProfile Health 4.0 — endpoints /health/live, /health/ready -->
         <feature>mpHealth-4.0</feature>
+
+        <!-- MicroProfile Metrics 5.0 — endpoint /metrics -->
         <feature>mpMetrics-5.0</feature>
     </featureManager>
 
@@ -36,14 +63,15 @@
                 statementCacheSize="60"
                 isolationLevel="TRANSACTION_READ_COMMITTED">
         <jdbcDriver libraryRef="PostgreSQLLib"/>
-        <properties.postgresql
-            serverName="${env.PEDJASAPP_DB_HOST}"
-            portNumber="${env.PEDJASAPP_DB_PORT}"
-            databaseName="${env.PEDJASAPP_DB_NAME}"
+        <!--
+            Usamos <properties> genérico con URL JDBC para compatibilidad con el driver
+            postgresql-42.x.jar, que expone PGDriver pero no PGConnectionPoolDataSource.
+            Liberty detecta automáticamente el driver por la URL jdbc:postgresql://...
+        -->
+        <properties
+            url="jdbc:postgresql://${env.PEDJASAPP_DB_HOST}:${env.PEDJASAPP_DB_PORT}/${env.PEDJASAPP_DB_NAME}"
             user="${env.PEDJASAPP_DB_USER}"
-            password="${env.PEDJASAPP_DB_PASSWORD}"
-            ssl="false"
-            socketTimeout="30"/>
+            password="${env.PEDJASAPP_DB_PASSWORD}"/>
         <connectionManager
             minPoolSize="2"
             maxPoolSize="15"
@@ -52,16 +80,16 @@
             reapTime="3m"/>
     </dataSource>
 
-    <wasJmsQueue id="PedjasNotificacionesQ"
-                 jndiName="jms/PedjasNotificacionesQ">
+    <jmsQueue id="PedjasNotificacionesQ"
+              jndiName="jms/PedjasNotificacionesQ">
         <properties.wasJms queueName="PedjasNotificaciones"/>
-    </wasJmsQueue>
+    </jmsQueue>
 
-    <wasJmsConnectionFactory id="PedjasQCF"
-                             jndiName="jms/PedjasQCF">
+    <jmsConnectionFactory id="PedjasQCF"
+                          jndiName="jms/PedjasQCF">
         <properties.wasJms
             remoteServerAddress="localhost:7276:BootstrapBasicMessaging"/>
-    </wasJmsConnectionFactory>
+    </jmsConnectionFactory>
 
     <messagingEngine>
         <queue id="PedjasNotificaciones"/>

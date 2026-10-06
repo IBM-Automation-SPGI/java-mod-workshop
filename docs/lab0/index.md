@@ -59,7 +59,7 @@ graph TD
 
 ```mermaid
 graph TD
-    subgraph OL["Open Liberty 26.0.0.9"]
+    subgraph OL["WebSphere Liberty 26.0.0.9"]
         subgraph WAR["pedjasapp.war"]
             S2[Servlets / JSP]
             C[CDI Beans / EJB 3.x]
@@ -84,9 +84,9 @@ graph TD
 
 | Herramienta | Versión Mínima | Propósito | Enlace de Descarga |
 |-------------|---------------|-----------|-------------------|
-| Java JDK | 11 (LTS) | Compilar el código fuente Java | [Adoptium](https://adoptium.net/) |
+| Java JDK | 17 (LTS) | Compilar el código fuente Java | [Adoptium](https://adoptium.net/) |
 | Apache Maven | 3.8.x | Gestión de dependencias y compilación | [maven.apache.org](https://maven.apache.org/) |
-| Docker Desktop | 24.x | Ejecutar tWAS y Liberty en contenedor | [docker.com](https://www.docker.com/products/docker-desktop/) |
+| Podman | 4.x o superior | Ejecutar tWAS y Liberty en contenedor | [podman.io](https://podman.io/getting-started/installation) |
 | IBM AMA | Última versión | Análisis de modernización | Ver sección AMA más abajo |
 | Git | 2.x | Control de versiones | [git-scm.com](https://git-scm.com/) |
 
@@ -111,13 +111,12 @@ La imagen `ibmcom/transformation-advisor-dev` ya no está disponible. La instala
 1. Descarga el instalador desde la página oficial:
    **[ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads)**
 
-2. Extrae el ZIP y ejecuta el script de instalación:
+2. Extrae el ZIP y ejecuta el script de arranque:
 
 ```bash
-unzip transformationAdvisor.zip
-cd transformationAdvisor
-sh launchTransformationAdvisor.sh
-# Selecciona: 1) Install   →   1) Accept license   →   5) Start
+unzip application-modernization-accelerator-local-5.1.0.zip
+cd application-modernization-accelerator-local-5.1.0
+sh launch.sh
 ```
 
 Accede a la interfaz en `http://localhost:3000`.
@@ -144,15 +143,16 @@ cd java-mod-workshop
 ```bash
 # Verificar Java
 java -version
-# Salida esperada: openjdk version "11.x.x" ...
+# Salida esperada: openjdk version "17.x.x" o superior ...
 
 # Verificar Maven
 mvn -version
 # Salida esperada: Apache Maven 3.8.x ...
 
-# Verificar Docker
-docker version
-# Salida esperada: Client: Docker Engine - Community ...
+# Verificar Podman
+podman version
+# Salida esperada: Client:       Podman Engine
+#                  Version:      4.x.x ...
 
 # Verificar Git
 git --version
@@ -166,7 +166,7 @@ cd pedjasapp-twas
 mvn clean package -DskipTests
 ```
 
-Tras la compilación, encontrarás el fichero EAR en `target/pedjasapp.ear`.
+Tras la compilación, encontrarás el fichero EAR en `pedjasapp-ear/target/pedjasapp.ear`.
 
 ### Paso 4 — Verificar la compilación de la versión Liberty
 
@@ -218,3 +218,4 @@ java-mod-workshop/
 
 ## Siguiente Paso
 
+Continúa con el **[Lab 1 — Despliegue en tWAS](../lab1/index.md)**, donde desplegarás PedjasApp en un contenedor Docker con WebSphere Application Server tradicional y verificarás su funcionamiento antes del análisis AMA.

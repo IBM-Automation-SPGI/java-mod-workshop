@@ -4,7 +4,7 @@
 
 ## Objetivo del Lab
 
-En este lab construirás la imagen Docker de la aplicación PedjasApp modernizada y la desplegarás en **WebSphere Liberty**. Verificarás que la funcionalidad es equivalente a la versión tWAS y analizarás las diferencias de configuración.
+En este lab construirás la imagen de contenedor de la aplicación PedjasApp modernizada y la desplegarás en **WebSphere Liberty 26.0.0.9**. Verificarás que la funcionalidad es equivalente a la versión tWAS y analizarás las diferencias de configuración.
 
 ---
 
@@ -13,7 +13,7 @@ En este lab construirás la imagen Docker de la aplicación PedjasApp modernizad
 ```
 pedjasapp-liberty/
 ├── pom.xml                                    # POM Maven — WAR único
-├── Dockerfile                                 # Imagen Docker Liberty
+├── Dockerfile                                 # Imagen de contenedor Liberty
 ├── server.xml                                 # Configuración WebSphere Liberty
 └── src/
     ├── main/
@@ -54,10 +54,10 @@ pedjasapp-liberty/
 ```xml title="pedjasapp-liberty/server.xml"
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  server.xml — Configuración de WebSphere Liberty para PedjasApp modernizada
+  server.xml — Configuración de WebSphere Liberty 26.0.0.9 para PedjasApp modernizada.
   
   Este fichero define todas las características (features) y recursos necesarios
-  para ejecutar PedjasApp en Open Liberty 26.x (LTS).
+  para ejecutar PedjasApp sobre Jakarta EE 10 y MicroProfile 6.1.
   
   Referencia: https://www.ibm.com/docs/en/was-liberty/
 -->
@@ -65,46 +65,48 @@ pedjasapp-liberty/
 
     <!--
       ================================================================
-      FEATURES — Capacidades de Jakarta EE habilitadas en este servidor
+      FEATURES — Capacidades de Jakarta EE 10 habilitadas en este servidor
       ================================================================
-      Sólo se activan las features que PedjasApp necesita, siguiendo
+      Solo se activan las features que PedjasApp necesita, siguiendo
       el principio de mínimo privilegio de Liberty.
     -->
     <featureManager>
-        <!-- Jakarta Servlet 5.0 — para los Servlets de PedjasApp -->
-        <feature>servlet-5.0</feature>
+        <!-- Jakarta Servlet 6.0 — Jakarta EE 10 -->
+        <feature>servlet-6.0</feature>
 
-        <!-- Jakarta Server Pages (JSP) 3.0 — para las vistas JSP -->
-        <feature>pages-3.0</feature>
+        <!-- Jakarta Server Pages 3.1 — Jakarta EE 10 -->
+        <feature>pages-3.1</feature>
 
-        <!-- Enterprise JavaBeans (EJB) 3.2 — Session Beans -->
-        <feature>ejb-3.2</feature>
+        <!-- Jakarta Enterprise Beans 4.0 — Jakarta EE 10 (antiguo EJB 3.2) -->
+        <feature>enterpriseBeans-4.0</feature>
 
-        <!-- Contexts and Dependency Injection (CDI) 3.0 -->
-        <feature>cdi-3.0</feature>
+        <!-- Contexts and Dependency Injection 4.0 — Jakarta EE 10 -->
+        <feature>cdi-4.0</feature>
 
-        <!-- Jakarta Persistence (JPA) 2.2 / EclipseLink -->
-        <feature>jpa-2.2</feature>
+        <!-- Jakarta Persistence 3.1 / EclipseLink — Jakarta EE 10 -->
+        <feature>persistence-3.1</feature>
 
-        <!-- Jakarta Transactions (JTA) 2.0 -->
-        <feature>transaction-2.0</feature>
+        <!-- Jakarta Messaging 3.1 API — Jakarta EE 10 -->
+        <!-- NOTA: jta-2.0 no existe como feature independiente; -->
+        <!-- las transacciones vienen incluidas vía persistence-3.1 -->
+        <feature>messaging-3.1</feature>
 
-        <!-- Jakarta Messaging (JMS) 2.0 — para notificaciones asíncronas -->
-        <feature>jms-2.0</feature>
+        <!-- Servidor de mensajería integrado Liberty para Jakarta Messaging 3.x -->
+        <feature>messagingServer-3.0</feature>
 
-        <!-- Servidor de mensajería integrado Liberty (wasJmsServer) -->
-        <feature>wasJmsServer-1.0</feature>
+        <!-- Cliente Liberty para Jakarta Messaging 3.x -->
+        <feature>messagingClient-3.0</feature>
 
-        <!-- Cliente JMS integrado Liberty -->
-        <feature>wasJmsClient-2.0</feature>
+        <!-- Message-Driven Beans Jakarta EE 10 -->
+        <feature>mdb-4.0</feature>
 
         <!-- JNDI — para inyección de recursos vía java:comp/env -->
         <feature>jndi-1.0</feature>
 
-        <!-- MicroProfile Health — endpoint /health para liveness/readiness -->
+        <!-- MicroProfile Health 4.0 — endpoint /health para liveness/readiness -->
         <feature>mpHealth-4.0</feature>
 
-        <!-- MicroProfile Metrics — endpoint /metrics para monitorización -->
+        <!-- MicroProfile Metrics 5.0 — endpoint /metrics para monitorización -->
         <feature>mpMetrics-5.0</feature>
     </featureManager>
 
@@ -152,16 +154,16 @@ pedjasapp-liberty/
           El className es el driver JDBC de PostgreSQL.
         -->
         <jdbcDriver libraryRef="PostgreSQLLib"/>
-        <properties.postgresql
-            serverName="${env.PEDJASAPP_DB_HOST}"
-            portNumber="${env.PEDJASAPP_DB_PORT}"
-            databaseName="${env.PEDJASAPP_DB_NAME}"
-            user="${env.PEDJASAPP_DB_USER}"
-            password="${env.PEDJASAPP_DB_PASSWORD}"
-            ssl="false"
-            socketTimeout="30"/>
         <!--
-          Connection pool — ajustado para una instancia Docker de desarrollo.
+          Usamos <properties> genérico con URL JDBC para compatibilidad con el driver
+          postgresql-42.x.jar (PGDriver). Liberty detecta el driver por la URL.
+        -->
+        <properties
+            url="jdbc:postgresql://${env.PEDJASAPP_DB_HOST}:${env.PEDJASAPP_DB_PORT}/${env.PEDJASAPP_DB_NAME}"
+            user="${env.PEDJASAPP_DB_USER}"
+            password="${env.PEDJASAPP_DB_PASSWORD}"/>
+        <!--
+          Connection pool — ajustado para una instancia de desarrollo.
           En producción, incrementar maxPoolSize según la carga esperada.
         -->
         <connectionManager
@@ -181,18 +183,18 @@ pedjasapp-liberty/
       se puede sustituir por IBM MQ o ActiveMQ mediante un Resource Adapter.
     -->
 
-    <!-- Cola de notificaciones de pedidos -->
-    <wasJmsQueue id="PedjasNotificacionesQ"
-                 jndiName="jms/PedjasNotificacionesQ">
+    <!-- Cola de notificaciones de pedidos (Jakarta Messaging 3.x) -->
+    <jmsQueue id="PedjasNotificacionesQ"
+              jndiName="jms/PedjasNotificacionesQ">
         <properties.wasJms queueName="PedjasNotificaciones"/>
-    </wasJmsQueue>
+    </jmsQueue>
 
     <!-- Connection Factory para el servidor de mensajería integrado -->
-    <wasJmsConnectionFactory id="PedjasQCF"
-                             jndiName="jms/PedjasQCF">
+    <jmsConnectionFactory id="PedjasQCF"
+                          jndiName="jms/PedjasQCF">
         <properties.wasJms
             remoteServerAddress="localhost:7276:BootstrapBasicMessaging"/>
-    </wasJmsConnectionFactory>
+    </jmsConnectionFactory>
 
     <!-- Servidor de mensajería integrado Liberty -->
     <messagingEngine>
@@ -222,7 +224,7 @@ pedjasapp-liberty/
 
     <!--
       ================================================================
-      LOGGING — Formato de logs para contenedores Docker
+      LOGGING — Formato de logs para contenedores
       ================================================================
       El formato JSON facilita la integración con herramientas de
       observabilidad como Instana, ELK Stack o Splunk.
@@ -252,10 +254,11 @@ pedjasapp-liberty/
 
 ```dockerfile title="pedjasapp-liberty/Dockerfile"
 # =============================================================================
-# Dockerfile — PedjasApp modernizada sobre Open Liberty 26.0.0.9 LTS
+# Dockerfile — PedjasApp modernizada sobre WebSphere Liberty 26.0.0.9
 # =============================================================================
-# Imagen base: Open Liberty con Jakarta EE 10 y MicroProfile 6.1
-# Fuente: https://github.com/OpenLiberty/ci.docker/blob/main/docs/icr-images.md
+# Imagen base: WebSphere Liberty con Jakarta EE 10 y MicroProfile 6.1
+# Fuente: https://github.com/WASdev/ci.docker/blob/main/docs/icr-images.md
+# Las imágenes se descargan sin autenticación desde icr.io/appcafe/websphere-liberty
 # =============================================================================
 
 # ---- Etapa 1: Compilación Maven ----
@@ -263,7 +266,7 @@ FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /build
 
-# Copiar primero el POM para aprovechar la caché de capas Docker
+# Descargar dependencias primero para aprovechar la caché de capas
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
@@ -271,64 +274,51 @@ RUN mvn dependency:go-offline -B
 COPY src ./src
 RUN mvn clean package -DskipTests -B
 
-# ---- Etapa 2: Imagen final Liberty ----
-FROM icr.io/appcafe/open-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
+# Descargar el driver JDBC en la etapa de build para evitar ADD con URL
+RUN mkdir -p /build/jdbc && \
+    curl -fsSL -o /build/jdbc/postgresql-42.7.0.jar \
+    https://jdbc.postgresql.org/download/postgresql-42.7.0.jar
 
-# Metadatos de la imagen
-LABEL maintainer="IBM Client Engineering <clientengineering@es.ibm.com>"
-LABEL description="PedjasApp — Sistema de Gestión de Pedidos modernizado a WebSphere Liberty"
+# ---- Etapa 2: Imagen final WebSphere Liberty ----
+# Tag: 26.0.0.9-full-java17-openj9-ubi-minimal
+# La variante "full" incluye todas las features Jakarta EE 10 + MicroProfile 6.1
+# sin necesidad de ejecutar installUtility.
+FROM icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
+
+LABEL maintainer="IBM Client Engineering"
+LABEL description="PedjasApp — Workshop de Modernización Java sobre WebSphere Liberty 26.0.0.9"
 LABEL version="1.0.0"
 
-# Instalar como root para copiar ficheros de configuración
 USER root
 
-# Crear directorio para el driver JDBC
-RUN mkdir -p /opt/ibm/wlp/usr/shared/resources/jdbc
-
-# Descargar el driver JDBC de PostgreSQL
-# En un entorno de producción, se incluye el JAR en el repositorio de artefactos
-ADD https://jdbc.postgresql.org/download/postgresql-42.7.0.jar \
-    /opt/ibm/wlp/usr/shared/resources/jdbc/postgresql-42.7.0.jar
-
-# Dar permisos correctos al driver
-RUN chown -R 1001:0 /opt/ibm/wlp/usr/shared/resources && \
+# En WebSphere Liberty ${shared.resource.dir} apunta a /opt/ibm/wlp/usr/shared/resources/
+RUN mkdir -p /opt/ibm/wlp/usr/shared/resources/jdbc && \
+    chown -R 1001:0 /opt/ibm/wlp/usr/shared/resources && \
     chmod -R g+rw /opt/ibm/wlp/usr/shared/resources
 
-# Volver al usuario Liberty (1001) por seguridad
 USER 1001
 
-# Copiar la configuración del servidor Liberty
-COPY --chown=1001:0 server.xml \
-    /config/server.xml
+# Copiar el driver JDBC desde la etapa de build
+COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
+     /opt/ibm/wlp/usr/shared/resources/jdbc/postgresql-42.7.0.jar
 
-# Copiar el fichero de propiedades de bootstrap (configuración de desarrollo)
-COPY --chown=1001:0 src/main/resources/bootstrap.properties \
-    /config/bootstrap.properties
+# Copiar la configuración y la aplicación
+COPY server.xml /config/server.xml
+COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
+COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
-# Copiar el WAR compilado en la etapa de build
-COPY --from=build --chown=1001:0 /build/target/pedjasapp.war \
-    /config/apps/pedjasapp.war
+# La imagen "full" ya incluye todas las features. No se necesita installUtility.
 
-# Instalar las features Liberty declaradas en server.xml
-# Este paso se ejecuta en tiempo de build para reducir el tiempo de arranque
-RUN /opt/ibm/wlp/bin/installUtility install \
-    servlet-5.0 pages-3.0 ejb-3.2 cdi-3.0 jpa-2.2 \
-    transaction-2.0 jms-2.0 wasJmsServer-1.0 wasJmsClient-2.0 \
-    jndi-1.0 mpHealth-4.0 mpMetrics-5.0 --acceptLicense
-
-# Puerto HTTP y HTTPS expuestos
 EXPOSE 9080 9443
 
-# Variables de entorno por defecto (se sobrescriben al ejecutar el contenedor)
 ENV PEDJASAPP_DB_HOST=localhost \
     PEDJASAPP_DB_PORT=5432 \
     PEDJASAPP_DB_NAME=pedjasapp \
-    PEDJASAPP_DB_USER=pedjas \
-    PEDJASAPP_DB_PASSWORD=pedjas123
+    PEDJASAPP_DB_USER=pedjas
 
-# Healthcheck usando el endpoint MicroProfile Health
+# wget está disponible en ubi-minimal; curl no está en esta imagen
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:9080/health/live || exit 1
+    CMD wget -q -O /dev/null http://localhost:9080/health/live || exit 1
 ```
 
 ---
@@ -347,11 +337,15 @@ ls -lh target/pedjasapp.war
 
 ## Paso 2 — Arrancar PostgreSQL (Base de Datos)
 
-PedjasApp Liberty utiliza PostgreSQL. Arranca una instancia de desarrollo con Docker:
+PedjasApp Liberty utiliza PostgreSQL. Crea la red compartida y arranca una instancia de desarrollo con Podman:
 
 ```bash
-docker run -d \
+# Crear la red (solo necesario la primera vez)
+podman network create pedjasapp-net
+
+podman run -d \
   --name pedjasapp-postgres \
+  --network pedjasapp-net \
   -e POSTGRES_DB=pedjasapp \
   -e POSTGRES_USER=pedjas \
   -e POSTGRES_PASSWORD=pedjas123 \
@@ -359,21 +353,21 @@ docker run -d \
   postgres:16-alpine
 
 # Verificar que PostgreSQL está listo
-docker exec pedjasapp-postgres pg_isready -U pedjas
+podman exec pedjasapp-postgres pg_isready -U pedjas
 ```
 
 ---
 
-## Paso 3 — Construir la Imagen Docker de Liberty
+## Paso 3 — Construir la Imagen de Contenedor de Liberty
 
 ```bash
 cd pedjasapp-liberty
 
 # Construir la imagen (puede tardar varios minutos en la primera ejecución)
-docker build -t pedjasapp-liberty:1.0 .
+podman build -t pedjasapp-liberty:1.0 .
 
 # Verificar la imagen generada
-docker images pedjasapp-liberty
+podman images pedjasapp-liberty
 ```
 
 Salida esperada:
@@ -387,12 +381,12 @@ pedjasapp-liberty    1.0    abc123def456   2 minutes ago   712MB
 ## Paso 4 — Ejecutar el Contenedor Liberty
 
 ```bash
-docker run -d \
+podman run -d \
   --name pedjasapp-liberty \
-  --link pedjasapp-postgres:postgres \
+  --network pedjasapp-net \
   -p 9080:9080 \
   -p 9443:9443 \
-  -e PEDJASAPP_DB_HOST=postgres \
+  -e PEDJASAPP_DB_HOST=pedjasapp-postgres \
   -e PEDJASAPP_DB_PORT=5432 \
   -e PEDJASAPP_DB_NAME=pedjasapp \
   -e PEDJASAPP_DB_USER=pedjas \
@@ -404,7 +398,7 @@ docker run -d \
 
 ```bash
 # Seguir los logs hasta el mensaje de servidor listo
-docker logs -f pedjasapp-liberty
+podman logs -f pedjasapp-liberty
 ```
 
 Busca la línea:
@@ -445,14 +439,14 @@ curl http://localhost:9080/metrics
 
 ---
 
-## Comparativa: tWAS vs Liberty
+## Comparativa: tWAS vs WebSphere Liberty
 
-| Aspecto | tWAS 9.0 | Liberty 26.x |
-|---------|----------|-------------|
+| Aspecto | tWAS 9.0 | WebSphere Liberty 26.x |
+|---------|----------|-------------------|
 | Tiempo de arranque | 3-5 minutos | 5-15 segundos |
 | Huella de memoria (heap base) | ~512 MB | ~128 MB |
-| Tamaño de imagen Docker | ~3 GB | ~700 MB |
-| Configuración | `standalone.xml` + Admin Console | `server.xml` declarativo |
+| Tamaño de imagen de contenedor | ~3 GB | ~700 MB |
+| Configuración | Admin Console + despliegue manual | `server.xml` declarativo |
 | Características activadas | Todas por defecto | Solo las necesarias |
 | Health/Metrics nativos | No | Sí (MicroProfile) |
 | Modo contenedor | Limitado | Diseñado para contenedores |
@@ -466,9 +460,13 @@ curl http://localhost:9080/metrics
 
     - Revisado el `server.xml` completo de Liberty con todas las features y recursos
     - Entendido el `Dockerfile` de compilación en dos etapas
-    - Construido la imagen Docker de PedjasApp Liberty
+    - Construido la imagen de contenedor de PedjasApp Liberty
     - Desplegado y verificado la aplicación en Liberty
     - Comparado el comportamiento entre tWAS y Liberty
 
 ---
 
+
+## Siguiente Paso
+
+Continúa con el **[Lab 5 — Validación y Siguientes Pasos](../lab5/index.md)**, donde validarás la equivalencia funcional entre la versión tWAS y Liberty y planificarás la ruta hacia Kubernetes.

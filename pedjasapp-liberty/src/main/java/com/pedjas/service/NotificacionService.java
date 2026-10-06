@@ -63,7 +63,7 @@ public class NotificacionService {
      * @param pedidoId  Identificador del pedido recién creado
      * @param clienteId Identificador del cliente que realizó el pedido
      */
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void notificarPedidoCreado(Long pedidoId, Long clienteId) {
         try {
             String cuerpoMensaje = construirMensajeJSON(pedidoId, clienteId);

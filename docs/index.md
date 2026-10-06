@@ -2,11 +2,11 @@
 
 ---
 
-## **i. De tWAS a Open Liberty**
+## **i. De tWAS a WebSphere Liberty**
 
 ---
 
-Este workshop práctico te guiará por el proceso completo de modernización de una aplicación Java empresarial desde **WebSphere Application Server tradicional (tWAS)** hasta **Open Liberty**, utilizando **IBM Application Modernization Accelerator (AMA)** como herramienta de análisis y guía.
+Este workshop práctico te guiará por el proceso completo de modernización de una aplicación Java empresarial desde **WebSphere Application Server tradicional (tWAS)** hasta **WebSphere Liberty**, utilizando **IBM Application Modernization Accelerator (AMA)** como herramienta de análisis y guía.
 
 | Lab | Módulo | Lo que harás |
 |-----|--------|-------------|
@@ -14,7 +14,7 @@ Este workshop práctico te guiará por el proceso completo de modernización de 
 | **1** | **Despliegue en tWAS** | Desplegar y verificar PedjasApp en WebSphere Application Server tradicional |
 | **2** | **Análisis con AMA** | Ejecutar IBM AMA y comprender las reglas de modernización generadas |
 | **3** | **Modernización Manual** | Aplicar los cambios de código guiados por AMA |
-| **4** | **Despliegue en Liberty** | Construir el Dockerfile y desplegar en Open Liberty 26.0.0.9 |
+| **4** | **Despliegue en Liberty** | Construir el Dockerfile y desplegar en WebSphere Liberty 26.0.0.9 |
 | **5** | **Validación** | Verificar la migración funcional y planificar los próximos pasos |
 
 ---
@@ -71,7 +71,7 @@ graph TD
 
     - Java JDK 11 o superior instalado
     - Apache Maven 3.8+
-    - Docker Desktop operativo
+    - Podman 4.x o superior instalado y operativo
     - Acceso a IBM Application Modernization Accelerator
     - Cuenta en GitHub
 
@@ -108,5 +108,5 @@ java-mod-workshop/
 | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab2/" target="_blank">**2. Análisis con AMA**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab2/" target="_blank">Ejecutar IBM AMA</a> |
 | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3/" target="_blank">**3. Modernización Manual**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3/" target="_blank">Aplicar cambios de código guiados por AMA</a> |
 | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3b/" target="_blank">**3B. Modernización con IBM Bob**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3b/" target="_blank">Modernización asistida con Bob + Premium Package</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">**4. Despliegue en Liberty**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">Desplegar en Open Liberty 26.0.0.9</a> |
+| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">**4. Despliegue en Liberty**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">Desplegar en WebSphere Liberty 26.0.0.9</a> |
 | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab5/" target="_blank">**5. Validación**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab5/" target="_blank">Validación y siguientes pasos</a> |

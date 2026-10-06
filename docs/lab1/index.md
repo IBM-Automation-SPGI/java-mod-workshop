@@ -4,7 +4,7 @@
 
 ## Objetivo del Lab
 
-En este lab desplegarás **PedjasApp** en un contenedor Docker con **WebSphere Application Server tradicional (tWAS) 9.0**, verificarás el despliegue y comprobarás la funcionalidad básica de la aplicación antes de proceder con el análisis AMA.
+En este lab desplegarás **PedjasApp** en un contenedor Podman con **WebSphere Application Server tradicional (tWAS) 9.0**, verificarás el despliegue y comprobarás la funcionalidad básica de la aplicación antes de proceder con el análisis AMA.
 
 ---
 
@@ -29,16 +29,28 @@ Estas características hacen de PedjasApp el candidato ideal para analizar con A
 
 ---
 
-## Paso 1 — Preparar la imagen Docker de tWAS
+## Paso 1 — Preparar la imagen de tWAS
 
-IBM proporciona imágenes Docker oficiales de WebSphere Application Server traditional en IBM Container Registry (ICR).
+IBM proporciona imágenes oficiales de WebSphere Application Server traditional en IBM Container Registry (ICR).
 
 ### 1.1 Descargar la imagen de tWAS 9.0
 
 Las imágenes de tWAS están disponibles en `icr.io/appcafe/websphere-traditional` y **no requieren autenticación** para el pull.
 
+!!! warning "Mac Apple Silicon (ARM64)"
+    La imagen de tWAS **solo está disponible para `amd64`**. En Macs con chips Apple Silicon (M1/M2/M3/M4) es necesario indicar la plataforma explícitamente para usar emulación:
+    ```bash
+    podman pull --platform linux/amd64 icr.io/appcafe/websphere-traditional:9.0.5.29
+    ```
+    Y en todos los comandos `podman run` añadir `--platform linux/amd64`.
+    En máquinas Linux/Windows x86-64 el pull es directo sin necesidad de `--platform`.
+
 ```bash
-docker pull icr.io/appcafe/websphere-traditional:9.0.5.29
+# Linux/Windows x86-64
+podman pull icr.io/appcafe/websphere-traditional:9.0.5.29
+
+# Mac Apple Silicon (ARM64)
+podman pull --platform linux/amd64 icr.io/appcafe/websphere-traditional:9.0.5.29
 ```
 
 !!! tip "Imágenes disponibles"
@@ -60,8 +72,8 @@ cd pedjasapp-twas
 # Compilar el EAR con Maven
 mvn clean package -DskipTests
 
-# Verificar que se ha generado el EAR
-ls -lh target/pedjasapp.ear
+# Verificar que se ha generado el EAR (en el submódulo pedjasapp-ear)
+ls -lh pedjasapp-ear/target/pedjasapp.ear
 ```
 
 Salida esperada:
@@ -71,15 +83,15 @@ Salida esperada:
 
 ---
 
-## Paso 3 — Crear la imagen Docker de tWAS con PedjasApp
+## Paso 3 — Crear la imagen de tWAS con PedjasApp
 
 Crea un fichero `Dockerfile.twas` en el directorio `pedjasapp-twas/`:
 
 ```dockerfile
 FROM icr.io/appcafe/websphere-traditional:9.0.5.29
 
-# Copiar el EAR generado por Maven
-COPY target/pedjasapp.ear /tmp/pedjasapp.ear
+# Copiar el EAR generado por Maven (ruta de salida del módulo pedjasapp-ear)
+COPY pedjasapp-ear/target/pedjasapp.ear /tmp/pedjasapp.ear
 
 # Copiar el script de configuración Jython
 COPY docker/configureApp.py /work/config/
@@ -88,10 +100,10 @@ COPY docker/configureApp.py /work/config/
 CMD ["/work/start_server.sh"]
 ```
 
-Construye la imagen:
+Construye la imagen (desde la raíz de `pedjasapp-twas/`):
 
 ```bash
-docker build -f Dockerfile.twas -t pedjasapp-twas:1.0 .
+podman build -f Dockerfile.twas -t pedjasapp-twas:1.0 .
 ```
 
 ---
@@ -99,7 +111,7 @@ docker build -f Dockerfile.twas -t pedjasapp-twas:1.0 .
 ## Paso 4 — Arrancar el contenedor tWAS
 
 ```bash
-docker run -d \
+podman run -d \
   --name pedjasapp-twas \
   -p 9080:9080 \
   -p 9443:9443 \
@@ -112,15 +124,10 @@ docker run -d \
 
 ```bash
 # Seguir los logs hasta que aparezca el mensaje de servidor listo
-docker logs -f pedjasapp-twas
+podman logs -f pedjasapp-twas
 ```
 
-Busca la línea:
-```
-[AUDIT   ] CWWKF0011I: The defaultServer server is ready to run a smarter planet.
-```
-
-(En tWAS 9.0, la línea equivalente es:)
+Busca el mensaje de arranque listo en tWAS:
 ```
 WSVR0001I: Server server1 open for e-business
 ```
@@ -154,7 +161,7 @@ Abre el navegador en: **[https://localhost:9060/ibm/console](https://localhost:9
 
 ```bash
 # Ver el log del servidor para confirmar el despliegue
-docker exec pedjasapp-twas \
+podman exec pedjasapp-twas \
   grep -i "pedjasapp" /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/server1/SystemOut.log
 ```
 
@@ -193,8 +200,11 @@ curl -s -X POST http://localhost:9080/pedjasapp/pedidos/nuevo \
 En el **Lab 2** necesitaremos el fichero EAR completo para ejecutar el análisis AMA.
 
 ```bash
-# Copiar el EAR del contenedor para asegurarnos de tener el fichero correcto
-docker cp pedjasapp-twas:/tmp/pedjasapp.ear ./pedjasapp-para-ama.ear
+# Usar directamente el EAR generado por Maven (opción recomendada)
+cp pedjasapp-twas/pedjasapp-ear/target/pedjasapp.ear ./pedjasapp-para-ama.ear
+
+# Alternativamente, copiarlo desde el contenedor si ya está en ejecución
+# podman cp pedjasapp-twas:/tmp/pedjasapp.ear ./pedjasapp-para-ama.ear
 
 # Verificar el contenido del EAR
 jar tf pedjasapp-para-ama.ear
@@ -203,7 +213,6 @@ jar tf pedjasapp-para-ama.ear
 Salida esperada:
 ```
 META-INF/application.xml
-META-INF/ibm-application-bnd.xmi
 pedjasapp-ejb.jar
 pedjasapp-web.war
 ```
@@ -216,27 +225,27 @@ pedjasapp-web.war
 
 ```bash
 # Ver los últimos mensajes del log
-docker logs --tail 50 pedjasapp-twas
+podman logs --tail 50 pedjasapp-twas
 
 # Comprobar el estado del contenedor
-docker inspect pedjasapp-twas | grep Status
+podman inspect pedjasapp-twas | grep Status
 ```
 
 ### La consola de administración no responde
 
 ```bash
 # Comprobar que los puertos están correctamente mapeados
-docker port pedjasapp-twas
+podman port pedjasapp-twas
 
 # Comprobar que el proceso wsadmin está activo
-docker exec pedjasapp-twas ps aux | grep was
+podman exec pedjasapp-twas ps aux | grep was
 ```
 
 ### La aplicación da error 404
 
 - Verifica que la aplicación está en estado **Started** en la consola de administración
 - Comprueba la raíz de contexto: debe ser `/pedjasapp`
-- Revisa los logs del servidor: `docker exec pedjasapp-twas cat /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/server1/SystemOut.log | grep -i error`
+- Revisa los logs del servidor: `podman exec pedjasapp-twas cat /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/server1/SystemOut.log | grep -i error`
 
 ---
 
@@ -246,9 +255,13 @@ docker exec pedjasapp-twas ps aux | grep was
     En este lab has:
 
     - Compilado PedjasApp para tWAS con Maven
-    - Arrancado un contenedor Docker con WebSphere Application Server 9.0
+    - Arrancado un contenedor Podman con WebSphere Application Server 9.0
     - Desplegado y verificado la aplicación
     - Recopilado el EAR para el análisis AMA
 
 ---
 
+
+## Siguiente Paso
+
+Continúa con el **[Lab 2 — Análisis con AMA](../lab2/index.md)**, donde ejecutarás IBM Transformation Advisor sobre el EAR generado e interpretarás las reglas de modernización detectadas.

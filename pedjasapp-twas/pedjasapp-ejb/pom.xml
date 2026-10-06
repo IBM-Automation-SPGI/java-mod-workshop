@@ -22,6 +22,12 @@
             <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!--
+          Stubs de compilación para las APIs propietarias de WebSphere Application Server.
+          Las clases stub están en src/main/java/com/ibm/websphere/ de este módulo.
+          En tiempo de ejecución estas clases las proporciona el servidor tWAS.
+          Se usan intencionadamente para que AMA (Lab 2) las detecte como RULE-0001.
+        -->
     </dependencies>
 
     <build>

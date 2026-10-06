@@ -1,6 +1,6 @@
 # =============================================================================
-# Dockerfile — PedjasApp modernizada sobre WebSphere Liberty 24.0.0.3
-# Compilación en dos etapas: Maven build + imagen final Liberty
+# Dockerfile — PedjasApp modernizada sobre WebSphere Liberty 26.0.0.9
+# Compilación en dos etapas: Maven build + imagen final WebSphere Liberty
 # =============================================================================
 
 # ---- Etapa 1: Compilación Maven ----
@@ -19,15 +19,21 @@ RUN mkdir -p /build/jdbc && \
     curl -fsSL -o /build/jdbc/postgresql-42.7.0.jar \
     https://jdbc.postgresql.org/download/postgresql-42.7.0.jar
 
-# ---- Etapa 2: Imagen final Liberty ----
-FROM ibmcom/websphere-liberty:24.0.0.3-full-java17-openj9
+# ---- Etapa 2: Imagen final WebSphere Liberty ----
+# Imagen oficial WebSphere Liberty en IBM Container Registry (ICR).
+# Usar siempre icr.io/appcafe/websphere-liberty (no ibmcom/websphere-liberty en Docker Hub,
+# que está retirado). Las imágenes pueden descargarse sin autenticación.
+# Tag: 26.0.0.9-full-java17-openj9-ubi-minimal (UBI 10 Minimal, Jakarta EE 10 completo)
+FROM icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
 
 LABEL maintainer="IBM Client Engineering"
-LABEL description="PedjasApp Liberty — Workshop de Modernización Java"
+LABEL description="PedjasApp — Workshop de Modernización Java sobre WebSphere Liberty 26.0.0.9"
 LABEL version="1.0.0"
 
 USER root
 
+# En icr.io/appcafe/websphere-liberty el WLP binario está en /opt/ol/wlp/ (o /opt/ibm/wlp/),
+# pero ${shared.resource.dir} apunta a /opt/ibm/wlp/usr/shared/resources/
 RUN mkdir -p /opt/ibm/wlp/usr/shared/resources/jdbc && \
     chown -R 1001:0 /opt/ibm/wlp/usr/shared/resources && \
     chmod -R g+rw /opt/ibm/wlp/usr/shared/resources
@@ -35,19 +41,18 @@ RUN mkdir -p /opt/ibm/wlp/usr/shared/resources/jdbc && \
 USER 1001
 
 # Copiar el driver JDBC desde la etapa de build
+# checkov:skip=CKV_DOCKER_2: chown en COPY es el patrón oficial IBM Liberty para garantizar permisos del usuario no-root 1001
 COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
      /opt/ibm/wlp/usr/shared/resources/jdbc/postgresql-42.7.0.jar
 
 # Copiar la configuración y la aplicación
+# checkov:skip=CKV_DOCKER_2: chown en COPY es el patrón oficial IBM Liberty
 COPY server.xml /config/server.xml
 COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
-# Instalar las features Liberty declaradas en server.xml
-RUN /opt/ibm/wlp/bin/installUtility install \
-    servlet-5.0 pages-3.0 ejb-3.2 cdi-3.0 jpa-2.2 \
-    transaction-2.0 jms-2.0 wasJmsServer-1.0 wasJmsClient-2.0 \
-    jndi-1.0 mpHealth-4.0 mpMetrics-5.0 --acceptLicense
+# La imagen "full" ya incluye todas las features Jakarta EE 10 y MicroProfile.
+# No es necesario ejecutar installUtility con esta variante.
 
 EXPOSE 9080 9443
 
@@ -62,5 +67,6 @@ ENV PEDJASAPP_DB_HOST=localhost \
     PEDJASAPP_DB_NAME=pedjasapp \
     PEDJASAPP_DB_USER=pedjas
 
+# Usamos wget (disponible en ubi-minimal) en lugar de curl para el healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:9080/health/live || exit 1
+    CMD wget -q -O /dev/null http://localhost:9080/health/live || exit 1

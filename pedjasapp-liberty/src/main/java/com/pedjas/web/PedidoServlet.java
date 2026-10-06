@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  * Servlet de gestión de pedidos — versión Liberty modernizada.
- * Compatible con WebSphere Liberty 24.x.
+ * Compatible con WebSphere Liberty 26.0.0.9 (LTS).
  * NAMESPACE: javax.* → jakarta.*
  */
 @WebServlet(urlPatterns = {"/pedidos/*"})

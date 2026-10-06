@@ -43,11 +43,11 @@ curl -s http://localhost:9080/health | grep -i "database"
 
 ```bash
 # No deben aparecer errores críticos en los logs de Liberty
-docker logs pedjasapp-liberty 2>&1 | grep -i "ERROR\|SEVERE\|Exception"
+podman logs pedjasapp-liberty 2>&1 | grep -i "ERROR\|SEVERE\|Exception"
 # Salida esperada: (vacía — ningún error)
 
 # Verificar que las features se cargaron correctamente
-docker logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
+podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 # Cada feature debe aparecer con estado "ready"
 ```
 
@@ -65,14 +65,14 @@ curl -o /dev/null -s -w "Tiempo total: %{time_total}s\n" \
 
 ```bash
 # Comprobar que las tablas JPA se han creado en PostgreSQL
-docker exec pedjasapp-postgres \
+podman exec pedjasapp-postgres \
   psql -U pedjas -d pedjasapp -c "\dt"
 # Resultado esperado: tablas PRODUCTOS, CLIENTES, PEDIDOS, LINEAS_PEDIDO
 
 # Comprobar que los datos de prueba se han cargado
-docker exec pedjasapp-postgres \
+podman exec pedjasapp-postgres \
   psql -U pedjas -d pedjasapp -c "SELECT COUNT(*) FROM PRODUCTOS;"
-# Resultado esperado: 20 (los 20 productos del script datos-prueba.sql)
+# Resultado esperado: 14 (los 14 productos del script datos-prueba.sql)
 ```
 
 ---
@@ -100,11 +100,11 @@ Liberty está diseñado para un arranque extremadamente rápido:
 
 ```bash
 # Medir el tiempo de arranque de Liberty
-time docker start pedjasapp-liberty
+time podman start pedjasapp-liberty
 # Resultado esperado: 5-15 segundos hasta "server is ready"
 
 # Comparar con tWAS
-time docker start pedjasapp-twas
+time podman start pedjasapp-twas
 # Resultado esperado: 3-5 minutos
 ```
 
@@ -112,7 +112,7 @@ time docker start pedjasapp-twas
 
 ```bash
 # Ver el consumo de memoria de cada contenedor
-docker stats pedjasapp-liberty pedjasapp-twas --no-stream
+podman stats pedjasapp-liberty pedjasapp-twas --no-stream
 
 # Resultado esperado:
 # pedjasapp-liberty:  ~200-350 MB RSS
@@ -139,11 +139,11 @@ docker stats pedjasapp-liberty pedjasapp-twas --no-stream
 
 ### Señales de Parada Adecuadas
 
-Liberty respeta la señal `SIGTERM` de Docker para un apagado ordenado:
+Liberty respeta la señal `SIGTERM` de Podman para un apagado ordenado:
 
 ```bash
 # Apagado ordenado (graceful shutdown)
-docker stop pedjasapp-liberty   # Envía SIGTERM, espera hasta 10s
+podman stop pedjasapp-liberty   # Envía SIGTERM, espera hasta 10s
 
 # Liberty cerrará:
 # 1. Las conexiones HTTP activas
@@ -188,9 +188,9 @@ env:
 
 ### Nivel 1 — Completar la Contenedorización
 
-- [ ] **Publicar la imagen en un registro de contenedores** (IBM Container Registry, Docker Hub, Quay.io)
-- [ ] **Crear un fichero `docker-compose.yml`** para ejecutar Liberty + PostgreSQL con un solo comando
-- [ ] **Implementar escaneo de vulnerabilidades** en la imagen Docker (IBM VA, Trivy, Snyk)
+- [ ] **Publicar la imagen en un registro de contenedores** (IBM Container Registry, Quay.io)
+- [ ] **Crear un fichero `podman-compose.yml`** (o `docker-compose.yml` compatible con Podman Compose) para ejecutar Liberty + PostgreSQL con un solo comando
+- [ ] **Implementar escaneo de vulnerabilidades** en la imagen de contenedor (IBM VA, Trivy, Snyk)
 
 ### Nivel 2 — Despliegue en Kubernetes / OpenShift
 
@@ -290,10 +290,11 @@ spec:
 
 | Herramienta | Descripción |
 |-------------|-------------|
-| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Versión open source de WebSphere Liberty |
+| [WebSphere Liberty](https://www.ibm.com/products/websphere-liberty) | WebSphere Liberty — runtime de IBM para Jakarta EE y MicroProfile |
+| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Versión open source upstream de WebSphere Liberty |
 | [Liberty Starter](https://openliberty.io/start/) | Generador de proyectos Liberty |
 | [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) | Guía AMA en IBM Garage |
-| [Liberty Docker Images (ICR)](https://github.com/OpenLiberty/ci.docker/blob/main/docs/icr-images.md) | Imágenes oficiales Docker en ICR |
+| [WebSphere Liberty Docker Images (ICR)](https://github.com/WASdev/ci.docker/blob/main/docs/icr-images.md) | Imágenes oficiales WebSphere Liberty en ICR |
 
 ### Guías OpenLiberty Recomendadas
 

@@ -88,18 +88,18 @@ public abstract class ProductoBean implements EntityBean {
 ```java title="pedjasapp-liberty/src/main/java/com/pedjas/entity/Producto.java"
 package com.pedjas.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 /**
  * Entidad JPA — reemplaza el EJB 2.x CMP ProductoBean.
- * Compatible con WebSphere Liberty mediante la feature jpa-2.2.
+ * Compatible con WebSphere Liberty 26.0.0.9 mediante la feature persistence-3.1.
  */
 @Entity
 @Table(name = "PRODUCTOS")
@@ -282,15 +282,18 @@ sender.send(msg);
 ```java title="pedjasapp-liberty/src/main/java/com/pedjas/service/NotificacionService.java"
 package com.pedjas.service;
 
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
-import javax.jms.JMSContext;
-import javax.jms.JMSConnectionFactory;
-import javax.jms.Queue;
+import jakarta.annotation.Resource;
+import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.inject.Inject;
+import jakarta.jms.JMSConnectionFactory;
+import jakarta.jms.JMSContext;
+import jakarta.jms.Queue;
 
 /**
- * Servicio de notificaciones usando JMS 2.0 simplificado.
- * La API JMSContext es compatible con Liberty mediante la feature jms-2.0.
+ * Servicio de notificaciones usando JMS 3.0 simplificado.
+ * A API JMSContext es compatible con WebSphere Liberty mediante la feature messaging-3.1.
  */
 @Stateless
 public class NotificacionService {
@@ -305,10 +308,12 @@ public class NotificacionService {
 
     /**
      * Envía una notificación asíncrona sobre la creación de un pedido.
+     * REQUIRES_NEW aísla esta transacción JMS de la del pedido que la invoca.
      *
      * @param pedidoId  Identificador del pedido creado
      * @param clienteId Identificador del cliente
      */
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void notificarPedidoCreado(Long pedidoId, Long clienteId) {
         String mensaje = String.format(
             "{\"tipo\":\"PEDIDO_CREADO\",\"pedidoId\":%d,\"clienteId\":%d}",
@@ -363,17 +368,17 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 
 ```xml title="pedjasapp-liberty/src/main/resources/META-INF/persistence.xml"
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2"
-    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<persistence version="3.0"
+    xmlns="https://jakarta.ee/xml/ns/persistence"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-                        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                        https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 
     <persistence-unit name="pedjasappPU" transaction-type="JTA">
         <!-- Liberty gestionará la transacción JTA automáticamente -->
         <jta-data-source>jdbc/pedjasappDS</jta-data-source>
 
-        <!-- Entidades JPA de la aplicación -->
+        <!-- Entidades JPA del dominio -->
         <class>com.pedjas.entity.Producto</class>
         <class>com.pedjas.entity.Cliente</class>
         <class>com.pedjas.entity.Pedido</class>
@@ -381,10 +386,10 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 
         <properties>
             <!-- Crear las tablas automáticamente en el primer arranque -->
-            <property name="javax.persistence.schema-generation.database.action"
+            <property name="jakarta.persistence.schema-generation.database.action"
                       value="create"/>
             <!-- Insertar datos de prueba si las tablas están vacías -->
-            <property name="javax.persistence.sql-load-script-source"
+            <property name="jakarta.persistence.sql-load-script-source"
                       value="META-INF/datos-prueba.sql"/>
         </properties>
     </persistence-unit>
@@ -407,3 +412,7 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 
 ---
 
+
+## Siguiente Paso
+
+Continúa con el **[Lab 4 — Despliegue en Liberty](../lab4/index.md)**, donde construirás la imagen Docker de PedjasApp modernizada y la desplegarás en WebSphere Liberty.

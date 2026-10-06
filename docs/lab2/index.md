@@ -25,27 +25,26 @@ En este lab ejecutarás **IBM Application Modernization Accelerator (AMA)** sobr
 
 ### Opción A — Instalación Local (Recomendada para el Workshop)
 
-La imagen `ibmcom/transformation-advisor-dev` ya no está disponible públicamente. Transformation Advisor Local se instala mediante un script oficial descargado desde IBM:
+La imagen `ibmcom/transformation-advisor-dev` ya no está disponible públicamente. AMA Local (v4.x/v5.x) se instala mediante un ZIP descargado desde IBM:
 
 1. Descarga el instalador desde:
    **[ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads)**
 
-2. Extrae y lanza el instalador:
+2. Extrae el ZIP y lanza el script de arranque:
 
 ```bash
-unzip transformationAdvisor.zip
-cd transformationAdvisor
-sh launchTransformationAdvisor.sh
+unzip application-modernization-accelerator-local-5.1.0.zip
+cd application-modernization-accelerator-local-5.1.0
+sh launch.sh
 ```
 
-3. Sigue el menú interactivo:
-   - Selecciona **`1) Install Transformation Advisor`**
-   - Acepta la licencia
-   - Selecciona **`5) Start Transformation Advisor`**
+!!! note "Nombre del script según la versión"
+    - AMA 5.x y 4.x: el script se llama `launch.sh`
+    - Transformation Advisor 3.x: el script se llamaba `launchTransformationAdvisor.sh`
 
 ```bash
 # Verificar que los contenedores están activos
-docker ps | grep -i transformation
+podman ps | grep -i ama
 ```
 
 Accede a la interfaz en: **[http://localhost:3000](http://localhost:3000)**
@@ -260,7 +259,7 @@ La aplicación usa una `QueueConnectionFactory` configurada mediante recursos WA
 
 **Acción correctiva:**
 - Definir `<jmsConnectionFactory>` y `<jmsQueue>` en `server.xml`
-- Habilitar la feature `jms-2.0` o `messagingServer-3.0` en Liberty
+- Habilitar las features `messaging-3.1`, `messagingServer-3.0` y `messagingClient-3.0` en Liberty (Jakarta EE 10)
 
 ---
 
@@ -310,7 +309,7 @@ Aplicación: pedjasapp.ear
 
 El ZIP incluye:
 - `server.xml` — configuración inicial de Liberty (puede necesitar ajustes)
-- `Dockerfile` — imagen Docker Liberty básica
+- `Dockerfile` — imagen de contenedor Liberty básica
 - `migration-plan.md` — descripción de los cambios necesarios
 
 ### 5.2 Tabla Resumen de Reglas Activadas
@@ -341,3 +340,7 @@ El ZIP incluye:
 
 ---
 
+
+## Siguiente Paso
+
+Continúa con el **[Lab 3 — Modernización Manual](../lab3/index.md)**, donde aplicarás en el código los 6 cambios identificados por AMA.

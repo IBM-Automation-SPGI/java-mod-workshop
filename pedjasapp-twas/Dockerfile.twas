@@ -1,0 +1,10 @@
+FROM icr.io/appcafe/websphere-traditional:9.0.5.29
+
+# Copiar el EAR generado por Maven (ruta de salida del módulo pedjasapp-ear)
+COPY pedjasapp-ear/target/pedjasapp.ear /tmp/pedjasapp.ear
+
+# Copiar el script de configuración Jython
+COPY docker/configureApp.py /work/config/
+
+# Ejecutar la configuración al arrancar
+CMD ["/work/start_server.sh"]
