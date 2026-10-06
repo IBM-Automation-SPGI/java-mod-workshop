@@ -205,8 +205,8 @@ async function shot(page, name) {
     `&workspace=24cac24b-f766-4764-8d86-dd6a446a00a1`;
   let inAppDetail = false;
   try {
-    await page.goto(APP_DETAIL_URL, { waitUntil: 'networkidle', timeout: 20_000 });
-    await wait(1500);
+    await page.goto(APP_DETAIL_URL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await wait(2500);
     await dismissCookieBanner(page);
     await page.evaluate(() => window.scrollTo(0, 0));
     await wait(400);
