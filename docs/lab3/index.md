@@ -396,9 +396,6 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 </persistence>
 ```
 
-!!! warning "Comportamiento de `schema-generation` en reinicios"
-    Con `value="create"`, EclipseLink crea las tablas si **no existen**. Si el contenedor se reinicia con una base de datos PostgreSQL ya inicializada (volumen persistente o `podman-compose` con el servicio `postgres` ya arrancado), EclipseLink no borrará ni recreará las tablas existentes — el comportamiento es seguro para reinicios. Usa `drop-and-create` solo para resetear datos de prueba en desarrollo. El proyecto real (`pedjasapp-liberty/src/main/resources/META-INF/persistence.xml`) ya usa `create` como se muestra aquí.
-
 ---
 
 ## Verificar la Compilación del Proyecto Modernizado
@@ -420,13 +417,6 @@ Salida esperada:
 ...
 -rw-r--r-- 1 usuario grupo 2.4M DD mon HH:MM target/pedjasapp.war
 ```
-
-!!! warning "Errores comunes de compilación"
-    Si la compilación falla, los errores más habituales son:
-    
-    - **`package javax.ejb does not exist`** — algún import usa `javax.*` en lugar de `jakarta.*`. Sustituye todos los `import javax.ejb.*` por `import jakarta.ejb.*`, `import javax.persistence.*` por `import jakarta.persistence.*`, etc.
-    - **`cannot find symbol: JndiHelper`** — hay un import `com.ibm.websphere.*` que no se eliminó. Búscalo y elimínalo.
-    - **`resource-ref` en `web.xml` con tipo `javax.sql.DataSource`** — cambia a `jakarta.sql.DataSource`.
 
 ---
 

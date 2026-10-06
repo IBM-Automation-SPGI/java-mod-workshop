@@ -16,7 +16,7 @@ Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
 
 *(Utiliza el puerto `9080` o `9081` según tu configuración de ejecución)*
 
-- [ ] **Inicio y navegación** — La página de inicio carga correctamente en [http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/) (o [http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/))
+- [ ] **Inicio y navegación** — La página de inicio carga correctamente en [http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/) (o [http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/) sin docker-compose)
 - [ ] **Autenticación** — Es posible iniciar sesión con el usuario `admin` / contraseña `admin123`
 - [ ] **Catálogo de productos** — Se muestran los productos de prueba cargados por `datos-prueba.sql`
 - [ ] **Crear pedido** — El flujo completo de creación de pedido funciona sin errores

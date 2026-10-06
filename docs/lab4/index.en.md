@@ -423,7 +423,7 @@ Look for:
 ### 5.1 Test Application in Browser
 
 Open in your browser:
-👉 **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)** *(or `http://localhost:9081/pedjasapp/` if mapped to 9081)*
+👉 **[http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/)** *(or `http://localhost:9080/pedjasapp/` if you started Liberty without docker-compose)*
 
 Test credentials:
 - **Username:** `admin`

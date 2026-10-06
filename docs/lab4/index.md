@@ -449,7 +449,7 @@ Busca la línea:
 ### 5.1 Probar la aplicación en el navegador
 
 Abre en tu navegador:
-👉 **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)** *(o `http://localhost:9081/pedjasapp/` si mapeaste al puerto 9081)*
+👉 **[http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/)** *(o `http://localhost:9080/pedjasapp/` si arrancaste Liberty sin docker-compose)*
 
 Credenciales de prueba:
 - **Usuario:** `admin`

@@ -16,7 +16,7 @@ Complete the following verification steps to confirm migration success:
 
 *(Use port `9080` or `9081` depending on your execution setup)*
 
-- [ ] **Home & Navigation** — The home page loads cleanly at [http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/) (or [http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/))
+- [ ] **Home & Navigation** — The home page loads cleanly at [http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/) (or [http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/) without docker-compose)
 - [ ] **Authentication** — Successful login with username `admin` / password `admin123`
 - [ ] **Product Catalog** — Test products loaded via `datos-prueba.sql` are rendered correctly
 - [ ] **Create Order** — End-to-end order placement transaction commits successfully
