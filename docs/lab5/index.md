@@ -44,7 +44,8 @@ curl -s http://localhost:${LIBERTY_PORT}/health
 # Resultado esperado: {"status":"UP","checks":[]}
 
 # 4. Explorar OpenAPI / Swagger UI
-# Abre en el navegador: http://localhost:9080/openapi/ui/ (o :9081)
+# Abre en el navegador: http://localhost:${LIBERTY_PORT}/openapi/ui/
+curl -s -I http://localhost:${LIBERTY_PORT}/openapi/ui/
 ```
 
 ### ✅ Validación de Logs
@@ -64,7 +65,7 @@ podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 ```bash
 # Medir el tiempo de respuesta de la página principal
 curl -o /dev/null -s -w "Tiempo total: %{time_total}s\n" \
-  http://localhost:9080/pedjasapp/
+  http://localhost:${LIBERTY_PORT}/pedjasapp/
 
 # Resultado esperado: < 500ms en la primera petición tras el arranque
 ```

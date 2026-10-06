@@ -432,27 +432,30 @@ Credenciales de prueba:
 ### 5.2 Verificar los endpoints de salud (MicroProfile Health)
 
 ```bash
+# Definir puerto de Liberty (9080 por defecto o 9081 con docker-compose)
+LIBERTY_PORT=${LIBERTY_PORT:-9080}
+
 # Estado general del servidor
-curl http://localhost:9080/health
+curl http://localhost:${LIBERTY_PORT}/health
 # Salida esperada: {"status":"UP","checks":[...]}
 
 # Sólo liveness
-curl http://localhost:9080/health/live
+curl http://localhost:${LIBERTY_PORT}/health/live
 # Salida esperada: {"status":"UP"}
 
 # Sólo readiness
-curl http://localhost:9080/health/ready
+curl http://localhost:${LIBERTY_PORT}/health/ready
 # Salida esperada: {"status":"UP"}
 
 # Explorar OpenAPI / Swagger UI
-# Abre en el navegador: http://localhost:9080/openapi/ui/
+# Abre en el navegador: http://localhost:${LIBERTY_PORT}/openapi/ui/
 ```
 
 ### 5.3 Verificar métricas (MicroProfile Metrics)
 
 ```bash
 # Métricas en formato Prometheus
-curl http://localhost:9080/metrics
+curl http://localhost:${LIBERTY_PORT}/metrics
 ```
 
 ---
