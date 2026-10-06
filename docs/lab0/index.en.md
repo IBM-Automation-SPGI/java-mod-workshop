@@ -118,8 +118,6 @@ IBM Application Modernization Accelerator (AMA) can be used locally via the cont
 
 ### Option A — IBM Transformation Advisor Local (local installation)
 
-The `ibmcom/transformation-advisor-dev` image is no longer available. The official installation is performed using the `launch.sh` script included in the installer downloaded from IBM:
-
 1. Download the installer package from the official IBM page:
    **[ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads)**
 
