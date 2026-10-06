@@ -36,7 +36,7 @@
     <h1>🛒 PedjasApp <span class="badge">Liberty</span> — Mis Pedidos</h1>
     <nav class="nav">
         <a href="${pageContext.request.contextPath}/catalogo">Catálogo</a>
-        <a href="${pageContext.request.contextPath}/inicio">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/inicio?accion=logout">Cerrar Sesión</a>
     </nav>
 </div>
 

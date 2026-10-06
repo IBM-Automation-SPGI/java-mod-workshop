@@ -40,7 +40,7 @@
     <nav class="nav">
         <span style="color:#a6c8ff">Hola, ${sessionScope.nombre}</span>
         <a href="${pageContext.request.contextPath}/pedidos/lista">Mis Pedidos</a>
-        <a href="${pageContext.request.contextPath}/inicio">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/inicio?accion=logout">Cerrar Sesión</a>
     </nav>
 </div>
 

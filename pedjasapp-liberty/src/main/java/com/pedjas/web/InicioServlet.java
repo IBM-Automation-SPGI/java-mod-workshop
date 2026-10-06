@@ -39,6 +39,16 @@ public class InicioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        String accion = req.getParameter("accion");
+        if ("logout".equalsIgnoreCase(accion)) {
+            HttpSession session = req.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+            req.getRequestDispatcher("/views/inicio.jsp").forward(req, resp);
+            return;
+        }
+
         HttpSession session = req.getSession(false);
         if (session != null && session.getAttribute("clienteId") != null) {
             resp.sendRedirect(req.getContextPath() + "/catalogo");
