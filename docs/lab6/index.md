@@ -150,5 +150,5 @@ oc get route pedjasapp-liberty -n pedjasapp -o jsonpath='{.spec.host}'
 
 1. **Análisis de origen**: tWAS 9.0 + EJBs legados con **IBM Application Modernization Accelerator**.
 2. **Refactorización**: Migración a **Jakarta EE 10 / JPA** asistida por **IBM Bob**.
-3. **Contenerización**: Empaquetado ligero y reactivo sobre **WebSphere Liberty 24.0.0.3**.
+3. **Contenerización**: Empaquetado ligero y reactivo sobre **WebSphere Liberty 26.0.0.9**.
 4. **Operación Cloud-Native**: Orquestación enterprise en **Kubernetes / OpenShift** con **Open Liberty Operator**.

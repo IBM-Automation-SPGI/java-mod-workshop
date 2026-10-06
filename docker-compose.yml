@@ -22,7 +22,7 @@ services:
 
   # Aplicación modernizada WebSphere Liberty
   pedjasapp-liberty:
-    image: icr.io/appcafe/websphere-liberty:24.0.0.3-full-java17-openj9-ubi
+    image: icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
     container_name: pedjasapp-liberty
     restart: unless-stopped
     ports:
