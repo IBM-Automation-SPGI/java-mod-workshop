@@ -387,6 +387,7 @@ pedjasapp-liberty    1.0    abc123def456   2 minutes ago   712MB
 ## Paso 4 — Ejecutar el Contenedor Liberty
 
 ```bash
+# Si se ejecuta de forma independiente (o se detuvo tWAS previamente):
 podman run -d \
   --name pedjasapp-liberty \
   --network pedjasapp-net \
@@ -398,6 +399,9 @@ podman run -d \
   -e PEDJASAPP_DB_USER=pedjas \
   -e PEDJASAPP_DB_PASSWORD=pedjas123 \
   pedjasapp-liberty:1.0
+
+# NOTA: Si mantienes tWAS activo en el puerto 9080 o usas docker-compose,
+# mapea Liberty al puerto 9081 (-p 9081:9080) para evitar colisiones.
 ```
 
 ### Verificar el arranque
@@ -418,7 +422,12 @@ Busca la línea:
 
 ### 5.1 Probar la aplicación en el navegador
 
-**[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)**
+Abre en tu navegador:
+👉 **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)** *(o `http://localhost:9081/pedjasapp/` si mapeaste al puerto 9081)*
+
+Credenciales de prueba:
+- **Usuario:** `admin`
+- **Contraseña:** `admin123`
 
 ### 5.2 Verificar los endpoints de salud (MicroProfile Health)
 
@@ -434,6 +443,9 @@ curl http://localhost:9080/health/live
 # Sólo readiness
 curl http://localhost:9080/health/ready
 # Salida esperada: {"status":"UP"}
+
+# Explorar OpenAPI / Swagger UI
+# Abre en el navegador: http://localhost:9080/openapi/ui/
 ```
 
 ### 5.3 Verificar métricas (MicroProfile Metrics)

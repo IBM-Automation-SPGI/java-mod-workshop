@@ -4,7 +4,7 @@
 
 ## Objetivo del Lab
 
-En este lab desplegarás **PedjasApp** en un contenedor Podman con **WebSphere Application Server tradicional (tWAS) 9.0**, verificarás el despliegue y comprobarás la funcionalidad básica de la aplicación antes de proceder con el análisis AMA.
+En este lab compilarás el monolito legado **PedjasApp (EAR)**, arrancarás una instancia de **WebSphere Application Server tradicional (tWAS 9.0)** en contenedor y prepararás el entorno y artefactos de origen que serán analizados en profundidad mediante **IBM Application Modernization Accelerator (AMA)** en el Lab 2.
 
 ---
 
@@ -138,24 +138,19 @@ WSVR0001I: Server server1 open for e-business
 
 ---
 
-## Paso 5 — Desplegar la Aplicación (si no está incluida en la imagen)
+## Paso 5 — Acceder a la Consola Administrativa de tWAS
 
-Si has optado por desplegar la aplicación de forma separada mediante la consola de administración:
+Abre el navegador en la consola administrativa de WebSphere tradicional:
 
-### 5.1 Acceder a la consola de administración de tWAS
-
-Abre el navegador en: **[https://localhost:9043/ibm/console](https://localhost:9043/ibm/console)** (o vía HTTP sin cifrar en **[http://localhost:9060/ibm/console](http://localhost:9060/ibm/console)**)
+👉 **[https://localhost:9043/ibm/console](https://localhost:9043/ibm/console)** (o vía HTTP sin cifrar en **[http://localhost:9060/ibm/console](http://localhost:9060/ibm/console)**)
 
 - **Usuario:** `wsadmin`
-- **Contraseña:** (consultar variable de entorno del contenedor)
+- **Contraseña:** Consulta la contraseña generada con:
+  ```bash
+  podman exec pedjasapp-twas cat /tmp/PASSWORD
+  ```
 
-### 5.2 Instalar PedjasApp
-
-1. Ve a **Applications → New Application → New Enterprise Application**
-2. Selecciona **Remote file system** y proporciona la ruta al fichero `pedjasapp.ear`
-3. Acepta los valores por defecto y haz clic en **Finish**
-4. Guarda la configuración: **Save directly to master configuration**
-5. Inicia la aplicación: **Applications → Application Types → WebSphere enterprise applications → PedjasApp → Start**
+Desde la consola puedes explorar la topología de WebSphere, los perfiles (`AppSrv01`), nodos, servidores de aplicaciones y la configuración del entorno tradicional que posteriormente será evaluada por el Data Collector de AMA.
 
 ---
 

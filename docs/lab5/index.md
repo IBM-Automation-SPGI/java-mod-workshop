@@ -14,7 +14,9 @@ Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
 
 ### ✅ Validación Funcional
 
-- [ ] **Inicio y navegación** — La página de inicio carga correctamente en `http://localhost:9080/pedjasapp/`
+*(Utiliza el puerto `9080` o `9081` según tu configuración de ejecución)*
+
+- [ ] **Inicio y navegación** — La página de inicio carga correctamente en `http://localhost:9080/pedjasapp/` (o `:9081`)
 - [ ] **Autenticación** — Es posible iniciar sesión con el usuario `admin` / contraseña `admin123`
 - [ ] **Catálogo de productos** — Se muestran los productos de prueba cargados por `datos-prueba.sql`
 - [ ] **Crear pedido** — El flujo completo de creación de pedido funciona sin errores
@@ -26,20 +28,23 @@ Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
 ### ✅ Validación de Salud y Endpoints MicroProfile
 
 ```bash
+# Definir puerto de Liberty (9080 por defecto o 9081 con docker-compose)
+LIBERTY_PORT=${LIBERTY_PORT:-9080}
+
 # 1. Verificar liveness
-curl -s http://localhost:9080/health/live | python3 -m json.tool
+curl -s http://localhost:${LIBERTY_PORT}/health/live | python3 -m json.tool
 # Resultado esperado: { "status": "UP" }
 
 # 2. Verificar readiness
-curl -s http://localhost:9080/health/ready | python3 -m json.tool
+curl -s http://localhost:${LIBERTY_PORT}/health/ready | python3 -m json.tool
 # Resultado esperado: { "status": "UP" }
 
 # 3. Verificar estado global del servidor
-curl -s http://localhost:9080/health
+curl -s http://localhost:${LIBERTY_PORT}/health
 # Resultado esperado: {"status":"UP","checks":[]}
 
 # 4. Explorar OpenAPI / Swagger UI
-# Abre en el navegador: http://localhost:9080/openapi/ui/
+# Abre en el navegador: http://localhost:9080/openapi/ui/ (o :9081)
 ```
 
 ### ✅ Validación de Logs

@@ -22,11 +22,11 @@ Al finalizar, serás capaz de:
 Al completar este workshop serás capaz de:
 
 - **Describir** el propósito y las capacidades de IBM Application Modernization Accelerator (AMA)
-- **Desplegar** una aplicación Java EE en WebSphere Application Server tradicional usando Docker
-- **Ejecutar** un análisis AMA sobre una aplicación EAR/WAR y **interpretar** sus resultados
+- **Preparar** y analizar una aplicación Java EE tradicional empaquetada en EAR con WebSphere Application Server
+- **Ejecutar** un análisis AMA sobre el perfil tWAS y el artefacto EAR, e **interpretar** sus resultados
 - **Aplicar** las modificaciones de código recomendadas por AMA para eliminar dependencias propietarias de tWAS
-- **Construir** y **desplegar** la aplicación modernizada en WebSphere Liberty mediante Docker
-- **Verificar** la equivalencia funcional entre la versión tWAS y la versión Liberty
+- **Construir** y **desplegar** la aplicación modernizada en WebSphere Liberty mediante contenedores
+- **Verificar** la salud, métricas y funcionalidad completa de la versión modernizada en Liberty
 
 </div>
 
