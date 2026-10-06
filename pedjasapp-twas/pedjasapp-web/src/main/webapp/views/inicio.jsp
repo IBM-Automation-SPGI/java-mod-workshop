@@ -39,7 +39,7 @@
         <div class="error">${error}</div>
     </c:if>
 
-    <form method="POST" action="${pageContext.request.contextPath}/inicio">
+    <form id="loginForm" method="POST" action="${pageContext.request.contextPath}/inicio">
         <label for="usuario">Usuario</label>
         <input type="text" id="usuario" name="usuario"
                placeholder="admin" required autocomplete="username"/>
@@ -48,8 +48,19 @@
         <input type="password" id="contrasena" name="contrasena"
                placeholder="••••••••" required autocomplete="current-password"/>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" id="btnEntrar">Entrar</button>
     </form>
+
+    <script>
+        document.querySelectorAll('#loginForm input').forEach(function(input) {
+            input.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById('loginForm').requestSubmit();
+                }
+            });
+        });
+    </script>
 
     <div class="footer">
         Demo: usuario <strong>admin</strong> / contraseña <strong>admin123</strong>
