@@ -322,4 +322,3 @@ spec:
 
 ---
 
-[← Lab 4 — Despliegue en Liberty](../lab4/index.md) | [↑ Inicio](../index.md)

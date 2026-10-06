@@ -348,4 +348,3 @@ El ZIP incluye:
 
 ---
 
-[← Lab 1 — Despliegue en tWAS](../lab1/index.md) | [Lab 3 — Modernización Manual →](../lab3/index.md)

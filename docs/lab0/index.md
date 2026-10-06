@@ -222,4 +222,3 @@ java-mod-workshop/
 
 ## Siguiente Paso
 
-[Lab 1 — Despliegue en tWAS →](../lab1/index.md)

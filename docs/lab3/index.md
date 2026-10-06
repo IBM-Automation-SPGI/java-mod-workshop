@@ -407,4 +407,3 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 
 ---
 
-[← Lab 2 — Análisis con AMA](../lab2/index.md) | [Lab 4 — Despliegue en Liberty →](../lab4/index.md)

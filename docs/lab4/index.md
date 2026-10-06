@@ -472,4 +472,3 @@ curl http://localhost:9080/metrics
 
 ---
 
-[← Lab 3 — Modernización Manual](../lab3/index.md) | [Lab 5 — Validación y Siguientes Pasos →](../lab5/index.md)

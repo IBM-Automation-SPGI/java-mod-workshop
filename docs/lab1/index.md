@@ -252,4 +252,3 @@ docker exec pedjasapp-twas ps aux | grep was
 
 ---
 
-[← Lab 0 — Introducción](../lab0/index.md) | [Lab 2 — Análisis con AMA →](../lab2/index.md)
