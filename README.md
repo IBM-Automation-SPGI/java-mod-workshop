@@ -20,6 +20,7 @@ La aplicación de ejemplo, **PedjasApp**, simula un sistema de gestión de pedid
 | **Lab 1** | Despliegue en tWAS | Despliegue y verificación de PedjasApp en WebSphere tradicional |
 | **Lab 2** | Análisis con AMA | Ejecución e interpretación de IBM Application Modernization Accelerator |
 | **Lab 3** | Modernización Manual | Modificaciones de código guiadas por los resultados de AMA |
+| **Lab 3B** | Modernización con Bob | Modernización asistida por IA con IBM Bob y paquetes agénticos |
 | **Lab 4** | Despliegue en Liberty | server.xml, Dockerfile y despliegue en WebSphere Liberty |
 | **Lab 5** | Validación y Siguientes Pasos | Checklist post-modernización, rendimiento y próximos pasos |
 | **Lab 6** | Kubernetes & OpenShift | Despliegue cloud-native con Open Liberty Operator (Opcional) |
