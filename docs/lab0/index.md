@@ -119,7 +119,7 @@ cd application-modernization-accelerator-local-5.1.0
 sh launch.sh
 ```
 
-Accede a la interfaz en `http://localhost:3000`.
+Accede a la interfaz en `https://localhost/` (o `http://localhost:3000` según la versión).
 
 !!! note "Requisitos"
     Requiere Docker o Podman instalado en el sistema. El script gestiona la descarga de las imágenes necesarias automáticamente.

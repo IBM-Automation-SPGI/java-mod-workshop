@@ -47,7 +47,7 @@ sh launch.sh
 podman ps | grep -i ama
 ```
 
-Accede a la interfaz en: **[http://localhost:3000](http://localhost:3000)**
+Accede a la interfaz en: **[https://localhost/](https://localhost/)** (o `http://localhost:3000` en versiones clásicas)
 
 !!! note "Requisitos"
     Requiere Docker o Podman instalado. El script descarga automáticamente las imágenes necesarias desde ICR.
@@ -71,32 +71,30 @@ Transformation Advisor → Add Workspace
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  IBM Transformation Advisor                                  │
+│  IBM Application Modernization Accelerator                  │
 │  Workspace: PedjasApp-Migration                             │
 │                                                             │
-│  [ No hay colecciones todavía ]                             │
+│  [ Discovered estate / Assessment / Visualization ]         │
 │                                                             │
-│  [ + Add Collection ]                                       │
+│  [ Bulk data → Upload / Export ]                            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 Crear una Colección
+### 2.2 Explorar datos o importar nuevo escaneo
 
-```
-→ Add Collection
-  Nombre: "analisis-inicial"
-  → Create
-```
+En la interfaz moderna de AMA (v4.x/v5.x):
+- Puedes explorar el workspace de demostración **Sample_data** para familiarizarte con las vistas de **Visualization**, **Assessment** y **Migration plan**.
+- Para cargar nuevos análisis de aplicaciones, utiliza la opción superior **Bulk data → Upload** o el asistente de carga.
 
 ---
 
-## Paso 3 — Cargar el EAR de PedjasApp
+## Paso 3 — Cargar los datos de PedjasApp / Usar Data Collector
 
-### Método A — Subir el fichero directamente desde la interfaz web
+### Método A — Subir datos de escaneo desde la interfaz web
 
-1. En la colección `analisis-inicial`, haz clic en **Upload data**
-2. Selecciona el fichero `pedjasapp-para-ama.ear` que generaste en el Lab 1
-3. Haz clic en **Upload**
+1. En la barra superior, haz clic en **Bulk data → Upload** (o dentro de tu Workspace).
+2. Selecciona el archivo de escaneo generado por el Data Collector o sube el paquete de análisis.
+3. Haz clic en **Upload**.
 
 **Vista esperada durante la carga:**
 
@@ -302,9 +300,9 @@ Transformation Advisor puede generar automáticamente los artefactos de partida 
 ### 5.1 Descargar la Guía de Migración
 
 ```
-Aplicación: pedjasapp.ear
+Aplicación: pedjasapp.ear (o en la vista de detalle de cualquier aplicación analizada)
 → View migration plan
-→ Download migration plan (ZIP)
+→ Download plan (ZIP)
 ```
 
 El ZIP incluye:
