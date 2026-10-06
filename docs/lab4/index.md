@@ -301,14 +301,17 @@ COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
 
 # Copiar la configuración y la aplicación
 COPY server.xml /config/server.xml
-COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
+# bootstrap.properties es opcional: permite definir variables de entorno por defecto
+# en local sin exponerlas en el Dockerfile. Crear el fichero si es necesario.
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
 # La imagen "full" ya incluye todas las features. No se necesita installUtility.
 
 EXPOSE 9080 9443
 
-ENV PEDJASAPP_DB_HOST=localhost \
+# Valores de desarrollo por defecto — siempre sobreescribir en entornos reales
+# (PEDJASAPP_DB_HOST debe apuntar al nombre del contenedor/servicio de PostgreSQL)
+ENV PEDJASAPP_DB_HOST=pedjasapp-postgres \
     PEDJASAPP_DB_PORT=5432 \
     PEDJASAPP_DB_NAME=pedjasapp \
     PEDJASAPP_DB_USER=pedjas

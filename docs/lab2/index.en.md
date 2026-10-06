@@ -364,6 +364,18 @@ The **Visualization** tab provides a graphical dependency view and modernization
 
 ![Visualization graph view of the application](img/13-visualization.png)
 
+### 4.5 Detailed Migration Analysis Report
+
+AMA also generates a full **HTML Analysis Report** listing every triggered rule, its severity, affected files, and code snippets. Access it from the application detail view → **View full analysis report**.
+
+![Analysis report header — title and severity summary](img/14-analysis-report-top.png)
+
+![Critical rules section of the analysis report](img/15-analysis-report-critical.png)
+
+![Individual rule detail with affected code snippet](img/16-analysis-report-rule-detail.png)
+
+![Warning and informational rules section](img/17-analysis-report-info.png)
+
 ---
 
 ## Step 5 — Generate the Migration Plan

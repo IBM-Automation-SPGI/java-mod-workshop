@@ -279,12 +279,15 @@ COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
 
 # Copy configuration and WAR
 COPY server.xml /config/server.xml
-COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
+# bootstrap.properties is optional — use it to set local default env vars
+# without hardcoding them in the Dockerfile. Create the file if needed.
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
 EXPOSE 9080 9443
 
-ENV PEDJASAPP_DB_HOST=localhost \
+# Development defaults — always override in real environments
+# (PEDJASAPP_DB_HOST must point to the PostgreSQL container/service name)
+ENV PEDJASAPP_DB_HOST=pedjasapp-postgres \
     PEDJASAPP_DB_PORT=5432 \
     PEDJASAPP_DB_NAME=pedjasapp \
     PEDJASAPP_DB_USER=pedjas

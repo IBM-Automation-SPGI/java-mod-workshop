@@ -81,8 +81,8 @@ Expected output:
 -rw-r--r-- 1 user group 1.2M Jan 15 10:30 pedjasapp.ear
 ```
 
-!!! info "Legacy Architectural Pattern and EJB CMP 2.0"
-    `pedjasapp.ear` deliberately includes classic entity beans (**EJB CMP 2.0** `ProductoEJB`), proprietary WebSphere descriptors (`ibm-web-bnd.xml`, `ibm-ejb-jar-bnd.xml`), and legacy tWAS JNDI namespaces. In traditional WebSphere Application Server, CMP 2.0 entity beans required persistence code generation tools (`ejbdeploy`). The main purpose of packaging this EAR in the workshop is to have the complete enterprise artifact available for scanning and evaluation with **IBM Application Modernization Accelerator (AMA)** in **Lab 2**.
+!!! info "Legacy Architectural Pattern and EJB 2.x CMP"
+    `pedjasapp.ear` deliberately includes classic entity beans (**EJB 2.x CMP** `ProductoEJB`), proprietary WebSphere descriptors (`ibm-web-bnd.xml`, `ibm-ejb-jar-bnd.xml`), and legacy tWAS JNDI namespaces. In traditional WebSphere Application Server, EJB 2.x CMP entity beans required persistence code generation tools (`ejbdeploy`). The main purpose of packaging this EAR in the workshop is to have the complete enterprise artifact available for scanning and evaluation with **IBM Application Modernization Accelerator (AMA)** in **Lab 2**.
 
 ---
 
@@ -250,8 +250,8 @@ podman exec pedjasapp-twas ps aux | grep was
 
     - Built PedjasApp for tWAS using Maven
     - Started a Podman container with WebSphere Application Server 9.0
-    - Inspected traditional WebSphere console, profiles, and runtime behavior
-    - Diagnosed legacy EJB CMP 2.0 incompatibilities
+    - Inspected the traditional WebSphere admin console, profiles, and runtime behavior
+    - Diagnosed the expected EJB 2.x CMP incompatibilities in tWAS (without `ejbdeploy`)
     - Collected the EAR artifact ready for AMA analysis in Lab 2
 
 ---

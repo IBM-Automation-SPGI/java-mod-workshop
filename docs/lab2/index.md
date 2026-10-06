@@ -159,7 +159,7 @@ Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 
 #### Método A — Subida a través de la Interfaz Web (GUI) de AMA
 1. Abre tu navegador web y accede a la consola de AMA en **[https://localhost/](https://localhost/)**.
-2. Entra en tu Workspace (por ejemplo, el recién creado o haz clic en **Add Workspace**).
+2. Entra en tu Workspace (por ejemplo, el recién creado o haz clic en **Create workspace**).
 3. En la pantalla inicial del Workspace, haz clic en el botón central **Upload results** (o en la barra superior en **Bulk data → Upload**).
 4. Se abrirá la ventana modal **Upload data**. Arrastra o haz clic en la zona central (*"Drag and drop files here or click to upload"*) para seleccionar tu archivo ZIP generado (`pedjasapp.zip` / `pedjasapp-collection.zip` o `AppSrv01-collection.zip`).
 5. Puedes dejar marcada la opción **Autodetect collection** o asignarle un nombre (p. ej., `PedjasApp_tWAS`) y pulsa en el botón azul **Upload**.
@@ -365,6 +365,18 @@ Al expandir cualquier regla de la lista se muestra el detalle de la incidencia c
 La vista **Visualization** ofrece una representación gráfica de las dependencias y el estado de modernización:
 
 ![Vista de Visualization con el grafo de la aplicación](img/13-visualization.png)
+
+### 4.5 Informe Detallado de Análisis
+
+AMA genera también un **Informe HTML de Análisis** completo con todas las reglas disparadas, su severidad, los ficheros afectados y fragmentos de código. Puedes acceder desde la vista de detalle de la aplicación → **View full analysis report**.
+
+![Cabecera del informe de análisis — título y resumen de severidad](img/14-analysis-report-top.png)
+
+![Sección de reglas críticas del informe de análisis](img/15-analysis-report-critical.png)
+
+![Detalle de una regla individual con código afectado](img/16-analysis-report-rule-detail.png)
+
+![Sección de reglas de advertencia e informativas](img/17-analysis-report-info.png)
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## Objetivo del Lab
 
-En este último lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización.
+En este lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización. Es el último lab del flujo principal; el Lab 6 (opcional) cubre el despliegue en Kubernetes/OpenShift.
 
 ---
 

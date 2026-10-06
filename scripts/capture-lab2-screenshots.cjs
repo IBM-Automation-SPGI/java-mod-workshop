@@ -313,6 +313,73 @@ async function shot(page, name) {
     }
   } catch (_) {}
 
+  // ══════════════════════════════════════════════════════════════════════════
+  // 12 — Informe Detallado de Análisis (Detailed Migration Analysis Report)
+  // URL directa al informe HTML generado por AMA para pedjasapp.ear
+  // ══════════════════════════════════════════════════════════════════════════
+  console.log('12. Informe Detallado de Análisis — vista completa');
+  const REPORT_URL = [
+    `${AMA_URL}/api/report`,
+    `?workspace=24cac24b-f766-4764-8d86-dd6a446a00a1`,
+    `&taskName=a1a4a4b9-4eff-43fb-ac44-0433cd7de699`,
+    `&appName=pedjasapp.ear`,
+    `&profileName=pedjasapp.zip`,
+    `&targetEnv=websphereLiberty`,
+    `&reportType=analysis_reports`,
+    `&eeLevel=ee10`,
+    `&javaLevel=java17`,
+  ].join('');
+
+  try {
+    await page.goto(REPORT_URL, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await wait(1500);
+    await dismissCookieBanner(page);
+
+    // 14 — Parte superior del informe (título + resumen de severidad)
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await wait(400);
+    await shot(page, '14-analysis-report-top');
+
+    // 15 — Sección de reglas Críticas
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await wait(500);
+    await shot(page, '15-analysis-report-critical');
+
+    // 16 — Detalle expandido de una regla individual
+    // Intentar expandir la primera regla crítica si el informe tiene filas clicables
+    try {
+      const firstRule = page.locator([
+        'tr.critical:first-child',
+        '.rule-row:first-child',
+        'tbody tr:first-child',
+        'table tr:nth-child(2)',
+      ].join(', ')).first();
+      if (await firstRule.isVisible({ timeout: 3000 })) {
+        await firstRule.click();
+        await wait(800);
+        await shot(page, '16-analysis-report-rule-detail');
+      } else {
+        // Si no hay filas clicables, capturar el scroll a mitad del informe
+        await page.evaluate(() => window.scrollTo(0, 1000));
+        await wait(400);
+        await shot(page, '16-analysis-report-rule-detail');
+      }
+    } catch (_) {
+      await page.evaluate(() => window.scrollTo(0, 1000));
+      await wait(400);
+      await shot(page, '16-analysis-report-rule-detail');
+    }
+
+    // 17 — Sección de reglas de Advertencia e Informativo (parte inferior)
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await wait(600);
+    await shot(page, '17-analysis-report-info');
+
+  } catch (e) {
+    console.warn('  ⚠️  No se pudo capturar el informe de análisis:', e.message);
+    console.warn('     Asegúrate de que AMA está activo y el workspace Workshop_PedjasApp tiene datos.');
+  }
+
   // ─────────────────────────────────────────────────────────────────────────
   await browser.close();
 

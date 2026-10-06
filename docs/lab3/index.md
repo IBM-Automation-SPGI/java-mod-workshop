@@ -165,7 +165,7 @@ public class Producto {
 
 ### Antes (versión tWAS)
 
-```java title="pedjasapp-twas/.../ PedidoServiceBean.java (extracto)"
+```java title="pedjasapp-twas/.../PedidoServiceBean.java (extracto)"
 import com.ibm.websphere.naming.JndiHelper;
 import com.ibm.websphere.cache.DistributedMap;
 
