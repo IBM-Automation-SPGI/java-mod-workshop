@@ -19,6 +19,8 @@ nav:
     - Ejecutar IBM AMA: 'lab2/index.md'
   - Lab 3 — Modernización Manual:
     - Aplicar cambios de código: 'lab3/index.md'
+  - Lab 3B — Modernización con IBM Bob:
+    - Modernización asistida con Bob: 'lab3b/index.md'
   - Lab 4 — Despliegue en Liberty:
     - Desplegar en Open Liberty: 'lab4/index.md'
   - Lab 5 — Validación:
