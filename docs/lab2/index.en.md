@@ -365,13 +365,6 @@ The report contains four main sections:
 3. **Individual rule detail** — clicking a row expands the affected files and problematic code fragment
 4. **Warning / Informational rules section** — lower-priority recommended changes
 
-!!! tip "Capturing the report"
-    You can regenerate the real report screenshots by running the Playwright script while AMA is active:
-    ```bash
-    node scripts/capture-lab2-screenshots.cjs
-    ```
-    This will automatically create `14-analysis-report-top.png`, `15-analysis-report-critical.png`, `16-analysis-report-rule-detail.png`, and `17-analysis-report-info.png` in `docs/lab2/img/`.
-
 ---
 
 ## Step 5 — Generate the Migration Plan

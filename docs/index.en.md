@@ -71,7 +71,7 @@ graph TD
 !!! warning "Before getting started"
     Ensure the following tools and prerequisites are available before starting Lab 0:
 
-    - Java JDK 17 (or JDK 11+) installed
+    - Java JDK 17 (LTS) installed
     - Apache Maven 3.8+
     - Podman 4.x+ or Docker installed and running
     - Access to IBM Application Modernization Accelerator (AMA / Transformation Advisor)

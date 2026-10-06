@@ -212,7 +212,7 @@ env:
 ### Tier 1 — Containerization Hardening
 
 - [ ] **Publish image to enterprise registry** (IBM Container Registry, Quay.io)
-- [ ] **Maintain `docker-compose.yml` / `podman-compose.yml`** for one-command local orchestration
+- [ ] **Verify the included `docker-compose.yml`** for one-command local orchestration (compatible with both `podman-compose` and `docker compose`)
 - [ ] **Implement container vulnerability scanning** (IBM Vulnerability Advisor, Trivy, Snyk)
 
 ### Tier 2 — Kubernetes & OpenShift Deployment
@@ -259,7 +259,7 @@ spec:
             periodSeconds: 10
           envFrom:
             - secretRef:
-                name: pedjasapp-db-secret
+                name: postgres-secret
 ```
 
 ### Tier 3 — CI/CD Pipelines & GitOps

@@ -367,13 +367,6 @@ El informe muestra cuatro secciones principales:
 3. **Detalle de regla individual** — al hacer clic en una fila se expanden los ficheros y el fragmento de código problemático
 4. **Sección de reglas de Advertencia / Informativas** — cambios recomendados de menor prioridad
 
-!!! tip "Capturar el informe"
-    Puedes regenerar las capturas reales del informe ejecutando el script Playwright cuando AMA esté activo:
-    ```bash
-    node scripts/capture-lab2-screenshots.cjs
-    ```
-    Esto generará automáticamente `14-analysis-report-top.png`, `15-analysis-report-critical.png`, `16-analysis-report-rule-detail.png` y `17-analysis-report-info.png` en `docs/lab2/img/`.
-
 ---
 
 ## Paso 5 — Generar el Plan de Migración

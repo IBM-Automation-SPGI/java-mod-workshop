@@ -56,11 +56,11 @@ Antes de desplegar la base de datos, crea el namespace y un Kubernetes Secret pa
 kubectl create namespace pedjasapp
 
 # Crear el Secret con las credenciales de PostgreSQL
-kubectl create secret generic pedjasapp-db-secret \
+# Nota: el Secret se llama "postgres-secret" para coincidir con k8s/postgres-deployment.yaml
+kubectl create secret generic postgres-secret \
   --namespace pedjasapp \
-  --from-literal=PEDJASAPP_DB_USER=pedjas \
-  --from-literal=PEDJASAPP_DB_PASSWORD=pedjas123 \
-  --from-literal=PEDJASAPP_DB_NAME=pedjasapp
+  --from-literal=username=pedjas \
+  --from-literal=password=pedjas123
 ```
 
 ---

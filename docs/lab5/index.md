@@ -212,7 +212,7 @@ env:
 ### Nivel 1 — Completar la Contenedorización
 
 - [ ] **Publicar la imagen en un registro de contenedores** (IBM Container Registry, Quay.io)
-- [ ] **Crear un fichero `podman-compose.yml`** (o `docker-compose.yml` compatible con Podman Compose) para ejecutar Liberty + PostgreSQL con un solo comando
+- [ ] **Verificar el fichero `docker-compose.yml`** incluido en el repositorio para ejecutar Liberty + PostgreSQL con un solo comando (compatible con `podman-compose` y `docker compose`)
 - [ ] **Implementar escaneo de vulnerabilidades** en la imagen de contenedor (IBM VA, Trivy, Snyk)
 
 ### Nivel 2 — Despliegue en Kubernetes / OpenShift
@@ -259,7 +259,7 @@ spec:
             periodSeconds: 10
           envFrom:
             - secretRef:
-                name: pedjasapp-db-secret
+                name: postgres-secret
 ```
 
 ### Nivel 3 — Pipeline CI/CD
