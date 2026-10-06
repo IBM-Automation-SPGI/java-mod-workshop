@@ -290,6 +290,24 @@ spec:
 | OpenLiberty Guides | [openliberty.io/guides](https://openliberty.io/guides/) |
 | Liberty Feature List | [openliberty.io/docs/latest/feature-overview.html](https://openliberty.io/docs/latest/feature-overview.html) |
 
+### Repositories and Tooling
+
+| Tool | Description |
+|------|-------------|
+| [WebSphere Liberty](https://www.ibm.com/products/websphere-liberty) | WebSphere Liberty — IBM runtime for Jakarta EE and MicroProfile |
+| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Upstream open source version of WebSphere Liberty |
+| [Liberty Starter](https://openliberty.io/start/) | Liberty starter project generator |
+| [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) | AMA Guide in IBM Garage |
+| [WebSphere Liberty Docker Images (ICR)](https://github.com/WASdev/ci.docker/blob/main/docs/icr-images.md) | Official WebSphere Liberty images on ICR |
+
+### Recommended OpenLiberty Guides
+
+- [Creating a RESTful Web Service with JAX-RS](https://openliberty.io/guides/rest-intro.html)
+- [Injecting Dependencies with CDI](https://openliberty.io/guides/cdi-intro.html)
+- [Accessing Databases using JPA](https://openliberty.io/guides/jpa-intro.html)
+- [Deploying Applications to Kubernetes](https://openliberty.io/guides/kubernetes-intro.html)
+- [Adding MicroProfile Health Checks](https://openliberty.io/guides/microprofile-health.html)
+
 ---
 
 ## Complete Workshop Summary
