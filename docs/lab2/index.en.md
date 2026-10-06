@@ -229,9 +229,18 @@ The **Assessment** tab displays a table of all scanned applications with complex
 
 ### 4.3 Modernization Rules Triggered in PedjasApp
 
-Clicking on `pedjasapp.ear` opens the application detail view with the full list of triggered rules, severities, and affected files:
+AMA generates a full **HTML Analysis Report** for each scanned application. You can access the report directly via the AMA report API:
 
-![PedjasApp.ear detail — modernization rules and metrics](img/10-app-detail-pedjasapp.png)
+```
+https://localhost/api/report?workspace=<id>&taskName=<taskId>
+  &appName=pedjasapp.ear&profileName=pedjasapp.zip
+  &targetEnv=websphereLiberty&reportType=analysis_reports
+  &eeLevel=ee7&javaLevel=java8
+```
+
+The report header shows a severity summary with the rule count per level:
+
+![AMA Analysis Report — header with severity summary](img/10-app-detail-pedjasapp.png)
 
 The following rules will be reported by AMA for PedjasApp, detailing severity and corrective actions:
 

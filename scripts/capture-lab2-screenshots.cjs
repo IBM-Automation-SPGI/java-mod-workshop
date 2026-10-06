@@ -194,42 +194,49 @@ async function shot(page, name) {
   await shot(page, '09-applications-table');
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 07 — Detalle de pedjasapp: scroll a la fila de la app con sus métricas
+  // 07 — Analysis Report: navegar directamente al informe HTML de AMA
+  //      (imagen 10 = cabecera del Analysis Report de pedjasapp.ear)
   // ══════════════════════════════════════════════════════════════════════════
-  console.log('07. Detalle de pedjasapp.ear — fila con métricas');
-  // Intentar navegar al detalle si existe enlace
+  console.log('07. Analysis Report — cabecera del informe de análisis');
+  const ANALYSIS_REPORT_URL_IMG10 = [
+    `${AMA_URL}/api/report`,
+    `?workspace=24cac24b-f766-4764-8d86-dd6a446a00a1`,
+    `&taskName=a1a4a4b9-4eff-43fb-ac44-0433cd7de699`,
+    `&appName=pedjasapp.ear`,
+    `&profileName=pedjasapp.zip`,
+    `&targetEnv=websphereLiberty`,
+    `&reportType=analysis_reports`,
+    `&eeLevel=ee7`,
+    `&javaLevel=java8`,
+  ].join('');
   let inAppDetail = false;
   try {
-    const appLink = page.locator([
-      'a:has-text("pedjasapp")',
-      'td:has-text("pedjasapp") a',
-      'button:has-text("pedjasapp")',
-    ].join(', ')).first();
-    if (await appLink.isVisible({ timeout: 5000 })) {
-      await appLink.click();
-      await page.waitForLoadState('networkidle');
-      await wait(1200);
-      inAppDetail = true;
-    }
-  } catch (_) {}
-  // Si no navegó, hacer scroll a la fila de la aplicación para que sea visible
-  if (!inAppDetail) {
-    await page.evaluate(() => window.scrollTo(0, 200));
+    await page.goto(ANALYSIS_REPORT_URL_IMG10, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await wait(1500);
+    await dismissCookieBanner(page);
+    await page.evaluate(() => window.scrollTo(0, 0));
     await wait(400);
+    await shot(page, '10-app-detail-pedjasapp');
+  } catch (e) {
+    console.warn('  ⚠️  No se pudo capturar el Analysis Report para img 10:', e.message);
   }
-  await shot(page, '10-app-detail-pedjasapp');
 
   // ══════════════════════════════════════════════════════════════════════════
   // 08 — Lista de Issues / Rules: volver atrás si es necesario y hacer scroll
   // ══════════════════════════════════════════════════════════════════════════
   console.log('08. Lista de Issues / Rules');
-  // Si estamos en el detalle de la app, volver a la vista de Assessment
-  if (inAppDetail) {
-    try {
-      await page.goBack({ waitUntil: 'networkidle' });
+  // Volver a la vista de Assessment del workspace (venimos del Analysis Report)
+  try {
+    await page.goto(AMA_URL, { waitUntil: 'networkidle', timeout: 15_000 });
+    await wait(800);
+    // Entrar al workspace Workshop_PedjasApp
+    const wsCard2 = page.locator(`text="${WS_NAME}"`).first();
+    if (await wsCard2.isVisible({ timeout: 5000 })) {
+      await wsCard2.click();
+      await page.waitForLoadState('networkidle');
       await wait(800);
-    } catch (_) {}
-  }
+    }
+  } catch (_) {}
   // Intentar clic en pestaña Issues/Rules si existe
   try {
     const issuesTab = page.locator([
@@ -326,8 +333,8 @@ async function shot(page, name) {
     `&profileName=pedjasapp.zip`,
     `&targetEnv=websphereLiberty`,
     `&reportType=analysis_reports`,
-    `&eeLevel=ee10`,
-    `&javaLevel=java17`,
+    `&eeLevel=ee7`,
+    `&javaLevel=java8`,
   ].join('');
 
   try {

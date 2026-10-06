@@ -231,9 +231,18 @@ La pestaña **Assessment** muestra una tabla con todas las aplicaciones analizad
 
 ### 4.3 Reglas Disparadas en PedjasApp
 
-Al hacer clic en `pedjasapp.ear` se accede al detalle de la aplicación con el listado completo de reglas, severidad y ficheros afectados:
+AMA genera un **Informe de Análisis HTML** completo para cada aplicación escaneada. Puedes acceder al informe directamente desde la URL de la API de AMA:
 
-![Detalle de pedjasapp.ear — reglas y métricas de modernización](img/10-app-detail-pedjasapp.png)
+```
+https://localhost/api/report?workspace=<id>&taskName=<taskId>
+  &appName=pedjasapp.ear&profileName=pedjasapp.zip
+  &targetEnv=websphereLiberty&reportType=analysis_reports
+  &eeLevel=ee7&javaLevel=java8
+```
+
+La cabecera del informe muestra un resumen de severidad con el recuento de reglas por nivel:
+
+![Informe de Análisis de AMA — cabecera con resumen de severidad](img/10-app-detail-pedjasapp.png)
 
 A continuación se describen las reglas que AMA generará para PedjasApp, junto con su nivel de severidad y la acción correctiva correspondiente:
 
