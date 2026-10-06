@@ -17,18 +17,15 @@ Al finalizar, serás capaz de:
 
 ## Objetivos de Aprendizaje
 
-<div class="objetivos-box">
+!!! abstract "Objetivos de Aprendizaje del Workshop"
+    Al completar este workshop serás capaz de:
 
-Al completar este workshop serás capaz de:
-
-- **Describir** el propósito y las capacidades de IBM Application Modernization Accelerator (AMA)
-- **Preparar** y analizar una aplicación Java EE tradicional empaquetada en EAR con WebSphere Application Server
-- **Ejecutar** un análisis AMA sobre el perfil tWAS y el artefacto EAR, e **interpretar** sus resultados
-- **Aplicar** las modificaciones de código recomendadas por AMA para eliminar dependencias propietarias de tWAS
-- **Construir** y **desplegar** la aplicación modernizada en WebSphere Liberty mediante contenedores
-- **Verificar** la salud, métricas y funcionalidad completa de la versión modernizada en Liberty
-
-</div>
+    - **Describir** el propósito y las capacidades de IBM Application Modernization Accelerator (AMA)
+    - **Preparar** y analizar una aplicación Java EE tradicional empaquetada en EAR con WebSphere Application Server
+    - **Ejecutar** un análisis AMA sobre el perfil tWAS y el artefacto EAR, e **interpretar** sus resultados
+    - **Aplicar** las modificaciones de código recomendadas por AMA para eliminar dependencias propietarias de tWAS
+    - **Construir** y **desplegar** la aplicación modernizada en WebSphere Liberty mediante contenedores
+    - **Verificar** la salud, métricas y funcionalidad completa de la versión modernizada en Liberty
 
 ---
 
@@ -119,7 +116,7 @@ cd application-modernization-accelerator-local-5.1.0
 sh launch.sh
 ```
 
-Accede a la interfaz en `https://localhost/` (o `http://localhost:3000` según la versión).
+Accede a la interfaz en **[https://localhost/](https://localhost/)** (o **[http://localhost:3000](http://localhost:3000)** según la versión).
 
 !!! note "Requisitos"
     Requiere Docker o Podman instalado en el sistema. El script gestiona la descarga de las imágenes necesarias automáticamente.

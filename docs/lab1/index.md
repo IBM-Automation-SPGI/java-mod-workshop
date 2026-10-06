@@ -173,7 +173,7 @@ WSVR0001I: Server server1 open for e-business
 ### 6.2 Diagnóstico del despliegue en tWAS: Por qué falla `pedjasapp.ear`
 
 !!! warning "Comportamiento didáctico: Detección de incompatibilidades EJB CMP 2.0"
-    Si intentas desplegar `pedjasapp.ear` directamente en tWAS o acceder a `http://localhost:9080/pedjasapp/`, el servidor registrará el error:
+    Si intentas desplegar `pedjasapp.ear` directamente en tWAS o acceder a **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)**, el servidor registrará el error:
     
     ```text
     ADMA0209E: Enterprise JavaBeans (EJB) module pedjasapp-ejb.jar contains the following

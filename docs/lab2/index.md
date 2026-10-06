@@ -47,7 +47,7 @@ sh launch.sh
 podman ps | grep -i ama
 ```
 
-Accede a la interfaz en: **[https://localhost/](https://localhost/)** (o `http://localhost:3000` en versiones clásicas)
+Accede a la interfaz en: **[https://localhost/](https://localhost/)** (o **[http://localhost:3000](http://localhost:3000)** en versiones clásicas)
 
 !!! note "Requisitos"
     Requiere Docker o Podman instalado. El script descarga automáticamente las imágenes necesarias desde ICR.
@@ -171,7 +171,7 @@ Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 
 #### Método B — Subida Automatizada por Línea de Comandos / API REST de AMA
 
-Puedes realizar la creación del workspace, la subida del `.zip` y la consulta del informe **100% por línea de comandos** utilizando la API REST de AMA expuesta en el puerto seguro `2220` (`https://localhost:2220/lands_advisor/advisor/v2/...`).
+Puedes realizar la creación del workspace, la subida del `.zip` y la consulta del informe **100% por línea de comandos** utilizando la API REST de AMA expuesta en el puerto seguro `2220` (**[https://localhost:2220/lands_advisor/advisor/v2/workspaces](https://localhost:2220/lands_advisor/advisor/v2/workspaces)**).
 
 ##### 1. Crear o Consultar el Workspace por Comando
 ```bash

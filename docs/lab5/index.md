@@ -16,7 +16,7 @@ Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
 
 *(Utiliza el puerto `9080` o `9081` según tu configuración de ejecución)*
 
-- [ ] **Inicio y navegación** — La página de inicio carga correctamente en `http://localhost:9080/pedjasapp/` (o `:9081`)
+- [ ] **Inicio y navegación** — La página de inicio carga correctamente en [http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/) (o [http://localhost:9081/pedjasapp/](http://localhost:9081/pedjasapp/))
 - [ ] **Autenticación** — Es posible iniciar sesión con el usuario `admin` / contraseña `admin123`
 - [ ] **Catálogo de productos** — Se muestran los productos de prueba cargados por `datos-prueba.sql`
 - [ ] **Crear pedido** — El flujo completo de creación de pedido funciona sin errores
@@ -44,7 +44,7 @@ curl -s http://localhost:${LIBERTY_PORT}/health
 # Resultado esperado: {"status":"UP","checks":[]}
 
 # 4. Explorar OpenAPI / Swagger UI
-# Abre en el navegador: http://localhost:${LIBERTY_PORT}/openapi/ui/
+# Abre en el navegador: http://localhost:9080/openapi/ui/ (o http://localhost:9081/openapi/ui/)
 curl -s -I http://localhost:${LIBERTY_PORT}/openapi/ui/
 ```
 

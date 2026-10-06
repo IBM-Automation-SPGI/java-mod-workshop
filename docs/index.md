@@ -104,10 +104,11 @@ java-mod-workshop/
 
 | LAB | SECCIÓN |
 | - | - |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab0/" target="_blank">**0. Requisitos Previos**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab0/" target="_blank">Introducción y entorno</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab1/" target="_blank">**1. Despliegue en tWAS**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab1/" target="_blank">Desplegar PedjasApp en tWAS</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab2/" target="_blank">**2. Análisis con AMA**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab2/" target="_blank">Ejecutar IBM AMA</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3/" target="_blank">**3. Modernización Manual**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3/" target="_blank">Aplicar cambios de código guiados por AMA</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3b/" target="_blank">**3B. Modernización con IBM Bob**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab3b/" target="_blank">Modernización asistida con Bob + Premium Package</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">**4. Despliegue en Liberty**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab4/" target="_blank">Desplegar en WebSphere Liberty 26.0.0.9</a> |
-| <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab5/" target="_blank">**5. Validación**</a> | <a href="https://ibm-automation-spgi.github.io/java-mod-workshop/lab5/" target="_blank">Validación y siguientes pasos</a> |
+| [**0. Requisitos Previos**](lab0/index.md) | [Introducción y entorno](lab0/index.md) |
+| [**1. Despliegue en tWAS**](lab1/index.md) | [Desplegar PedjasApp en tWAS](lab1/index.md) |
+| [**2. Análisis con AMA**](lab2/index.md) | [Ejecutar IBM AMA](lab2/index.md) |
+| [**3. Modernización Manual**](lab3/index.md) | [Aplicar cambios de código guiados por AMA](lab3/index.md) |
+| [**3B. Modernización con IBM Bob**](lab3b/index.md) | [Modernización asistida con Bob + Premium Package](lab3b/index.md) |
+| [**4. Despliegue en Liberty**](lab4/index.md) | [Desplegar en WebSphere Liberty 26.0.0.9](lab4/index.md) |
+| [**5. Validación**](lab5/index.md) | [Validación y siguientes pasos](lab5/index.md) |
+| [**6. Kubernetes & OpenShift**](lab6/index.md) | [Despliegue cloud-native con Open Liberty Operator](lab6/index.md) |
