@@ -2,7 +2,7 @@
 
 ---
 
-## **i. De tWAS a WebSphere Liberty**
+## **De tWAS a WebSphere Liberty**
 
 ---
 
@@ -97,7 +97,7 @@ java-mod-workshop/
 
 ---
 
-## **vi. Índice del workshop**
+## **Índice del Workshop**
 
 ---
 
