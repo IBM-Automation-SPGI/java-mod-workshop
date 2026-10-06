@@ -53,13 +53,6 @@ Accede a la interfaz en: **[http://localhost:3000](http://localhost:3000)**
 !!! note "Requisitos"
     Requiere Docker o Podman instalado. El script descarga automáticamente las imágenes necesarias desde ICR.
 
-### Opción B — IBM Cloud
-
-1. Inicia sesión en [cloud.ibm.com](https://cloud.ibm.com)
-2. Busca **Transformation Advisor** en el catálogo
-3. Crea una instancia en el plan gratuito (Lite)
-4. Accede desde el panel de control de IBM Cloud
-
 ---
 
 ## Paso 2 — Crear un Nuevo Workspace en AMA

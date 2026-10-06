@@ -125,10 +125,6 @@ Accede a la interfaz en `http://localhost:3000`.
 !!! note "Requisitos"
     Requiere Docker o Podman instalado en el sistema. El script gestiona la descarga de las imágenes necesarias automáticamente.
 
-### Opción B — IBM Cloud Transformation Advisor
-
-Disponible como servicio en la plataforma IBM Cloud. Requiere una cuenta IBM Cloud activa.
-
 !!! note "Nota para el Workshop"
     A lo largo de los labs se utilizará la terminología genérica **AMA** para referirse tanto a IBM Transformation Advisor como a IBM Application Modernization Accelerator, ya que comparten el mismo motor de análisis y generan las mismas reglas de modernización.
 
