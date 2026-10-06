@@ -22,6 +22,16 @@ La aplicación de ejemplo, **PedjasApp**, simula un sistema de gestión de pedid
 | **Lab 3** | Modernización Manual | Modificaciones de código guiadas por los resultados de AMA |
 | **Lab 4** | Despliegue en Liberty | server.xml, Dockerfile y despliegue en WebSphere Liberty |
 | **Lab 5** | Validación y Siguientes Pasos | Checklist post-modernización, rendimiento y próximos pasos |
+| **Lab 6** | Kubernetes & OpenShift | Despliegue cloud-native con Open Liberty Operator (Opcional) |
+
+---
+
+## ⚡ Herramientas y Scripts de Aceleración
+
+- **`./verify-lab.sh [lab#|all]`** — Validador interactivo de salud y requisitos en tiempo real.
+- **`./fast-track.sh [lab#]`** — Script de sincronización para ponerse al día rápidamente en cualquier punto del workshop.
+- **`docker-compose.yml`** — Despliegue de PostgreSQL y WebSphere Liberty en un solo comando (`podman-compose up -d` / `docker compose up -d`).
+- **`k8s/`** — Manifiestos de `OpenLibertyApplication` y base de datos para Kubernetes / OpenShift.
 
 ---
 

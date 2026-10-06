@@ -58,7 +58,8 @@ async function runCompleteWorkshopE2E() {
     { url: 'http://localhost:8088/lab3/', name: 'Lab 3: Modernización Manual', expectedText: 'Modernización Manual Guiada por AMA' },
     { url: 'http://localhost:8088/lab3b/', name: 'Lab 3B: Asistido con Bob', expectedText: 'Modernización Asistida con IBM Bob' },
     { url: 'http://localhost:8088/lab4/', name: 'Lab 4: Despliegue Liberty', expectedText: 'Despliegue en WebSphere Liberty' },
-    { url: 'http://localhost:8088/lab5/', name: 'Lab 5: Validación', expectedText: 'Validación y Siguientes Pasos' }
+    { url: 'http://localhost:8088/lab5/', name: 'Lab 5: Validación', expectedText: 'Validación y Siguientes Pasos' },
+    { url: 'http://localhost:8088/lab6/', name: 'Lab 6: Kubernetes & OpenShift', expectedText: 'Open Liberty Operator' }
   ];
 
   for (const p of pagesToTest) {

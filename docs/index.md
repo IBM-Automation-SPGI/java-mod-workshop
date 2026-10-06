@@ -14,8 +14,9 @@ Este workshop práctico te guiará por el proceso completo de modernización de 
 | **1** | **Despliegue en tWAS** | Desplegar y verificar PedjasApp en WebSphere Application Server tradicional |
 | **2** | **Análisis con AMA** | Ejecutar IBM AMA y comprender las reglas de modernización generadas |
 | **3** | **Modernización Manual** | Aplicar los cambios de código guiados por AMA |
-| **4** | **Despliegue en Liberty** | Construir el Dockerfile y desplegar en WebSphere Liberty 26.0.0.9 |
+| **4** | **Despliegue en Liberty** | Construir el Dockerfile y desplegar en WebSphere Liberty 24.0.0.3 / 26.0.0.9 |
 | **5** | **Validación** | Verificar la migración funcional y planificar los próximos pasos |
+| **6** | **Kubernetes & OpenShift** | Desplegar en clúster cloud-native con Open Liberty Operator (Opcional) |
 
 ---
 

@@ -25,6 +25,8 @@ nav:
     - Desplegar en WebSphere Liberty: 'lab4/index.md'
   - Lab 5 — Validación:
     - Validación y siguientes pasos: 'lab5/index.md'
+  - Lab 6 — Kubernetes & OpenShift:
+    - Despliegue con Open Liberty Operator: 'lab6/index.md'
 
 theme:
   name: material
