@@ -238,7 +238,7 @@ In `web.xml`, the resource reference is declared (this was already required in t
 <resource-ref>
     <description>PedjasApp DataSource</description>
     <res-ref-name>jdbc/pedjasappDS</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
+    <res-type>jakarta.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
 </resource-ref>
 ```

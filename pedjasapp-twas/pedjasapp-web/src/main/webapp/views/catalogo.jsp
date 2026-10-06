@@ -38,7 +38,7 @@
     <h1>🛒 PedjasApp — Catálogo de Productos</h1>
     <nav class="nav">
         <a href="${pageContext.request.contextPath}/pedidos/lista">Mis Pedidos</a>
-        <a href="${pageContext.request.contextPath}/inicio">Cerrar Sesión</a>
+        <a href="${pageContext.request.contextPath}/inicio?accion=logout">Cerrar Sesión</a>
     </nav>
 </div>
 

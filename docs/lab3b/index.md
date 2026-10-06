@@ -153,3 +153,7 @@ Bob ejecutará el build, analizará cualquier error y propondrá correcciones ad
     - ✅ Verificar la compilación del proyecto modernizado
 
 ---
+
+## Siguiente Paso
+
+Continúa con el **[Lab 4 — Despliegue en Liberty](../lab4/index.md)**, donde construirás la imagen de contenedor de PedjasApp modernizada y la desplegarás en WebSphere Liberty.

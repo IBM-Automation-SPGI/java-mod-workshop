@@ -22,18 +22,18 @@ spec:
       value: "JSON"
     - name: WLP_LOGGING_CONSOLE_FORMAT
       value: "DEV"
-    - name: DB_HOST
+    - name: PEDJASAPP_DB_HOST
       value: "postgres"
-    - name: DB_PORT
+    - name: PEDJASAPP_DB_PORT
       value: "5432"
-    - name: DB_NAME
+    - name: PEDJASAPP_DB_NAME
       value: "pedjasapp"
-    - name: DB_USER
+    - name: PEDJASAPP_DB_USER
       valueFrom:
         secretKeyRef:
           name: postgres-secret
           key: username
-    - name: DB_PASSWORD
+    - name: PEDJASAPP_DB_PASSWORD
       valueFrom:
         secretKeyRef:
           name: postgres-secret

@@ -238,7 +238,7 @@ En `web.xml` se declara la referencia al recurso (esto ya era necesario en tWAS,
 <resource-ref>
     <description>DataSource de PedjasApp</description>
     <res-ref-name>jdbc/pedjasappDS</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
+    <res-type>jakarta.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
 </resource-ref>
 ```

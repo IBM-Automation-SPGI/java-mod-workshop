@@ -51,16 +51,6 @@
         <button type="submit" id="btnEntrar">Entrar</button>
     </form>
 
-    <script>
-        document.querySelectorAll('#loginForm input').forEach(function(input) {
-            input.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter' || event.keyCode === 13) {
-                    event.preventDefault();
-                    document.getElementById('loginForm').requestSubmit();
-                }
-            });
-        });
-    </script>
 
     <div class="footer">
         Demo: usuario <strong>admin</strong> / contraseña <strong>admin123</strong>

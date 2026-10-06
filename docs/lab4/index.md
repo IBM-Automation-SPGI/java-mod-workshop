@@ -242,15 +242,6 @@ pedjasapp-liberty/
         maxFiles="5"
         maxFileSize="20"/>
 
-    <!--
-      ================================================================
-      MicroProfile Config — Variables de configuración
-      ================================================================
-      Permite inyectar configuración desde variables de entorno o
-      ficheros de propiedades sin recompilar la aplicación.
-    -->
-    <mpConfig defaultProperties="${server.config.dir}/bootstrap.properties"/>
-
 </server>
 ```
 

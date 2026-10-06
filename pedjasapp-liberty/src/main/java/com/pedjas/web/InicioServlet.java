@@ -45,7 +45,7 @@ public class InicioServlet extends HttpServlet {
             if (session != null) {
                 session.invalidate();
             }
-            req.getRequestDispatcher("/views/inicio.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/inicio");
             return;
         }
 

@@ -71,11 +71,11 @@ graph TD
 !!! warning "Antes de comenzar"
     Asegúrate de tener los siguientes elementos disponibles antes de iniciar el Lab 0:
 
-    - Java JDK 11 o superior instalado
+    - Java JDK 17 (LTS) instalado
     - Apache Maven 3.8+
-    - Podman 4.x o superior instalado y operativo
+    - Podman 4.x o superior (o Docker) instalado y operativo
     - Acceso a IBM Application Modernization Accelerator
-    - Cuenta en GitHub
+    - Git y cuenta en GitHub
 
 ---
 
@@ -84,7 +84,7 @@ graph TD
 ```
 java-mod-workshop/
 ├── docs/                         # Contenido del workshop (esta web)
-│   ├── lab0/  … lab5/            # Labs individuales
+│   ├── lab0/  … lab6/            # Labs individuales
 │   ├── styles/                   # CSS personalizado
 │   └── _static/                  # JavaScript de apoyo
 ├── pedjasapp-twas/               # Código fuente — versión tWAS
@@ -93,6 +93,7 @@ java-mod-workshop/
 │   ├── src/                      # Java modernizado
 │   ├── server.xml                # Configuración Liberty
 │   └── Dockerfile                # Imagen Docker Liberty
+├── k8s/                          # Manifiestos Kubernetes y OpenShift
 ├── mkdocs.yml                    # Configuración del sitio
 └── .github/workflows/deploy.yml  # Pipeline CI/CD
 ```

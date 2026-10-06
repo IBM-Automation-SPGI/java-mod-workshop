@@ -224,13 +224,6 @@ pedjasapp-liberty/
         maxFiles="5"
         maxFileSize="20"/>
 
-    <!--
-      ================================================================
-      MicroProfile Config — Configuration variables
-      ================================================================
-    -->
-    <mpConfig defaultProperties="${server.config.dir}/bootstrap.properties"/>
-
 </server>
 ```
 

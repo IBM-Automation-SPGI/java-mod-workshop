@@ -319,12 +319,12 @@ spec:
 
 !!! success "¡Felicidades! Has completado el Workshop de Modernización Java"
 
-    A lo largo de los 6 labs has aprendido a:
+    A lo largo de los labs has aprendido a:
 
     1. ✅ **[Lab 0]** Configurar el entorno y entender la arquitectura de modernización
     2. ✅ **[Lab 1]** Desplegar una aplicación Java EE en WebSphere Application Server tradicional
     3. ✅ **[Lab 2]** Ejecutar IBM AMA y analizar los resultados de modernización
-    4. ✅ **[Lab 3]** Aplicar los cambios de código guiados por AMA para eliminar dependencias tWAS
+    4. ✅ **[Lab 3 / 3B]** Aplicar los cambios de código guiados por AMA de forma manual o con IBM Bob
     5. ✅ **[Lab 4]** Construir y desplegar la aplicación modernizada en WebSphere Liberty
     6. ✅ **[Lab 5]** Validar la migración y planificar los próximos pasos
 

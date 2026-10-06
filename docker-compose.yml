@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_DB: pedjasapp
       POSTGRES_USER: pedjas
-      POSTGRES_PASSWORD: pedjaspassword
+      POSTGRES_PASSWORD: pedjas123
     ports:
       - "5432:5432"
     volumes:
@@ -21,8 +21,10 @@ services:
       retries: 5
 
   # Aplicación modernizada WebSphere Liberty
+  # NOTA: Construir la imagen antes de usar docker-compose:
+  #   cd pedjasapp-liberty && podman build -t pedjasapp-liberty:1.0 .
   pedjasapp-liberty:
-    image: icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
+    image: pedjasapp-liberty:1.0
     container_name: pedjasapp-liberty
     restart: unless-stopped
     ports:
@@ -31,10 +33,11 @@ services:
     environment:
       WLP_LOGGING_MESSAGE_FORMAT: JSON
       WLP_LOGGING_CONSOLE_FORMAT: DEV
-    volumes:
-      - ./pedjasapp-liberty/server.xml:/config/server.xml:ro
-      - ./pedjasapp-liberty/target/pedjasapp.war:/config/apps/pedjasapp.war:ro
-      - ./pedjasapp-liberty/src/main/resources/META-INF/datos-prueba.sql:/config/resources/datos-prueba.sql:ro
+      PEDJASAPP_DB_HOST: pedjasapp-postgres
+      PEDJASAPP_DB_PORT: 5432
+      PEDJASAPP_DB_NAME: pedjasapp
+      PEDJASAPP_DB_USER: pedjas
+      PEDJASAPP_DB_PASSWORD: pedjas123
     depends_on:
       postgres:
         condition: service_healthy
