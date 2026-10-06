@@ -231,18 +231,15 @@ La pestaña **Assessment** muestra una tabla con todas las aplicaciones analizad
 
 ### 4.3 Reglas Disparadas en PedjasApp
 
-AMA genera un **Informe de Análisis HTML** completo para cada aplicación escaneada. Puedes acceder al informe directamente desde la URL de la API de AMA:
+Al hacer clic en `pedjasapp.ear` en la vista de Assessment se accede al **detalle de la aplicación**, que muestra la complejidad, el coste de desarrollo estimado y el desglose de issues con los objetivos **Java SE 21** y **Jakarta EE 10** seleccionados:
 
-```
-https://localhost/api/report?workspace=<id>&taskName=<taskId>
-  &appName=pedjasapp.ear&profileName=pedjasapp.zip
-  &targetEnv=websphereLiberty&reportType=analysis_reports
-  &eeLevel=ee10&javaLevel=java21
-```
+![Vista de detalle de pedjasapp.ear — Complejidad, Issues y coste estimado (Java 21 / Jakarta EE 10)](img/10-app-detail-pedjasapp.png)
 
-La cabecera del informe muestra un resumen de severidad con el recuento de reglas por nivel:
-
-![Informe de Análisis de AMA — cabecera con resumen de severidad](img/10-app-detail-pedjasapp.png)
+El panel muestra:
+- **Complejidad:** Complex
+- **Issues:** 3 🔴 Críticos, 1 🟡 Advertencia, 6 🔵 Informativos
+- **Cambios de código:** Part-automated (recetas OpenRewrite disponibles)
+- **Coste de desarrollo:** 12,5 días
 
 El informe real de PedjasApp genera **10 reglas disparadas / 24 resultados totales** con objetivo Jakarta EE 10 / Java 21:
 

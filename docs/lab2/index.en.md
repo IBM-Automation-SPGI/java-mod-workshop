@@ -229,18 +229,15 @@ The **Assessment** tab displays a table of all scanned applications with complex
 
 ### 4.3 Modernization Rules Triggered in PedjasApp
 
-AMA generates a full **HTML Analysis Report** for each scanned application. You can access the report directly via the AMA report API:
+Clicking on `pedjasapp.ear` in the Assessment view opens the **application detail**, which shows complexity, estimated development cost, and the issue breakdown with **Java SE 21** and **Jakarta EE 10** as targets:
 
-```
-https://localhost/api/report?workspace=<id>&taskName=<taskId>
-  &appName=pedjasapp.ear&profileName=pedjasapp.zip
-  &targetEnv=websphereLiberty&reportType=analysis_reports
-  &eeLevel=ee10&javaLevel=java21
-```
+![pedjasapp.ear detail view — Complexity, Issues and estimated cost (Java 21 / Jakarta EE 10)](img/10-app-detail-pedjasapp.png)
 
-The report header shows a severity summary with the rule count per level:
-
-![AMA Analysis Report — header with severity summary](img/10-app-detail-pedjasapp.png)
+The panel reports:
+- **Complexity:** Complex
+- **Issues:** 3 🔴 Critical, 1 🟡 Warning, 6 🔵 Informational
+- **Code changes:** Part-automated (OpenRewrite recipes available)
+- **Development cost:** 12.5 days
 
 The real PedjasApp report generates **10 rules flagged / 24 total results** targeting Jakarta EE 10 / Java 21:
 

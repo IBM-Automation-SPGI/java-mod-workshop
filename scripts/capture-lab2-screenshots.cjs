@@ -194,31 +194,25 @@ async function shot(page, name) {
   await shot(page, '09-applications-table');
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 07 — Analysis Report: navegar directamente al informe HTML de AMA
-  //      (imagen 10 = cabecera del Analysis Report de pedjasapp.ear)
+  // 07 — Application detail: vista de detalle de pedjasapp.ear en AMA
+  //      (imagen 10 = Overview de la app con Java 21 / Jakarta EE 10)
   // ══════════════════════════════════════════════════════════════════════════
-  console.log('07. Analysis Report — cabecera del informe de análisis');
-  const ANALYSIS_REPORT_URL_IMG10 = [
-    `${AMA_URL}/api/report`,
-    `?workspace=24cac24b-f766-4764-8d86-dd6a446a00a1`,
-    `&taskName=a1a4a4b9-4eff-43fb-ac44-0433cd7de699`,
-    `&appName=pedjasapp.ear`,
-    `&profileName=pedjasapp.zip`,
-    `&targetEnv=websphereLiberty`,
-    `&reportType=analysis_reports`,
-    `&eeLevel=ee10`,
-    `&javaLevel=java21`,
-  ].join('');
+  console.log('07. Application detail — pedjasapp.ear (Java 21 / Jakarta EE 10)');
+  const APP_DETAIL_URL = `${AMA_URL}/application?domain=javaAppServer` +
+    `&context=JTdCJTIyYXBwTmFtZSUyMiUzQSUyMnBlZGphc2FwcC5lYXIlMjIlN0Q=` +
+    `&targetId=websphereLiberty` +
+    `&assessmentUnitId=0f3fa48d-02d6-4001-a109-1dc50962610e_pedjasapp.ear` +
+    `&workspace=24cac24b-f766-4764-8d86-dd6a446a00a1`;
   let inAppDetail = false;
   try {
-    await page.goto(ANALYSIS_REPORT_URL_IMG10, { waitUntil: 'domcontentloaded', timeout: 20_000 });
+    await page.goto(APP_DETAIL_URL, { waitUntil: 'networkidle', timeout: 20_000 });
     await wait(1500);
     await dismissCookieBanner(page);
     await page.evaluate(() => window.scrollTo(0, 0));
     await wait(400);
     await shot(page, '10-app-detail-pedjasapp');
   } catch (e) {
-    console.warn('  ⚠️  No se pudo capturar el Analysis Report para img 10:', e.message);
+    console.warn('  ⚠️  No se pudo capturar el detalle de la aplicación para img 10:', e.message);
   }
 
   // ══════════════════════════════════════════════════════════════════════════
