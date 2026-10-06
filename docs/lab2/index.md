@@ -88,36 +88,89 @@ En la interfaz moderna de AMA (v4.x/v5.x):
 
 ---
 
-## Paso 3 — Cargar los datos de PedjasApp / Usar Data Collector
+## Paso 3 — Generar la Colección con el Data Collector y Subirla a AMA
 
-### Método A — Subir datos de escaneo desde la interfaz web
+El **Data Collector de AMA** permite escanear servidores WebSphere tradicionales completos o binarios de aplicaciones (`.ear`, `.war`), evaluando incompatibilidades, reglas de arquitectura y dependencias hacia Liberty.
 
-1. En la barra superior, haz clic en **Bulk data → Upload** (o dentro de tu Workspace).
-2. Selecciona el archivo de escaneo generado por el Data Collector o sube el paquete de análisis.
-3. Haz clic en **Upload**.
+El flujo de trabajo consta de dos partes:
+1. **Generación del archivo `.zip` de la colección** con el analizador de binarios / Data Collector.
+2. **Subida del `.zip` a AMA** (a través de la **interfaz gráfica Web** o mediante la **API REST**).
 
-**Vista esperada durante la carga:**
+---
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Uploading: pedjasapp-para-ama.ear                          │
-│  ████████████████████████████████░░░░░░  85%               │
-│  Analizando módulos EJB...                                  │
-└─────────────────────────────────────────────────────────────┘
-```
+### 3.1 Cómo Generar el Archivo ZIP con el Data Collector
 
-### Método B — Usando el Data Collector (para aplicaciones en servidor activo)
+Puedes ejecutar el motor de análisis directamente en el entorno donde reside la aplicación o el servidor tWAS.
 
+#### Opción 1 — Escaneo directo del servidor WebSphere tradicional (todos los perfiles)
 ```bash
-# Descargar el Data Collector de la interfaz de TA
-# (botón "Download data collector" en la pantalla principal)
+# Ejecutar el collector sobre la instalación de WebSphere tWAS
+java -jar /ruta/a/transformationadvisor/lib/ta.binaryAppScanner-26.3.1.0.jar \
+  /opt/IBM/WebSphere/AppServer \
+  --dc \
+  --all-profiles \
+  --output=/tmp/ta-output \
+  --noProgressIndicator
+```
+> Genera el archivo: `/tmp/ta-output/AppSrv01.zip`
 
-# Ejecutar el Data Collector apuntando al perfil de tWAS
-./transformationadvisor-Linux_AppSrv01 \
-  -w /opt/IBM/WebSphere/AppServer \
-  -p AppSrv01
+#### Opción 2 — Escaneo del artefacto empresarial (`pedjasapp.ear`) hacia Liberty (Jakarta EE 10 / Java 17)
+```bash
+# Escanear el EAR especificando origen WAS 9.0 (Java 8) y destino Liberty (Java 17)
+java -jar /ruta/a/transformationadvisor/lib/ta.binaryAppScanner-26.3.1.0.jar \
+  pedjasapp-para-ama.ear \
+  --dc \
+  --sourceAppServer=was90 \
+  --sourceJava=ibm8 \
+  --targetJava=java17 \
+  --output=./ta-output-pedjas \
+  --noProgressIndicator
+```
+> Genera el archivo de colección: `./ta-output-pedjas/pedjasapp.zip` (o `pedjasapp-collection.zip`).
 
-# Esto genera un fichero .zip que se sube a TA
+---
+
+### 3.2 Cómo Subir la Colección a AMA
+
+Tienes dos métodos disponibles para ingestar el archivo `.zip`:
+
+#### Método A — Subida a través de la Interfaz Web de AMA
+1. Accede a la consola de AMA en **[https://localhost/](https://localhost/)**.
+2. Entra en tu Workspace (o crea uno nuevo como `Workshop_PedjasApp`).
+3. En la barra de navegación superior izquierda, haz clic en **Bulk data → Upload**.
+4. Arrastra o selecciona tu archivo `pedjasapp.zip` / `pedjasapp-collection.zip`.
+5. Confirma la carga. AMA procesará las reglas y actualizará automáticamente la tabla de **Recommendations** y **Assessment Units**.
+
+---
+
+#### Método B — Subida Automatizada mediante la API REST de AMA
+
+AMA expone su API REST OpenAPI en el puerto seguro `2220` (`https://localhost:2220/lands_advisor/advisor/v2/...`).
+
+##### 1. Crear el Workspace mediante API (si no existe)
+```bash
+curl -k -X POST https://localhost:2220/lands_advisor/advisor/v2/workspaces \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Workshop_PedjasApp"}'
+```
+*Respuesta JSON (contiene el `id` del workspace, ej. `24cac24b-f766-4764-8d86-dd6a446a00a1`)*.
+
+##### 2. Subir el ZIP de la Colección a la API
+```bash
+# Subir el archivo de la colección generado por el Data Collector
+curl -k -X POST "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/collectionArchives?collectionName=PedjasApp_tWAS&overwrite=true" \
+  -H "Content-Type: application/octet-stream" \
+  -H "archiveName: pedjasapp.zip" \
+  --data-binary "@./pedjasapp-collection.zip"
+```
+
+##### 3. Consultar las Unidades de Evaluación y Métricas por API
+```bash
+# Listar las aplicaciones procesadas en el Workspace
+curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/assessmentUnits" | python3 -m json.tool
+
+# Obtener desglose de costes, esfuerzo y reglas disparadas
+curl -k -s "https://localhost:2220/lands_advisor/advisor/v2/workspaces/<WORKSPACE_ID>/costDetails/assessmentUnits/<ASSESSMENT_UNIT_ID>" | python3 -m json.tool
 ```
 
 ---
