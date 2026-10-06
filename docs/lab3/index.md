@@ -398,6 +398,35 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 
 ---
 
+## Verificar la Compilación del Proyecto Modernizado
+
+Antes de pasar al Lab 4, verifica que el proyecto `pedjasapp-liberty` compila sin errores con todos los cambios aplicados:
+
+```bash
+# Desde la raíz del repositorio
+cd pedjasapp-liberty
+mvn clean package -DskipTests
+
+# Verificar que el WAR se ha generado correctamente
+ls -lh target/pedjasapp.war
+```
+
+Salida esperada:
+```
+[INFO] BUILD SUCCESS
+...
+-rw-r--r-- 1 usuario grupo 2.4M DD mon HH:MM target/pedjasapp.war
+```
+
+!!! warning "Errores comunes de compilación"
+    Si la compilación falla, los errores más habituales son:
+    
+    - **`package javax.ejb does not exist`** — algún import usa `javax.*` en lugar de `jakarta.*`. Sustituye todos los `import javax.ejb.*` por `import jakarta.ejb.*`, `import javax.persistence.*` por `import jakarta.persistence.*`, etc.
+    - **`cannot find symbol: JndiHelper`** — hay un import `com.ibm.websphere.*` que no se eliminó. Búscalo y elimínalo.
+    - **`resource-ref` en `web.xml` con tipo `javax.sql.DataSource`** — cambia a `jakarta.sql.DataSource`.
+
+---
+
 ## Resumen del Lab 3
 
 !!! success "Completado"

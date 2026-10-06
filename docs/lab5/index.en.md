@@ -60,6 +60,20 @@ podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 # Each feature should report state "ready"
 ```
 
+### ✅ Prometheus Metrics Validation
+
+```bash
+# Confirm that /metrics is active and returns Prometheus-format data
+curl -s http://localhost:${LIBERTY_PORT}/metrics | head -20
+# Expected: lines like:
+# # HELP base_classloader_loadedClasses_count ...
+# # TYPE base_classloader_loadedClasses_count gauge
+# base_classloader_loadedClasses_count 8351.0
+
+# Confirm JVM metrics are exposed
+curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_"
+```
+
 ### ✅ Basic Performance Validation
 
 ```bash
@@ -307,6 +321,41 @@ spec:
 - [Accessing Databases using JPA](https://openliberty.io/guides/jpa-intro.html)
 - [Deploying Applications to Kubernetes](https://openliberty.io/guides/kubernetes-intro.html)
 - [Adding MicroProfile Health Checks](https://openliberty.io/guides/microprofile-health.html)
+
+---
+
+## Troubleshooting Common Issues
+
+### Liberty container does not start
+
+```bash
+# View last 100 log lines
+podman logs --tail 100 pedjasapp-liberty
+
+# Search for database connectivity errors
+podman logs pedjasapp-liberty 2>&1 | grep -i "datasource\|postgres\|jdbc\|CWWJP\|CWWKE"
+```
+
+**Common causes:**
+- PostgreSQL is not running or unreachable from the container network.
+  → Verify with `podman exec pedjasapp-postgres pg_isready -U pedjas`
+- Incorrect database environment variables.
+  → Check the `-e PEDJASAPP_DB_*` values in the `podman run` command
+- WAR not included in the image (silent build failure).
+  → Rebuild with `podman build --no-cache -t pedjasapp-liberty:1.0 .`
+
+### `/health/live` returns `DOWN`
+
+```bash
+# Query the detail of which health check is failing
+curl -s http://localhost:${LIBERTY_PORT}/health | python3 -m json.tool
+```
+
+A `DOWN` state typically means PostgreSQL is unavailable or JPA failed to initialize tables. Check startup logs for `CWWJP9991I` (JPA initialization error).
+
+### `/metrics` returns `401 Unauthorized`
+
+Verify that `server.xml` contains `<mpMetrics authentication="false"/>`. Without this element, Liberty enforces basic authentication on the metrics endpoint.
 
 ---
 

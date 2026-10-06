@@ -60,6 +60,20 @@ podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 # Cada feature debe aparecer con estado "ready"
 ```
 
+### ✅ Validación de Métricas Prometheus
+
+```bash
+# Verificar que el endpoint /metrics está activo y devuelve datos Prometheus
+curl -s http://localhost:${LIBERTY_PORT}/metrics | head -20
+# Resultado esperado: líneas del tipo:
+# # HELP base_classloader_loadedClasses_count ...
+# # TYPE base_classloader_loadedClasses_count gauge
+# base_classloader_loadedClasses_count 8351.0
+
+# Verificar que Liberty expone métricas de JVM
+curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_"
+```
+
 ### ✅ Validación de Rendimiento Básico
 
 ```bash
@@ -312,6 +326,41 @@ spec:
 - [Persistencia con JPA](https://openliberty.io/guides/jpa-intro.html)
 - [Despliegue en Kubernetes](https://openliberty.io/guides/kubernetes-intro.html)
 - [Health con MicroProfile](https://openliberty.io/guides/microprofile-health.html)
+
+---
+
+## Resolución de Problemas Frecuentes
+
+### Liberty no arranca (la aplicación no responde)
+
+```bash
+# Ver los últimos 100 líneas de logs de Liberty
+podman logs --tail 100 pedjasapp-liberty
+
+# Buscar errores de conexión a la base de datos
+podman logs pedjasapp-liberty 2>&1 | grep -i "datasource\|postgres\|jdbc\|CWWJP\|CWWKE"
+```
+
+**Causas frecuentes:**
+- PostgreSQL no está arrancado o no es accesible desde la red del contenedor.
+  → Verifica con `podman exec pedjasapp-postgres pg_isready -U pedjas`
+- Variables de entorno de base de datos incorrectas.
+  → Revisa los valores `-e PEDJASAPP_DB_*` en el comando `podman run`
+- El WAR no se ha incluido en la imagen (fallo silencioso del build).
+  → Reconstruye con `podman build --no-cache -t pedjasapp-liberty:1.0 .`
+
+### `/health/live` devuelve `DOWN`
+
+```bash
+# Consultar el detalle de qué check está fallando
+curl -s http://localhost:${LIBERTY_PORT}/health | python3 -m json.tool
+```
+
+Un estado `DOWN` normalmente indica que la conexión a PostgreSQL no está disponible o que el JPA no pudo inicializar las tablas. Revisa los logs de arranque en busca de `CWWJP9991I` (error JPA).
+
+### El endpoint `/metrics` devuelve 401 Unauthorized
+
+Asegúrate de que el `server.xml` contiene `<mpMetrics authentication="false"/>`. Sin esta línea, Liberty requiere autenticación básica para acceder a las métricas.
 
 ---
 

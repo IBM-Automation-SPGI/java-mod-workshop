@@ -13,6 +13,21 @@ Al finalizar, serás capaz de:
 - Aplicar los cambios de código más habituales en una migración tWAS → Liberty
 - Desplegar y verificar la aplicación modernizada en un contenedor Liberty
 
+### Duración Estimada por Lab
+
+| Lab | Título | Tiempo estimado |
+|-----|--------|----------------|
+| Lab 0 | Requisitos Previos | 20–30 min |
+| Lab 1 | Despliegue en tWAS | 30–45 min |
+| Lab 2 | Análisis con AMA | 30–45 min |
+| Lab 3 | Modernización Manual | 90–120 min |
+| Lab 3B | Modernización con Bob | 20–40 min |
+| Lab 4 | Despliegue en Liberty | 30–45 min |
+| Lab 5 | Validación | 20–30 min |
+| Lab 6 | Kubernetes & OpenShift (Opcional) | 45–60 min |
+
+**Duración total del workshop (Labs 0–5):** aproximadamente **4–5 horas**.
+
 ---
 
 ## Objetivos de Aprendizaje
@@ -164,6 +179,11 @@ mvn clean package -DskipTests
 ```
 
 Tras la compilación, encontrarás el fichero EAR en `pedjasapp-ear/target/pedjasapp.ear`.
+
+!!! tip "Archivos ZIP pre-generados incluidos"
+    El repositorio ya incluye los archivos de colección AMA pre-generados para que puedas avanzar al Lab 2 sin necesidad de ejecutar el Data Collector desde cero:
+    - `pedjasapp-collection.zip` — colección de PedjasApp (EAR) → usada en el Lab 2
+    - `AppSrv01-collection.zip` — colección del servidor tWAS completo (opcional)
 
 ### Paso 4 — Verificar la compilación de la versión Liberty
 

@@ -136,6 +136,9 @@ Look for the startup completion message in tWAS:
 WSVR0001I: Server server1 open for e-business
 ```
 
+!!! tip "tWAS Startup Time"
+    Traditional WebSphere Application Server typically takes **3 to 5 minutes** to fully initialize. It is normal for logs to display a long sequence of CWWKF/CWWKZ messages before `WSVR0001I` appears. Do not interrupt the process. Compare this with Liberty's startup time (5–15 seconds) in Lab 4.
+
 ---
 
 ## Step 5 — Access the tWAS Administrative Console
@@ -171,7 +174,7 @@ WSVR0001I: Server server1 open for e-business
 
 ### 6.2 tWAS Deployment Diagnostics: Why `pedjasapp.ear` fails
 
-!!! warning "Educational Behavior: Detecting EJB CMP 2.0 Incompatibilities"
+!!! warning "Educational Behavior: Detecting EJB 2.x CMP Incompatibilities"
     If you attempt to deploy `pedjasapp.ear` directly in tWAS or browse to **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)**, the server will log:
     
     ```text
@@ -182,7 +185,7 @@ WSVR0001I: Server server1 open for e-business
     
     **Why does this happen?**
     
-    1. **EJB CMP 2.0 (`ProductoEJB`)**: In traditional tWAS, Container-Managed Persistence Entity Beans required database-specific code generation via the proprietary `ejbdeploy` tool.
+    1. **EJB 2.x CMP (`ProductoEJB`)**: In traditional tWAS, Container-Managed Persistence Entity Beans required database-specific code generation via the proprietary `ejbdeploy` tool.
     2. **Legacy Descriptors and JNDI**: The EAR contains bindings in `ibm-ejb-jar-bnd.xml`, `ibm-web-bnd.xml`, and calls to `com.ibm.websphere.*` APIs.
     
     This is precisely the **classic modernization challenge** that we will analyze in the next lab with **IBM Application Modernization Accelerator (AMA)** to plan its transformation into **Jakarta EE 10 / JPA** on **WebSphere Liberty** (where the application will run fully and interactively on port 9081 / Labs 4 and 5).

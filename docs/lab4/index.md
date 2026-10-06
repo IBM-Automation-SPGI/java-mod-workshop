@@ -360,10 +360,13 @@ podman exec pedjasapp-postgres pg_isready -U pedjas
 
 ## Paso 3 — Construir la Imagen de Contenedor de Liberty
 
+!!! tip "Primera descarga de la imagen base Liberty"
+    El Dockerfile usa `icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal` como imagen base (≈ 700 MB). La primera vez que construyas la imagen, Podman descargará la imagen base desde ICR. El proceso puede tardar **5–15 minutos** dependiendo de tu conexión. Las compilaciones posteriores reutilizarán las capas en caché y serán mucho más rápidas.
+
 ```bash
 cd pedjasapp-liberty
 
-# Construir la imagen (puede tardar varios minutos en la primera ejecución)
+# Construir la imagen (la primera vez descarga la imagen base desde ICR)
 podman build -t pedjasapp-liberty:1.0 .
 
 # Verificar la imagen generada

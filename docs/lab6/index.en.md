@@ -47,9 +47,27 @@ kubectl apply -f https://raw.githubusercontent.com/OpenLiberty/open-liberty-oper
 
 ---
 
-## 2. Deploy PostgreSQL Database
+## 2. Create Namespace and Credentials Secret
 
-Create the `pedjasapp` namespace and PostgreSQL database using the manifests in `k8s/postgres-deployment.yaml`:
+Before deploying the database, create the namespace and a Kubernetes Secret for credentials:
+
+```bash
+# Create namespace
+kubectl create namespace pedjasapp
+
+# Create Secret with PostgreSQL credentials
+kubectl create secret generic pedjasapp-db-secret \
+  --namespace pedjasapp \
+  --from-literal=PEDJASAPP_DB_USER=pedjas \
+  --from-literal=PEDJASAPP_DB_PASSWORD=pedjas123 \
+  --from-literal=PEDJASAPP_DB_NAME=pedjasapp
+```
+
+---
+
+## 3. Deploy PostgreSQL Database
+
+Deploy PostgreSQL using the manifests in `k8s/postgres-deployment.yaml`:
 
 ```bash
 kubectl apply -f k8s/postgres-deployment.yaml
@@ -62,7 +80,7 @@ kubectl get pods -n pedjasapp -l app=postgres
 
 ---
 
-## 3. Build & Publish Container Image
+## 4. Build & Publish Container Image
 
 Package the container image with the modernized application and push to your cluster's image registry:
 
@@ -82,7 +100,7 @@ podman build -t pedjasapp-liberty:latest -f Dockerfile .
 
 ---
 
-## 4. Deploy with `OpenLibertyApplication` Custom Resource
+## 5. Deploy with `OpenLibertyApplication` Custom Resource
 
 The file `k8s/open-liberty-application.yaml` defines the Open Liberty custom resource with MicroProfile health probe bindings, secret injection, and horizontal autoscaling:
 
@@ -127,7 +145,7 @@ kubectl apply -f k8s/open-liberty-application.yaml
 
 ---
 
-## 5. Cluster Verification
+## 6. Cluster Verification
 
 Confirm that the Operator has generated the `Deployment`, `Service`, `Route`, and `HorizontalPodAutoscaler`:
 
@@ -140,6 +158,36 @@ kubectl logs -n pedjasapp -l app.kubernetes.io/name=pedjasapp-liberty --tail=50
 
 # 3. Retrieve exposed Route URL (on OpenShift)
 oc get route pedjasapp-liberty -n pedjasapp -o jsonpath='{.spec.host}'
+```
+
+---
+
+## Troubleshooting
+
+### Pods remain in `Pending` state
+
+```bash
+# Inspect why the pod cannot be scheduled
+kubectl describe pod -n pedjasapp -l app.kubernetes.io/name=pedjasapp-liberty | grep -A10 "Events:"
+```
+
+Common causes: insufficient cluster CPU/memory resources, or the PostgreSQL `PersistentVolumeClaim` has no matching `StorageClass`.
+
+### Operator does not create the `Deployment`
+
+```bash
+# Check CRD status and events
+kubectl describe openlibertyapplication pedjasapp-liberty -n pedjasapp
+```
+
+Verify that the Operator pod is running: `kubectl get pods -n openshift-operators | grep open-liberty`
+
+### Route is not externally accessible
+
+On OpenShift, the `Route` requires a correctly configured Ingress Controller. Verify with:
+```bash
+oc get route pedjasapp-liberty -n pedjasapp
+# Check that HOST/PORT column shows a valid URL
 ```
 
 ---

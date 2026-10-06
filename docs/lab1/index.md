@@ -136,6 +136,9 @@ Busca el mensaje de arranque listo en tWAS:
 WSVR0001I: Server server1 open for e-business
 ```
 
+!!! tip "Tiempo de arranque de tWAS"
+    WebSphere Application Server tradicional necesita entre **3 y 5 minutos** para completar su inicialización. Es normal que los logs muestren una larga secuencia de mensajes CWWKF/CWWKZ antes del mensaje `WSVR0001I`. No interrumpas el proceso. Compara este tiempo con el arranque de Liberty (5–15 segundos) en el Lab 4.
+
 ---
 
 ## Paso 5 — Acceder a la Consola Administrativa de tWAS
@@ -172,7 +175,7 @@ WSVR0001I: Server server1 open for e-business
 
 ### 6.2 Diagnóstico del despliegue en tWAS: Por qué falla `pedjasapp.ear`
 
-!!! warning "Comportamiento didáctico: Detección de incompatibilidades EJB CMP 2.0"
+!!! warning "Comportamiento didáctico: Detección de incompatibilidades EJB 2.x CMP"
     Si intentas desplegar `pedjasapp.ear` directamente en tWAS o acceder a **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)**, el servidor registrará el error:
     
     ```text
@@ -183,7 +186,7 @@ WSVR0001I: Server server1 open for e-business
     
     **¿Por qué ocurre esto?**
     
-    1. **EJB CMP 2.0 (`ProductoEJB`)**: En tWAS tradicional, los Entity Beans con persistencia gestionada por contenedor requerían generar código dependiente de la base de datos mediante la herramienta propietaria `ejbdeploy`.
+    1. **EJB 2.x CMP (`ProductoEJB`)**: En tWAS tradicional, los Entity Beans con persistencia gestionada por contenedor requerían generar código dependiente de la base de datos mediante la herramienta propietaria `ejbdeploy`.
     2. **Descriptores y JNDI heredados**: El EAR contiene enlaces en `ibm-ejb-jar-bnd.xml`, `ibm-web-bnd.xml` y llamadas a APIs `com.ibm.websphere.*`.
     
     Este es precisamente el **problema clásico de modernización** que vamos a analizar en el siguiente laboratorio con **IBM Application Modernization Accelerator (AMA)** para planificar su transformación hacia **Jakarta EE 10 / JPA** sobre **WebSphere Liberty** (donde la aplicación sí funcionará de forma completa e interactiva en el puerto 9081 / Labs 4 y 5).

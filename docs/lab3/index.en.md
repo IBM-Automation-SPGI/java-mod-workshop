@@ -398,6 +398,35 @@ The Liberty version uses a standard `persistence.xml` referencing the Liberty Da
 
 ---
 
+## Verify Modernized Project Compilation
+
+Before proceeding to Lab 4, confirm that the `pedjasapp-liberty` project compiles cleanly with all six changes applied:
+
+```bash
+# From the repository root
+cd pedjasapp-liberty
+mvn clean package -DskipTests
+
+# Confirm WAR was generated
+ls -lh target/pedjasapp.war
+```
+
+Expected output:
+```
+[INFO] BUILD SUCCESS
+...
+-rw-r--r-- 1 user group 2.4M DD Mon HH:MM target/pedjasapp.war
+```
+
+!!! warning "Common Compilation Errors"
+    If the build fails, the most frequent root causes are:
+    
+    - **`package javax.ejb does not exist`** — an import still uses `javax.*` instead of `jakarta.*`. Replace all `import javax.ejb.*` with `import jakarta.ejb.*`, `import javax.persistence.*` with `import jakarta.persistence.*`, etc.
+    - **`cannot find symbol: JndiHelper`** — a `com.ibm.websphere.*` import was not removed. Search for it and delete it.
+    - **`resource-ref` in `web.xml` declares type `javax.sql.DataSource`** — change to `jakarta.sql.DataSource`.
+
+---
+
 ## Summary
 
 !!! success "Completed"

@@ -47,9 +47,27 @@ kubectl apply -f https://raw.githubusercontent.com/OpenLiberty/open-liberty-oper
 
 ---
 
-## 2. Despliegue de la Base de Datos PostgreSQL
+## 2. Crear el Namespace y los Secretos de Credenciales
 
-Creamos el namespace `pedjasapp` y la base de datos PostgreSQL utilizando los manifiestos en `k8s/postgres-deployment.yaml`:
+Antes de desplegar la base de datos, crea el namespace y un Kubernetes Secret para las credenciales:
+
+```bash
+# Crear el namespace
+kubectl create namespace pedjasapp
+
+# Crear el Secret con las credenciales de PostgreSQL
+kubectl create secret generic pedjasapp-db-secret \
+  --namespace pedjasapp \
+  --from-literal=PEDJASAPP_DB_USER=pedjas \
+  --from-literal=PEDJASAPP_DB_PASSWORD=pedjas123 \
+  --from-literal=PEDJASAPP_DB_NAME=pedjasapp
+```
+
+---
+
+## 3. Despliegue de la Base de Datos PostgreSQL
+
+Despliega PostgreSQL utilizando los manifiestos en `k8s/postgres-deployment.yaml`:
 
 ```bash
 kubectl apply -f k8s/postgres-deployment.yaml
@@ -62,7 +80,7 @@ kubectl get pods -n pedjasapp -l app=postgres
 
 ---
 
-## 3. Construcción y Publicación de la Imagen del Contenedor
+## 4. Construcción y Publicación de la Imagen del Contenedor
 
 Empaqueta la imagen de contenedor con la aplicación modernizada y súbela al registro de imágenes de tu clúster:
 
@@ -82,7 +100,7 @@ podman build -t pedjasapp-liberty:latest -f Dockerfile .
 
 ---
 
-## 4. Despliegue con el Recurso `OpenLibertyApplication`
+## 5. Despliegue con el Recurso `OpenLibertyApplication`
 
 El archivo `k8s/open-liberty-application.yaml` define el recurso de Open Liberty con integración de probes MicroProfile, secretos y autoescalado:
 
@@ -127,7 +145,7 @@ kubectl apply -f k8s/open-liberty-application.yaml
 
 ---
 
-## 5. Verificación en el Clúster
+## 6. Verificación en el Clúster
 
 Comprueba que el Operador ha creado el `Deployment`, el `Service`, el `Route` y el `HorizontalPodAutoscaler`:
 
@@ -140,6 +158,36 @@ kubectl logs -n pedjasapp -l app.kubernetes.io/name=pedjasapp-liberty --tail=50
 
 # 3. Obtener la URL de la Route expuesta (en OpenShift)
 oc get route pedjasapp-liberty -n pedjasapp -o jsonpath='{.spec.host}'
+```
+
+---
+
+## Resolución de Problemas
+
+### Los pods quedan en estado `Pending`
+
+```bash
+# Ver el motivo por el que el pod no puede programarse
+kubectl describe pod -n pedjasapp -l app.kubernetes.io/name=pedjasapp-liberty | grep -A10 "Events:"
+```
+
+Causas frecuentes: recursos insuficientes (CPU/memoria) en el clúster, o el `PersistentVolumeClaim` de PostgreSQL no tiene un `StorageClass` disponible.
+
+### El Operador no crea el `Deployment`
+
+```bash
+# Revisar el estado y eventos del CRD
+kubectl describe openlibertyapplication pedjasapp-liberty -n pedjasapp
+```
+
+Verifica que el Operador está instalado y activo: `kubectl get pods -n openshift-operators | grep open-liberty`
+
+### La Route no es accesible externamente
+
+En OpenShift, la `Route` requiere que el `Ingress Controller` esté correctamente configurado. Verifica con:
+```bash
+oc get route pedjasapp-liberty -n pedjasapp
+# Comprueba que la columna HOST/PORT muestra una URL válida
 ```
 
 ---
