@@ -4,63 +4,156 @@
 
 ## Lab Objective
 
-In this lab you will leverage **IBM Bob** and the **Premium Package for Java Modernization** (`IBM.bob-java`) to automate and accelerate the code transformations identified by AMA. Bob operates as an intelligent modernization agent: it reads the AMA assessment export, applies OpenRewrite recipes, resolves remaining semantic incompatibilities, and generates the target `server.xml` and container configurations.
+In this lab you will leverage **IBM Bob** and the **Premium Package for Java Modernization** (`IBM.bob-java`) to accelerate and automate the code transformations identified by AMA in Lab 2. Instead of applying changes manually as in Lab 3, Bob acts as your intelligent modernization agent: it uses the **Liberty Modernization** workflow guided by the AMA assessment export, applies OpenRewrite recipes, resolves remaining semantic incompatibilities agentically, and generates the resulting `server.xml` and container configurations.
 
 ---
 
-## The IBM Bob Premium Package for Java Modernization
+## What is the IBM Bob Premium Package for Java Modernization
 
-The **IBM Bob Premium Package for Java Modernization** ([`IBM.bob-java`](https://open-vsx.org/extension/IBM/bob-java)) extends IBM Bob with specialized enterprise Java transformation workflows:
+The **IBM Bob Premium Package for Java Modernization** ([`IBM.bob-java`](https://open-vsx.org/extension/IBM/bob-java)) is an extension for IBM Bob that adds specialized AI workflows for enterprise Java applications. It requires IBM Bob as its base environment.
 
 | Workflow | Description |
 |----------|-------------|
-| **Liberty Modernization** | Migrates traditional WebSphere applications to Liberty guided by AMA assessment exports, OpenRewrite recipes, and agentic error resolution |
-| **Java Upgrade** | Upgrades Java versions (8 → 11 → 17 → 21 → 25) with automated rewrite recipes and build-fix loops |
-| **Java Unit Test Generation** | Synthesizes comprehensive JUnit test suites targeting 80%+ JaCoCo coverage |
-| **UI Modernization** | Decomposes legacy server-side JSF/Struts web tiers into modern decoupled architectures |
+| **Liberty Modernization** | Modernizes traditional WebSphere applications to Liberty guided by AMA assessment exports: injects `server.xml`, applies OpenRewrite recipes, and resolves remaining incompatibilities |
+| **Java Upgrade** | Upgrades Java runtime versions (8 → 11 → 17 → 21 → 25) with automated rewrite recipes and an agentic repair loop |
+| **Java Unit Test Generation** | Synthesizes comprehensive JUnit test suites targeting 80%+ JaCoCo coverage guided by a strategy document |
+| **UI Modernization** | Decouples legacy JSF/Struts server-side web tiers into a Java REST backend + React frontend |
 | **Java Vulnerability Remediation** | Audits and fixes Maven/Gradle dependency vulnerabilities against the OSV database |
+| **Spring Boot to Quarkus Migration** | Modular step-by-step migration with validation checkpoints after each phase |
+
+!!! note "Prerequisite — Extension Installation"
+    You must have **IBM Bob** installed and subscribed to the **Premium Package for Java Modernization**:
+
+    1. Install the extension from Open VSX or VS Code Marketplace: [`IBM.bob-java`](https://open-vsx.org/extension/IBM/bob-java)
+    2. Restart Bob. You will see the new workflows available by typing `Liberty Modernization` in chat or clicking **Start Workflow**.
 
 ---
 
-## Step 1 — Provide the AMA Migration Bundle
+## Step 1 — Prepare the AMA Assessment Export
 
-Download the migration plan ZIP export from your AMA workspace:
-`pedjasapp-ama-migration-plan.zip`
+The **Liberty Modernization** workflow in `IBM.bob-java` is built around the **AMA assessment ZIP report**. You need to have it available before starting.
 
-Place the archive in your workspace directory.
+```bash
+# The EAR analyzed in Lab 2 produces a downloadable migration plan ZIP from the AMA UI:
+# Application: pedjasapp.ear → View migration plan → Download migration plan (ZIP)
+
+# Save the ZIP in the root of the workspace repository, e.g.:
+# java-mod-workshop/pedjasapp-ama-migration-plan.zip
+```
+
+!!! tip "Don't have the AMA ZIP export?"
+    If you did not complete Lab 2 with a live AMA instance, you can use the **Java Modernization Architect** mode (workspace mode) with the prompts described in **Step 3 (Alternative)** of this lab to apply transformations in a guided conversational manner.
 
 ---
 
 ## Step 2 — Launch the Liberty Modernization Workflow
 
-In the IBM Bob chat prompt, simply enter:
+With the Premium Package installed and the `java-mod-workshop` repository open in Bob, enter in chat:
 
 ```text
 Liberty Modernization
 ```
 
-Or trigger **Start Workflow → Liberty Modernization**.
+Or click **Start Workflow → Liberty Modernization**. Bob will launch the workflow with the following automated steps:
 
-Bob performs the following automated phases:
+1. **Read AMA Report** — prompts you to select the migration plan ZIP archive
+2. **Inject Liberty Configuration** — copies `server.xml` and the `Containerfile` generated by AMA into proper project locations, handling multi-module structures automatically
+3. **Apply OpenRewrite Recipes** — executes Liberty Modernization recipes via Maven/Gradle
+4. **Agentic Replatforming** — an AI subagent resolves remaining incompatibilities detected in the AMA report
+5. **Generate Deployment Guide** — creates a Mermaid progression diagram and Liberty deployment instructions
 
-1. **Ingest AMA Report** — parses all rule violations and dependency graphs
-2. **Inject Liberty Configuration** — provisions `server.xml` with exact required features
-3. **Apply Automated Code Fixes** — updates imports, JPA entities, and annotations
-4. **Compile & Validate** — runs Maven builds and corrects compiler warnings iteratively
+---
+
+## Step 3 — Review and Approve Modifications
+
+Bob applies changes incrementally, displaying diffs before saving each file:
+
+1. Bob presents the **original code** and **modernized code** side-by-side
+2. You review the diff and confirm with `Apply change` or request adjustments
+3. Bob writes the file and confirms the modification
+
+### Alternative — Applying Changes via Direct Prompts
+
+If you prefer to guide the modernization conversationally with Bob (without the automated Premium Package workflow), use the **Java Modernization Architect** mode in this workspace:
+
+```text
+I have a Java EE enterprise application deployed on WebSphere Application Server 9.0 (tWAS).
+I need to modernize it to WebSphere Liberty 26.0.0.9.
+
+The IBM Application Modernization Accelerator assessment identified these rules:
+- RULE-0002: EJB 2.x CMP Entity Beans → JPA Entities
+- RULE-0001: imports com.ibm.websphere.* → standard Jakarta EE APIs
+- RULE-0003: Proprietary JNDI → @Resource injection
+- RULE-0004: ibm-web-bnd.xml, ibm-ejb-jar-bnd.xml → delete, move config to server.xml
+- RULE-0005: JMS WAS → JMS 3.0 standard with Liberty messaging
+- RULE-0006: EJB Home Interface → direct @EJB injection
+
+The tWAS source code is located in @pedjasapp-twas/
+The modernized target must be placed in @pedjasapp-liberty/
+
+Analyze the source code and explain the exact transformations required for each rule.
+Show me the modernization plan before making any changes.
+```
+
+Bob will generate a comprehensive **modernization plan** for your review before applying any changes.
+
+---
+
+## Step 4 — Verify Project Compilation
+
+Once all code transformations are applied, prompt Bob to verify that the project compiles cleanly:
+
+```text
+Verify that the pedjasapp-liberty project builds cleanly with Maven.
+Execute: cd pedjasapp-liberty && mvn clean package -DskipTests
+If any compilation errors occur, analyze the root cause and propose required fixes.
+```
+
+Bob will execute the build, analyze compiler output, and resolve any remaining syntax or typing issues iteratively.
+
+---
+
+## Comparison: Manual Modernization vs. AI-Assisted with Bob
+
+| Aspect | Lab 3 — Manual | Lab 3B — With Bob Premium |
+|--------|---------------|---------------------------|
+| Estimated time | 2-3 hours | 20-40 minutes |
+| Error risk | High (manual editing) | Low (OpenRewrite recipes + AI agent) |
+| Code understanding | Deep (reading every file) | Medium (reviewing proposed diffs) |
+| `server.xml` generation | Manual, based on docs | Automatic from AMA ZIP |
+| Recipe execution | Manual | OpenRewrite via Maven/Gradle |
+| Traceability | Manual git commits | Bob documents each step |
+| Learning experience | Maximum code-level detail | Focus on architectural supervision |
+
+!!! note ""
+    Both approaches are complementary. Lab 3 gives you in-depth understanding of the code patterns; Lab 3B demonstrates how to scale modernization across enterprise codebases with hundreds of classes using Bob.
+
+---
+
+## Resources
+
+| Resource | Link |
+|----------|------|
+| IBM Bob Premium Package for Java Modernization | [open-vsx.org/extension/IBM/bob-java](https://open-vsx.org/extension/IBM/bob-java) |
+| IBM Bob — Official Documentation | [ibm.com/docs/en/bob](https://www.ibm.com/docs/en/bob) |
+| OpenRewrite Liberty Migration recipes | [docs.openrewrite.org](https://docs.openrewrite.org/recipes/java/liberty) |
+| IBM Application Modernization Accelerator | [ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads) |
 
 ---
 
 ## Summary
 
 !!! success "Completed"
-    You have:
+    In this lab you have used IBM Bob with the **Premium Package for Java Modernization** (`IBM.bob-java`) to:
 
-    - Explored AI-accelerated migration workflows with IBM Bob
-    - Automated code refactoring using AMA-guided recipes
-    - Generated a fully compliant Jakarta EE 10 / Liberty project
+    - ✅ Install and activate the `IBM.bob-java` Premium Package in Bob
+    - ✅ Feed the AMA assessment ZIP export into the **Liberty Modernization** workflow
+    - ✅ Automate Liberty configuration injection, OpenRewrite recipes, and agentic replatforming
+    - ✅ Review and approve proposed diffs interactively
+    - ✅ Verify compilation and packaging of the modernized Liberty service
 
 ---
 
 ## Next Step
 
-Proceed to **[Lab 4 — Deploy on Liberty](../lab4/index.en.md)** to run the application in WebSphere Liberty.
+Proceed to **[Lab 4 — Deploy on Liberty](../lab4/index.en.md)** to build the container image and run PedjasApp in WebSphere Liberty.
