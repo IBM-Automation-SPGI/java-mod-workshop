@@ -36,56 +36,44 @@ Al completar este workshop serás capaz de:
 
 ### Estado Actual (AS-IS)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 WebSphere Application Server 9.0            │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │                    PedjasApp.ear                     │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │   │
-│  │  │  Servlets   │  │  EJBs 2.x/  │  │    JSP      │  │   │
-│  │  │    /JSP     │  │   EJB 3.x   │  │   Views     │  │   │
-│  │  └──────┬──────┘  └──────┬──────┘  └─────────────┘  │   │
-│  │         │                │                           │   │
-│  │  ┌──────▼────────────────▼──────────────────────┐   │   │
-│  │  │         JNDI Propietario WAS                 │   │   │
-│  │  │  java:comp/env  /  com.ibm.websphere.*       │   │   │
-│  │  └──────────────────────────────────────────────┘   │   │
-│  └──────────────────────────────────────────────────────┘   │
-│                                                             │
-│  Recursos WAS: DataSource, JMS ConnectionFactory, Queues    │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                    ┌────────▼──────────┐
-                    │    Base de Datos  │
-                    │   (DB2 / H2)      │
-                    └───────────────────┘
+```mermaid
+graph TD
+    subgraph WAS["WebSphere Application Server 9.0"]
+        subgraph EAR["PedjasApp.ear"]
+            S[Servlets / JSP]
+            E[EJBs 2.x / EJB 3.x]
+            J[JSP Views]
+            S --> JNDI
+            E --> JNDI
+            JNDI["JNDI Propietario WAS\njava:comp/env / com.ibm.websphere.*"]
+        end
+        RES["Recursos WAS: DataSource, JMS ConnectionFactory, Queues"]
+    end
+    WAS --> DB[(Base de Datos\nDB2 / H2)]
+
+    style WAS fill:#fff3cd,stroke:#ffc107
+    style EAR fill:#fffbe6,stroke:#ffc107
 ```
 
 ### Estado Objetivo (TO-BE)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Open Liberty 26.0.0.9                    │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │                  pedjasapp.war                       │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │   │
-│  │  │  Servlets   │  │  CDI Beans  │  │    JSP      │  │   │
-│  │  │    /JSP     │  │  /EJB 3.x   │  │   Views     │  │   │
-│  │  └──────┬──────┘  └──────┬──────┘  └─────────────┘  │   │
-│  │         │                │                           │   │
-│  │  ┌──────▼────────────────▼──────────────────────┐   │   │
-│  │  │          JNDI Estándar Jakarta EE            │   │   │
-│  │  │        java:comp/env  (portable)             │   │   │
-│  │  └──────────────────────────────────────────────┘   │   │
-│  └──────────────────────────────────────────────────────┘   │
-│                                                             │
-│  server.xml: features, dataSource, jmsConnectionFactory     │
-└────────────────────────────┬────────────────────────────────┘
-                             │
-                    ┌────────▼──────────┐
-                    │    Base de Datos  │
-                    │   (PostgreSQL)    │
-                    └───────────────────┘
+```mermaid
+graph TD
+    subgraph OL["Open Liberty 26.0.0.9"]
+        subgraph WAR["pedjasapp.war"]
+            S2[Servlets / JSP]
+            C[CDI Beans / EJB 3.x]
+            J2[JSP Views]
+            S2 --> JNDI2
+            C --> JNDI2
+            JNDI2["JNDI Estándar Jakarta EE\njava:comp/env  (portable)"]
+        end
+        CFG["server.xml: features, dataSource, jmsConnectionFactory"]
+    end
+    OL --> DB2[(Base de Datos\nPostgreSQL)]
+
+    style OL fill:#d4edda,stroke:#28a745
+    style WAR fill:#eafaf1,stroke:#28a745
 ```
 
 ---
