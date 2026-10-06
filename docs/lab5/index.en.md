@@ -46,6 +46,14 @@ curl -s http://localhost:${LIBERTY_PORT}/health
 # 4. Explore OpenAPI / Swagger UI
 # Open in browser: http://localhost:9080/openapi/ui/ (or http://localhost:9081/openapi/ui/)
 curl -s -I http://localhost:${LIBERTY_PORT}/openapi/ui/
+
+# 5. Verify JAX-RS REST API
+curl -s http://localhost:${LIBERTY_PORT}/pedjasapp/api/v1/productos | python3 -m json.tool | head -20
+# Expected: JSON array with the 14 products from the seed catalog
+
+# 6. Verify server info page
+curl -s -I http://localhost:${LIBERTY_PORT}/pedjasapp/info
+# Expected: 302 → /inicio (no session) or 200 (active session)
 ```
 
 ### ✅ Log Validation

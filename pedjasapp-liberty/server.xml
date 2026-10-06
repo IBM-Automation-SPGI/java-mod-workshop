@@ -34,6 +34,12 @@
         <!-- JNDI -->
         <feature>jndi-1.0</feature>
 
+        <!-- Jakarta RESTful Web Services 3.1 (JAX-RS) + RESTEasy -->
+        <feature>restfulWS-3.1</feature>
+
+        <!-- Jakarta JSON Binding 3.0 — serialización JSON para la API REST -->
+        <feature>jsonb-3.0</feature>
+
         <!-- ===== MicroProfile ===== -->
 
         <!-- MicroProfile Health 4.0 — endpoints /health/live, /health/ready -->

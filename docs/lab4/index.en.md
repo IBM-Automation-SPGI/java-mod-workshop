@@ -28,10 +28,15 @@ pedjasapp-liberty/
     │   │       │   ├── CatalogoService.java
     │   │       │   ├── PedidoService.java
     │   │       │   └── NotificacionService.java
+    │   │       ├── rest/                      # JAX-RS REST API
+    │   │       │   ├── JaxRsApp.java
+    │   │       │   ├── ProductosResource.java
+    │   │       │   └── PedidosResource.java
     │   │       └── web/                       # Servlets
     │   │           ├── CatalogoServlet.java
-    │   │           ├── PedidoServlet.java
-    │   │           └── InicioServlet.java
+    │   │           ├── InfoServlet.java
+    │   │           ├── InicioServlet.java
+    │   │           └── PedidoServlet.java
     │   ├── resources/
     │   │   └── META-INF/
     │   │       ├── persistence.xml            # EclipseLink JPA configuration
@@ -42,7 +47,8 @@ pedjasapp-liberty/
     │       └── views/                         # JSP views
     │           ├── inicio.jsp
     │           ├── catalogo.jsp
-    │           └── pedidos.jsp
+    │           ├── pedidos.jsp
+    │           └── versioninfo.jsp
     └── test/
         └── java/                              # Unit & integration tests
 ```
@@ -108,6 +114,12 @@ pedjasapp-liberty/
 
         <!-- MicroProfile Metrics 5.0 — /metrics endpoint for Prometheus monitoring -->
         <feature>mpMetrics-5.0</feature>
+
+        <!-- Jakarta RESTful Web Services 3.1 (JAX-RS + RESTEasy) -->
+        <feature>restfulWS-3.1</feature>
+
+        <!-- Jakarta JSON Binding 3.0 — JSON serialization for the REST API -->
+        <feature>jsonb-3.0</feature>
 
         <!-- MicroProfile OpenAPI 3.1 — documentation and Swagger UI at /openapi/ui -->
         <feature>mpOpenAPI-3.1</feature>

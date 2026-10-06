@@ -1,5 +1,6 @@
 package com.pedjas.entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,6 +23,7 @@ public class LineaPedido {
     @Column(name = "ID")
     private Long id;
 
+    @JsonbTransient           // evita la referencia circular Pedido ↔ LineaPedido en JSON
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PEDIDO_ID", nullable = false)
     private Pedido pedido;

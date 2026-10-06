@@ -1,5 +1,6 @@
 package com.pedjas.entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,6 +51,7 @@ public class Pedido {
     @Column(name = "ID")
     private Long id;
 
+    @JsonbTransient           // no serializar cliente completo — evita lazy-load y ciclos
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLIENTE_ID", nullable = false)
     private Cliente cliente;
