@@ -370,19 +370,19 @@
                 <h3>Endpoints MicroProfile</h3>
             </div>
             <div class="endpoints-grid">
-                <a href="${pageContext.request.contextPath}/health" target="_blank" class="endpoint-btn">
+                <a href="/health" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">❤️</span>
                     <span class="ep-name">Health</span>
                     <span class="ep-url">/health</span>
                     <span class="ep-desc">Estado global del servidor (liveness + readiness)</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/health/live" target="_blank" class="endpoint-btn">
+                <a href="/health/live" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">💓</span>
                     <span class="ep-name">Liveness</span>
                     <span class="ep-url">/health/live</span>
                     <span class="ep-desc">Probe de liveness para Kubernetes</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/health/ready" target="_blank" class="endpoint-btn">
+                <a href="/health/ready" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">✅</span>
                     <span class="ep-name">Readiness</span>
                     <span class="ep-url">/health/ready</span>
@@ -394,7 +394,7 @@
                     <span class="ep-url">/metrics</span>
                     <span class="ep-desc">Métricas Prometheus (MicroProfile Metrics 5.0)</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/openapi/ui/" target="_blank" class="endpoint-btn">
+                <a href="/openapi/ui/" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">📋</span>
                     <span class="ep-name">OpenAPI UI</span>
                     <span class="ep-url">/openapi/ui/</span>
