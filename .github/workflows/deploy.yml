@@ -46,6 +46,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NODE_OPTIONS: "--no-deprecation"
     steps:
       - name: Desplegar en GitHub Pages
         id: deployment
