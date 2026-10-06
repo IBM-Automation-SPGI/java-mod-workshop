@@ -41,7 +41,12 @@
 
         <!-- MicroProfile Metrics 5.0 — endpoint /metrics -->
         <feature>mpMetrics-5.0</feature>
+
+        <!-- MicroProfile OpenAPI 3.1 — endpoints /openapi y /openapi/ui -->
+        <feature>mpOpenAPI-3.1</feature>
     </featureManager>
+
+    <mpMetrics authentication="false"/>
 
     <httpEndpoint id="defaultHttpEndpoint"
                   host="*"

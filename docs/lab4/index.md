@@ -108,7 +108,13 @@ pedjasapp-liberty/
 
         <!-- MicroProfile Metrics 5.0 — endpoint /metrics para monitorización -->
         <feature>mpMetrics-5.0</feature>
+
+        <!-- MicroProfile OpenAPI 3.1 — documentación y explorador Swagger en /openapi/ui -->
+        <feature>mpOpenAPI-3.1</feature>
     </featureManager>
+
+    <!-- Habilita acceso a /metrics sin requerir autenticación para monitorización/Prometheus -->
+    <mpMetrics authentication="false"/>
 
     <!--
       ================================================================

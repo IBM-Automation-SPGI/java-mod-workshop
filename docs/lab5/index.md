@@ -23,7 +23,7 @@ Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
 - [ ] **Notificación JMS** — Al crear un pedido, se envía el mensaje a la cola `PedjasNotificaciones`
 - [ ] **Errores controlados** — Los errores de validación se muestran correctamente al usuario
 
-### ✅ Validación de Salud del Servidor
+### ✅ Validación de Salud y Endpoints MicroProfile
 
 ```bash
 # 1. Verificar liveness
@@ -34,9 +34,12 @@ curl -s http://localhost:9080/health/live | python3 -m json.tool
 curl -s http://localhost:9080/health/ready | python3 -m json.tool
 # Resultado esperado: { "status": "UP" }
 
-# 3. Verificar que PostgreSQL es accesible
-curl -s http://localhost:9080/health | grep -i "database"
-# Debe aparecer el check de base de datos en UP
+# 3. Verificar estado global del servidor
+curl -s http://localhost:9080/health
+# Resultado esperado: {"status":"UP","checks":[]}
+
+# 4. Explorar OpenAPI / Swagger UI
+# Abre en el navegador: http://localhost:9080/openapi/ui/
 ```
 
 ### ✅ Validación de Logs
