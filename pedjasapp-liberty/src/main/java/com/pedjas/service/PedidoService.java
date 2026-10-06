@@ -96,12 +96,15 @@ public class PedidoService {
         LineaPedido linea = new LineaPedido(pedido, producto, cantidad);
         pedido.getLineas().add(linea);
         em.persist(pedido);
+        em.flush();
 
         // Actualizar el stock del producto dentro de la misma transacción JTA
         producto.setStock(producto.getStock() - cantidad);
 
         // Guardar en la caché local (reemplaza DistributedMap WAS)
-        ultimoPedidoPorCliente.put(clienteId, pedido.getId());
+        if (pedido.getId() != null) {
+            ultimoPedidoPorCliente.put(clienteId, pedido.getId());
+        }
 
         // Enviar notificación asíncrona JMS (fuera de la transacción principal)
         notificacionService.notificarPedidoCreado(pedido.getId(), clienteId);
