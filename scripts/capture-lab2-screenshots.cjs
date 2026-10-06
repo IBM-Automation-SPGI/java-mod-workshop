@@ -118,13 +118,14 @@ async function shot(page, name) {
   // Captura con el diálogo abierto y el input vacío
   await shot(page, '02-create-workspace-dialog');
 
-  // Rellenar nombre y capturar con el botón Create habilitado
+  // Rellenar con un nombre diferente para la captura — evita el error "ya existe"
+  // que aparece si se escribe el nombre del workspace existente.
   const wsInput = page.locator('input[placeholder="Workspace name"]');
-  await wsInput.fill(WS_NAME);
-  await wait(400);
+  await wsInput.fill('MiNuevoWorkspace');
+  await wait(600);
   await shot(page, '03-create-workspace-name-filled');
 
-  // Cerrar el diálogo con Escape (evita ambigüedad de selectores con múltiples modales)
+  // Cerrar el diálogo con Escape (sin crear nada)
   await page.keyboard.press('Escape');
   await wait(600);
 
