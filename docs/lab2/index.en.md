@@ -215,9 +215,9 @@ Upon completion, Transformation Advisor displays a summary structured as follows
 
 ### 4.1 Applications Summary View
 
-![Assessment overview — applications summary](img/08-recommendations-overview.png)
+The **Assessment** tab displays a table of all scanned applications with complexity metrics, estimated migration effort, and a rule count breakdown by severity:
 
-![Applications table with modernization metrics](img/09-applications-table.png)
+![Assessment overview — applications summary and metrics](img/08-recommendations-overview.png)
 
 ### 4.2 Issue Classification
 
@@ -229,9 +229,9 @@ Upon completion, Transformation Advisor displays a summary structured as follows
 
 ### 4.3 Modernization Rules Triggered in PedjasApp
 
-![PedjasApp.ear application detail view](img/10-app-detail-pedjasapp.png)
+Clicking on `pedjasapp.ear` opens the application detail view with the full list of triggered rules, severities, and affected files:
 
-![Issues and rules list](img/11-issues-rules-list.png)
+![PedjasApp.ear detail — modernization rules and metrics](img/10-app-detail-pedjasapp.png)
 
 The following rules will be reported by AMA for PedjasApp, detailing severity and corrective actions:
 

@@ -217,9 +217,9 @@ Tras completar el análisis, Transformation Advisor mostrará un resumen con la 
 
 ### 4.1 Pantalla de Resumen de Aplicaciones
 
-![Resumen de aplicaciones analizadas en AMA](img/08-recommendations-overview.png)
+La pestaña **Assessment** muestra una tabla con todas las aplicaciones analizadas, sus métricas de complejidad, el esfuerzo estimado de migración y el número de reglas disparadas por severidad:
 
-![Tabla de aplicaciones con métricas de modernización](img/09-applications-table.png)
+![Resumen de aplicaciones analizadas en AMA — pestaña Assessment](img/08-recommendations-overview.png)
 
 ### 4.2 Clasificación de Issues
 
@@ -231,9 +231,9 @@ Tras completar el análisis, Transformation Advisor mostrará un resumen con la 
 
 ### 4.3 Reglas Disparadas en PedjasApp
 
-![Detalle de la aplicación pedjasapp.ear en AMA](img/10-app-detail-pedjasapp.png)
+Al hacer clic en `pedjasapp.ear` se accede al detalle de la aplicación con el listado completo de reglas, severidad y ficheros afectados:
 
-![Lista de issues y reglas detectadas](img/11-issues-rules-list.png)
+![Detalle de pedjasapp.ear — reglas y métricas de modernización](img/10-app-detail-pedjasapp.png)
 
 A continuación se describen las reglas que AMA generará para PedjasApp, junto con su nivel de severidad y la acción correctiva correspondiente:
 
