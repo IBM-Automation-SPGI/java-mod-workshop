@@ -159,43 +159,39 @@ Abre el navegador en: **[https://localhost:9043/ibm/console](https://localhost:9
 
 ---
 
-## Paso 6 — Verificar el Despliegue
+## Paso 6 — Verificación de tWAS y Diagnóstico del EAR Legado
 
-### 6.1 Comprobar el estado de la aplicación
+### 6.1 Comprobar el estado del servidor tWAS
+
+Verifica en los logs del contenedor que WebSphere tradicional ha completado su inicialización:
 
 ```bash
-# Ver el log del servidor para confirmar el despliegue
-podman exec pedjasapp-twas \
-  grep -i "pedjasapp" /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/server1/SystemOut.log
+# Consultar los logs del servidor tradicional
+podman logs pedjasapp-twas | grep "WSVR0001I"
 ```
 
 Salida esperada:
 ```
-[AUDIT   ] WSVR0190I: Starting application: PedjasApp
-[AUDIT   ] WSVR0191I: Application started: PedjasApp
+WSVR0001I: Server server1 open for e-business
 ```
 
-### 6.2 Probar la aplicación en el navegador
+### 6.2 Diagnóstico del despliegue en tWAS: Por qué falla `pedjasapp.ear`
 
-Abre el navegador en: **[http://localhost:9080/pedjasapp/](http://localhost:9080/pedjasapp/)**
-
-Deberías ver la pantalla principal de PedjasApp con:
-
-- Cabecera con el logo de PedjasApp
-- Formulario de inicio de sesión (usuario: `admin` / contraseña: `admin123`)
-- Sección de catálogo de productos
-
-### 6.3 Probar los endpoints funcionales
-
-```bash
-# Listar productos (servlet de catálogo)
-curl -s http://localhost:9080/pedjasapp/catalogo | head -20
-
-# Crear un pedido de prueba
-curl -s -X POST http://localhost:9080/pedjasapp/pedidos/nuevo \
-  -d "clienteId=1&productoId=101&cantidad=3" \
-  -H "Content-Type: application/x-www-form-urlencoded"
-```
+!!! warning "Comportamiento didáctico: Detección de incompatibilidades EJB CMP 2.0"
+    Si intentas desplegar `pedjasapp.ear` directamente en tWAS o acceder a `http://localhost:9080/pedjasapp/`, el servidor registrará el error:
+    
+    ```text
+    ADMA0209E: Enterprise JavaBeans (EJB) module pedjasapp-ejb.jar contains the following
+    container-managed persistence (CMP) or bean-managed persistence (BMP) Entity beans: ProductoEJB.
+    SRVE0255E: A WebGroup/Virtual Host to handle /pedjasapp/ has not been defined.
+    ```
+    
+    **¿Por qué ocurre esto?**
+    
+    1. **EJB CMP 2.0 (`ProductoEJB`)**: En tWAS tradicional, los Entity Beans con persistencia gestionada por contenedor requerían generar código dependiente de la base de datos mediante la herramienta propietaria `ejbdeploy`.
+    2. **Descriptores y JNDI heredados**: El EAR contiene enlaces en `ibm-ejb-jar-bnd.xml`, `ibm-web-bnd.xml` y llamadas a APIs `com.ibm.websphere.*`.
+    
+    Este es precisamente el **problema clásico de modernización** que vamos a analizar en el siguiente laboratorio con **IBM Application Modernization Accelerator (AMA)** para planificar su transformación hacia **Jakarta EE 10 / JPA** sobre **WebSphere Liberty** (donde la aplicación sí funcionará de forma completa e interactiva en el puerto 9081 / Labs 4 y 5).
 
 ---
 
