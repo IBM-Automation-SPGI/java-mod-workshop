@@ -11,7 +11,7 @@ metadata:
 type: Opaque
 stringData:
   username: pedjas
-  password: pedjaspassword
+  password: pedjas123
 ---
 apiVersion: apps/v1
 kind: Deployment

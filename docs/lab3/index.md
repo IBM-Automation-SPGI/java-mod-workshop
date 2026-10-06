@@ -396,6 +396,9 @@ La versión Liberty usa un `persistence.xml` estándar que referencia el DataSou
 </persistence>
 ```
 
+!!! warning "Comportamiento de `schema-generation` en reinicios"
+    Con `value="create"`, EclipseLink crea las tablas si **no existen**. Si el contenedor se reinicia con una base de datos PostgreSQL ya inicializada (volumen persistente o `podman-compose` con el servicio `postgres` ya arrancado), EclipseLink no borrará ni recreará las tablas existentes — el comportamiento es seguro para reinicios. Usa `drop-and-create` solo para resetear datos de prueba en desarrollo. El proyecto real (`pedjasapp-liberty/src/main/resources/META-INF/persistence.xml`) ya usa `create` como se muestra aquí.
+
 ---
 
 ## Verificar la Compilación del Proyecto Modernizado

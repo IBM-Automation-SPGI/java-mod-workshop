@@ -383,6 +383,22 @@ Look for:
 [AUDIT   ] CWWKF0011I: The defaultServer server is ready to run a smarter planet.
 ```
 
+!!! tip "Quick alternative: docker-compose"
+    The repository ships a `docker-compose.yml` at the root that starts **PostgreSQL + Liberty together** with a single command — ideal for the workshop:
+    ```bash
+    # From the repository root (build the image first)
+    cd pedjasapp-liberty && podman build -t pedjasapp-liberty:1.0 . && cd ..
+
+    # Start both services — Liberty available at http://localhost:9081/pedjasapp/
+    podman-compose up -d
+    # or with Docker Compose:
+    docker compose up -d
+
+    # Stream logs
+    podman-compose logs -f pedjasapp-liberty
+    ```
+    > Liberty is mapped to port **9081** in compose to avoid collisions with tWAS on 9080.
+
 ---
 
 ## Step 5 — Verify Deployment

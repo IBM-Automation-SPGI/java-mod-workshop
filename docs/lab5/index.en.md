@@ -179,30 +179,30 @@ podman stop pedjasapp-liberty   # Sends SIGTERM, waits up to 10s
 
 In production, never pass plain text credentials. Leverage Kubernetes Secrets:
 
-```yaml title="Example Kubernetes Secret"
-# kubernetes/pedjasapp-secret.yaml
+```yaml title="k8s/postgres-deployment.yaml (excerpt — Secret)"
 apiVersion: v1
 kind: Secret
 metadata:
-  name: pedjasapp-db-secret
+  name: postgres-secret
+  namespace: pedjasapp
 type: Opaque
 stringData:
-  PEDJASAPP_DB_USER: pedjas
-  PEDJASAPP_DB_PASSWORD: "production-secure-password"
+  username: pedjas
+  password: "production-secure-password"
 ```
 
-```yaml title="Referencing Secret in Deployment"
+```yaml title="k8s/open-liberty-application.yaml (excerpt — Secret reference)"
 env:
   - name: PEDJASAPP_DB_USER
     valueFrom:
       secretKeyRef:
-        name: pedjasapp-db-secret
-        key: PEDJASAPP_DB_USER
+        name: postgres-secret
+        key: username
   - name: PEDJASAPP_DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: pedjasapp-db-secret
-        key: PEDJASAPP_DB_PASSWORD
+        name: postgres-secret
+        key: password
 ```
 
 ---

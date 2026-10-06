@@ -179,30 +179,30 @@ podman stop pedjasapp-liberty   # Envía SIGTERM, espera hasta 10s
 
 En producción, las credenciales NO deben pasarse como variables de entorno planas. Usa:
 
-```yaml title="Ejemplo con Kubernetes Secrets"
-# kubernetes/pedjasapp-secret.yaml
+```yaml title="k8s/postgres-deployment.yaml (extracto — Secret)"
 apiVersion: v1
 kind: Secret
 metadata:
-  name: pedjasapp-db-secret
+  name: postgres-secret
+  namespace: pedjasapp
 type: Opaque
 stringData:
-  PEDJASAPP_DB_USER: pedjas
-  PEDJASAPP_DB_PASSWORD: "contraseña-segura-produccion"
+  username: pedjas
+  password: "contraseña-segura-produccion"
 ```
 
-```yaml title="Ejemplo de referencia en Deployment"
+```yaml title="k8s/open-liberty-application.yaml (extracto — referencia al Secret)"
 env:
   - name: PEDJASAPP_DB_USER
     valueFrom:
       secretKeyRef:
-        name: pedjasapp-db-secret
-        key: PEDJASAPP_DB_USER
+        name: postgres-secret
+        key: username
   - name: PEDJASAPP_DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: pedjasapp-db-secret
-        key: PEDJASAPP_DB_PASSWORD
+        name: postgres-secret
+        key: password
 ```
 
 ---

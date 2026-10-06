@@ -396,6 +396,9 @@ The Liberty version uses a standard `persistence.xml` referencing the Liberty Da
 </persistence>
 ```
 
+!!! warning "`schema-generation` behavior on container restarts"
+    With `value="create"`, EclipseLink only creates tables that **do not already exist**. If the container restarts against a PostgreSQL instance that was already initialized (persistent volume or `podman-compose` with the `postgres` service already started), EclipseLink will not drop or recreate existing tables — making this setting safe for restarts. Use `drop-and-create` only when you need to reset test data during development. The actual project file (`pedjasapp-liberty/src/main/resources/META-INF/persistence.xml`) already uses `create` as shown here.
+
 ---
 
 ## Verify Modernized Project Compilation
