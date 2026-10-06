@@ -2,6 +2,7 @@
 site_name: Workshop de Modernización Java con AMA
 site_description: Modernización de aplicaciones Java de tWAS a WebSphere Liberty con IBM Application Modernization Accelerator
 site_author: IBM Client Engineering
+site_url: https://ibm-automation-spgi.github.io/java-mod-workshop/
 copyright: Copyright &copy; 2025-2026 IBM — IBM Client Engineering
 
 # Repositorio
