@@ -289,10 +289,10 @@ spec:
 
 ### Nivel 5 — Modernización Adicional del Código
 
-- [ ] **Migrar a Jakarta EE 10** (namespace `jakarta.*` en lugar de `javax.*`)
-- [ ] **Adoptar MicroProfile Config** para toda la configuración externalizada
-- [ ] **Implementar Circuit Breaker** con MicroProfile Fault Tolerance
-- [ ] **Añadir API REST** con MicroProfile OpenAPI para exponer los servicios como API
+- [ ] **Adoptar MicroProfile Config** para toda la configuración externalizada en lugar de variables de entorno directas
+- [ ] **Implementar Circuit Breaker** con MicroProfile Fault Tolerance para mayor resiliencia
+- [ ] **Añadir API REST** con MicroProfile OpenAPI para exponer los servicios de negocio como API pública
+- [ ] **Migrar a microservicios** extrayendo dominios de negocio independientes (catálogo, pedidos, notificaciones)
 
 ---
 

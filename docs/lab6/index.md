@@ -200,3 +200,7 @@ oc get route pedjasapp-liberty -n pedjasapp
 2. **Refactorización**: Migración a **Jakarta EE 10 / JPA** asistida por **IBM Bob**.
 3. **Contenerización**: Empaquetado ligero y reactivo sobre **WebSphere Liberty 26.0.0.9**.
 4. **Operación Cloud-Native**: Orquestación enterprise en **Kubernetes / OpenShift** con **Open Liberty Operator**.
+
+---
+
+Vuelve a la **[Página Principal del Workshop](../index.md)** para revisar el índice completo o comienza de nuevo desde el **[Lab 0 — Requisitos Previos](../lab0/index.md)**.

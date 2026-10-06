@@ -285,9 +285,10 @@ spec:
 
 ### Tier 5 — Advanced Architecture Modernization
 
-- [ ] **Adopt Jakarta EE 10 standards** across remaining legacy patterns
-- [ ] **Implement Circuit Breakers** with MicroProfile Fault Tolerance
-- [ ] **Expose REST APIs** with MicroProfile OpenAPI
+- [ ] **Adopt MicroProfile Config** to externalize all configuration rather than relying on plain environment variables
+- [ ] **Implement Circuit Breakers** with MicroProfile Fault Tolerance for increased resilience
+- [ ] **Expose REST APIs** with MicroProfile OpenAPI to publish business services as a public API
+- [ ] **Decompose into microservices** by extracting independent business domains (catalog, orders, notifications)
 
 ---
 

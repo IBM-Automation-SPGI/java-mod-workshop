@@ -131,9 +131,9 @@ podman exec pedjasapp-twas cat /tmp/ta-output/AppSrv01.zip > ./AppSrv01-collecti
 
 ---
 
-#### Option 2 — Target EAR Scan (`pedjasapp.ear`) for Liberty (Jakarta EE 10 / Java 17)
+#### Option 2 — Target EAR Scan (`pedjasapp.ear`) for Liberty (Jakarta EE 10 / Java 21)
 ```bash
-# Run scan on EAR targeting Liberty and Java 17
+# Run scan on EAR targeting Liberty and Java 21
 podman exec pedjasapp-twas \
   /tmp/ta-collector/transformationadvisor-5.1.0/jre/bin/java \
   -jar /tmp/ta-collector/transformationadvisor-5.1.0/lib/ta.binaryAppScanner-26.3.1.0.jar \

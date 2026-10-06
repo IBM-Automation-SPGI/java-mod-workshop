@@ -200,3 +200,7 @@ Congratulations! You have completed the full modernization lifecycle:
 2. **Refactoring**: Standardized on **Jakarta EE 10 / JPA** assisted by **IBM Bob**.
 3. **Containerization**: Lightweight, reactive packaging on **WebSphere Liberty 26.0.0.9**.
 4. **Cloud-Native Operation**: Enterprise orchestration on **Kubernetes / OpenShift** via the **Open Liberty Operator**.
+
+---
+
+Return to the **[Workshop Home Page](../index.en.md)** to review the full table of contents, or restart from **[Lab 0 — Prerequisites](../lab0/index.en.md)**.

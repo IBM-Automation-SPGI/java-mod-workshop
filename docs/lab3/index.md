@@ -433,7 +433,7 @@ Salida esperada:
     En este lab has aplicado los 6 cambios principales identificados por AMA:
 
     1. ✅ Entidades JPA reemplazan los EJB 2.x CMP Entity Beans
-    2. ✅ APIs `com.ibm.websphere.*` eliminadas y sustituidas por estándares Java EE
+    2. ✅ APIs `com.ibm.websphere.*` eliminadas y sustituidas por estándares Jakarta EE
     3. ✅ JNDI propietario sustituido por inyección `@Resource`
     4. ✅ Descriptores WAS eliminados (ibm-web-bnd.xml, ibm-ejb-jar-bnd.xml)
     5. ✅ JMS actualizado a la API JMS 3.0 estándar (Jakarta Messaging 3.1)

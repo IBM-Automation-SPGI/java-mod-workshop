@@ -132,9 +132,9 @@ podman exec pedjasapp-twas cat /tmp/ta-output/AppSrv01.zip > ./AppSrv01-collecti
 
 ---
 
-#### Opción 2 — Escaneo del artefacto empresarial (`pedjasapp.ear`) hacia Liberty (Jakarta EE 10 / Java 17)
+#### Opción 2 — Escaneo del artefacto empresarial (`pedjasapp.ear`) hacia Liberty (Jakarta EE 10 / Java 21)
 ```bash
-# Ejecutar el escaneo del EAR con destino Liberty y Java 17
+# Ejecutar el escaneo del EAR con destino Liberty y Java 21
 podman exec pedjasapp-twas \
   /tmp/ta-collector/transformationadvisor-5.1.0/jre/bin/java \
   -jar /tmp/ta-collector/transformationadvisor-5.1.0/lib/ta.binaryAppScanner-26.3.1.0.jar \
