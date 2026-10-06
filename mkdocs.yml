@@ -1,36 +1,42 @@
 # Información del proyecto
 site_name: Workshop de Modernización Java con AMA
-site_description: Modernización de aplicaciones Java de tWAS a WebSphere Liberty con IBM Application Modernization Accelerator
+site_description: Modernización de aplicaciones Java de tWAS a Open Liberty con IBM Application Modernization Accelerator
 site_author: IBM Client Engineering
 copyright: Copyright &copy; 2025 IBM
 
 # Repositorio
 repo_name: IBM-Automation-SPGI/java-mod-workshop
-repo_url: https://github.com/IBM-Automation-SPGI/java-mod-workshop
+#repo_url: https://github.com/IBM-Automation-SPGI/java-mod-workshop
 docs_dir: docs
 
 nav:
-  - Inicio: 'index.md'
-  - Lab 0 — Introducción y Requisitos Previos: 'lab0/index.md'
-  - Lab 1 — Despliegue en tWAS: 'lab1/index.md'
-  - Lab 2 — Análisis con AMA: 'lab2/index.md'
-  - Lab 3 — Modernización Manual: 'lab3/index.md'
-  - Lab 4 — Despliegue en Liberty: 'lab4/index.md'
-  - Lab 5 — Validación y Siguientes Pasos: 'lab5/index.md'
+  - Introducción: 'index.md'
+  - Lab 0 — Requisitos Previos:
+    - Introducción y entorno: 'lab0/index.md'
+  - Lab 1 — Despliegue en tWAS:
+    - Desplegar PedjasApp en tWAS: 'lab1/index.md'
+  - Lab 2 — Análisis con AMA:
+    - Ejecutar IBM AMA: 'lab2/index.md'
+  - Lab 3 — Modernización Manual:
+    - Aplicar cambios de código: 'lab3/index.md'
+  - Lab 4 — Despliegue en Liberty:
+    - Desplegar en Open Liberty: 'lab4/index.md'
+  - Lab 5 — Validación:
+    - Validación y siguientes pasos: 'lab5/index.md'
 
 theme:
   name: material
   features:
     - navigation.instant
     - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
     - content.code.annotate
     - content.code.copy
     - content.code.select
     - navigation.footer
   palette:
     scheme: default
-    primary: blue
-    accent: blue
 
 plugins:
   - search
@@ -65,7 +71,6 @@ markdown_extensions:
 
 extra_css:
   - styles/override-print.css
-  - styles/custom.css
 
 extra_javascript:
   - _static/hide-toc-nav.js
