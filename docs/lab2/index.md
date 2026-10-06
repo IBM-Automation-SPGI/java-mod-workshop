@@ -418,4 +418,4 @@ El ZIP incluye:
 
 ## Siguiente Paso
 
-Continúa con el **[Lab 3 — Modernización Manual](../lab3/index.md)**, donde aplicarás en el código los 6 cambios identificados por AMA.
+Continúa con el **[Lab 3 — Modernización Manual](../lab3/index.md)** (o con el **[Lab 3B — Modernización con Bob](../lab3b/index.md)**) para aplicar en el código los 6 cambios identificados por AMA.
