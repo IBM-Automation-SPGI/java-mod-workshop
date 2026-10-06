@@ -69,6 +69,11 @@
             text-transform: uppercase;
         }
         .nav { display: flex; align-items: center; gap: 1.2rem; }
+        .nav .user-greeting {
+            color: #d0e2ff;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
         .nav a.nav-link {
             color: #fff;
             text-decoration: none;
@@ -80,6 +85,7 @@
             font-weight: 500;
         }
         .nav a.nav-link:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+        .nav a.nav-link.active { background: rgba(255,255,255,0.25); }
         .nav a.nav-link.logout {
             background: rgba(218,30,40,0.35);
             border: 1px solid rgba(218,30,40,0.5);
@@ -172,7 +178,9 @@
         <span class="badge">Liberty</span>
     </a>
     <nav class="nav">
+        <span class="user-greeting">👤 <span>Hola, <strong>${sessionScope.nombre}</strong></span></span>
         <a href="${pageContext.request.contextPath}/catalogo" class="nav-link">🏷️ Catálogo</a>
+        <a href="${pageContext.request.contextPath}/pedidos/lista" class="nav-link active">📦 Mis Pedidos</a>
         <a href="${pageContext.request.contextPath}/info" class="nav-link">ℹ️ Info</a>
         <a href="${pageContext.request.contextPath}/metrics-dashboard" class="nav-link">📊 Métricas</a>
         <a href="${pageContext.request.contextPath}/inicio?accion=logout" class="nav-link logout">Cerrar Sesión</a>
