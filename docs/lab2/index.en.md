@@ -23,9 +23,9 @@ In this lab you will run **IBM Application Modernization Accelerator (AMA)** aga
 
 ## Step 1 — Installation of AMA (Transformation Advisor)
 
-### Local Installation (Recommended for the Workshop)
+### Option A — Local Installation (Recommended for the Workshop)
 
-The `ibmcom/transformation-advisor-dev` image is no longer publicly maintained. AMA Local (v4.x/v5.x) is installed using the official bundle downloaded from IBM:
+AMA Local (v4.x/v5.x) is installed using the official bundle downloaded from IBM:
 
 1. Download the installer from the official page:
    **[ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads)**

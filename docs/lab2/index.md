@@ -25,7 +25,7 @@ En este lab ejecutarás **IBM Application Modernization Accelerator (AMA)** sobr
 
 ### Opción A — Instalación Local (Recomendada para el Workshop)
 
-La imagen `ibmcom/transformation-advisor-dev` ya no está disponible públicamente. AMA Local (v4.x/v5.x) se instala mediante un ZIP descargado desde IBM:
+AMA Local (v4.x/v5.x) se instala mediante un ZIP descargado desde IBM:
 
 1. Descarga el instalador desde:
    **[ibm.com/support/pages/ibm-transformation-advisor-downloads](https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads)**
