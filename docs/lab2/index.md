@@ -381,10 +381,28 @@ Aplicación: pedjasapp.ear (o en la vista de detalle de cualquier aplicación an
 → Download plan (ZIP)
 ```
 
-El ZIP incluye:
-- `server.xml` — configuración inicial de Liberty (puede necesitar ajustes)
-- `Dockerfile` — imagen de contenedor Liberty básica
-- `migration-plan.md` — descripción de los cambios necesarios
+![Pantalla Migration Overview con los 5 artefactos disponibles para previsualizar](img/18-migration-plan.png)
+
+El ZIP generado contiene los siguientes artefactos:
+
+| Artefacto | Descripción |
+|-----------|-------------|
+| `server.xml` | Configuración inicial de Liberty con las features detectadas — puede necesitar ajustes (p. ej. contraseñas) |
+| `Containerfile` | Imagen de contenedor multi-etapa Liberty (no `Dockerfile`) — usa `ibm-semeru-runtimes:certified-21-jdk-ubi` + `websphere-liberty:kernel-java21` |
+| `pom.xml` | POM Maven de referencia para descargar dependencias desde un repositorio Maven |
+| `application-cr.yaml` | Custom Resource `WebSphereLibertyApplication` para despliegue con el operador en OpenShift/Kubernetes |
+| `secret.yaml` | Secret de Kubernetes para credenciales sensibles extraídas del análisis |
+
+!!! note "Containerfile, no Dockerfile"
+    AMA genera un **`Containerfile`** (nombre estándar OCI, compatible con Podman y Docker) en lugar de `Dockerfile`. El contenido es funcionalmente equivalente pero sigue las convenciones OCI.
+
+**Vista previa del `Containerfile` generado:**
+
+![Vista previa del Containerfile generado por AMA — build multi-etapa con ibm-semeru-runtimes y websphere-liberty:kernel-java21](img/19-migration-containerfile.png)
+
+**Vista previa del `server.xml` generado:**
+
+![Vista previa del server.xml generado por AMA — features detectadas automáticamente](img/20-migration-serverxml.png)
 
 ### 5.2 Tabla Resumen de Reglas Activadas
 

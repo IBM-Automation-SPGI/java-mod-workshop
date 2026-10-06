@@ -379,10 +379,28 @@ Application: pedjasapp.ear (or detailed application view)
 → Download plan (ZIP)
 ```
 
-The ZIP includes:
-- `server.xml` — initial Liberty configuration
-- `Dockerfile` — baseline container definition
-- `migration-plan.md` — technical breakdown of required changes
+![Migration Overview screen showing the 5 previewable artifacts](img/18-migration-plan.png)
+
+The generated ZIP contains the following artifacts:
+
+| Artifact | Description |
+|----------|-------------|
+| `server.xml` | Initial Liberty configuration with auto-detected features — may need adjustments (e.g. passwords) |
+| `Containerfile` | Multi-stage Liberty container image (not `Dockerfile`) — uses `ibm-semeru-runtimes:certified-21-jdk-ubi` + `websphere-liberty:kernel-java21` |
+| `pom.xml` | Reference Maven POM to pull application and dependencies from a Maven repository |
+| `application-cr.yaml` | `WebSphereLibertyApplication` Custom Resource for Operator-based deployment on OpenShift/Kubernetes |
+| `secret.yaml` | Kubernetes Secret for sensitive credentials extracted during analysis |
+
+!!! note "Containerfile, not Dockerfile"
+    AMA generates a **`Containerfile`** (standard OCI name, compatible with both Podman and Docker) rather than `Dockerfile`. The content is functionally identical but follows OCI conventions.
+
+**Preview of the generated `Containerfile`:**
+
+![Generated Containerfile preview — multi-stage build using ibm-semeru-runtimes and websphere-liberty:kernel-java21](img/19-migration-containerfile.png)
+
+**Preview of the generated `server.xml`:**
+
+![Generated server.xml preview — Liberty features auto-detected by AMA](img/20-migration-serverxml.png)
 
 ### 5.2 Summary Table of Triggered Rules
 
