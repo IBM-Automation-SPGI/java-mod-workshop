@@ -368,15 +368,26 @@ La vista **Visualization** ofrece una representación gráfica de las dependenci
 
 ### 4.5 Informe Detallado de Análisis
 
-AMA genera también un **Informe HTML de Análisis** completo con todas las reglas disparadas, su severidad, los ficheros afectados y fragmentos de código. Puedes acceder desde la vista de detalle de la aplicación → **View full analysis report**.
+AMA genera también un **Informe HTML de Análisis** completo con todas las reglas disparadas, su severidad, los ficheros afectados y fragmentos de código. Accede desde la vista de detalle de la aplicación:
 
-![Cabecera del informe de análisis — título y resumen de severidad](img/14-analysis-report-top.png)
+```
+Aplicación: pedjasapp.ear
+→ (menú de la fila) → View full analysis report
+```
 
-![Sección de reglas críticas del informe de análisis](img/15-analysis-report-critical.png)
+El informe muestra cuatro secciones principales:
 
-![Detalle de una regla individual con código afectado](img/16-analysis-report-rule-detail.png)
+1. **Cabecera y resumen de severidad** — recuento de reglas por nivel (Critical, Warning, Information)
+2. **Sección de reglas Críticas** — lista expandible con descripción, ficheros afectados y fragmentos de código
+3. **Detalle de regla individual** — al hacer clic en una fila se expanden los ficheros y el fragmento de código problemático
+4. **Sección de reglas de Advertencia / Informativas** — cambios recomendados de menor prioridad
 
-![Sección de reglas de advertencia e informativas](img/17-analysis-report-info.png)
+!!! tip "Capturar el informe"
+    Puedes regenerar las capturas reales del informe ejecutando el script Playwright cuando AMA esté activo:
+    ```bash
+    node scripts/capture-lab2-screenshots.cjs
+    ```
+    Esto generará automáticamente `14-analysis-report-top.png`, `15-analysis-report-critical.png`, `16-analysis-report-rule-detail.png` y `17-analysis-report-info.png` en `docs/lab2/img/`.
 
 ---
 

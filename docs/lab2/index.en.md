@@ -366,15 +366,26 @@ The **Visualization** tab provides a graphical dependency view and modernization
 
 ### 4.5 Detailed Migration Analysis Report
 
-AMA also generates a full **HTML Analysis Report** listing every triggered rule, its severity, affected files, and code snippets. Access it from the application detail view → **View full analysis report**.
+AMA also generates a full **HTML Analysis Report** listing every triggered rule, its severity, affected files, and code snippets. Access it from the application detail view:
 
-![Analysis report header — title and severity summary](img/14-analysis-report-top.png)
+```
+Application: pedjasapp.ear
+→ (row menu) → View full analysis report
+```
 
-![Critical rules section of the analysis report](img/15-analysis-report-critical.png)
+The report contains four main sections:
 
-![Individual rule detail with affected code snippet](img/16-analysis-report-rule-detail.png)
+1. **Header and severity summary** — rule count per severity level (Critical, Warning, Information)
+2. **Critical rules section** — expandable list with description, affected files, and code snippets
+3. **Individual rule detail** — clicking a row expands the affected files and problematic code fragment
+4. **Warning / Informational rules section** — lower-priority recommended changes
 
-![Warning and informational rules section](img/17-analysis-report-info.png)
+!!! tip "Capturing the report"
+    You can regenerate the real report screenshots by running the Playwright script while AMA is active:
+    ```bash
+    node scripts/capture-lab2-screenshots.cjs
+    ```
+    This will automatically create `14-analysis-report-top.png`, `15-analysis-report-critical.png`, `16-analysis-report-rule-detail.png`, and `17-analysis-report-info.png` in `docs/lab2/img/`.
 
 ---
 
