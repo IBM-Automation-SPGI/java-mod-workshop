@@ -388,7 +388,7 @@
                     <span class="ep-url">/health/ready</span>
                     <span class="ep-desc">Probe de readiness para Kubernetes</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/metrics" target="_blank" class="endpoint-btn">
+                <a href="/metrics" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">📈</span>
                     <span class="ep-name">Metrics</span>
                     <span class="ep-url">/metrics</span>
