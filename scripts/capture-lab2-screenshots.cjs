@@ -206,8 +206,8 @@ async function shot(page, name) {
     `&profileName=pedjasapp.zip`,
     `&targetEnv=websphereLiberty`,
     `&reportType=analysis_reports`,
-    `&eeLevel=ee7`,
-    `&javaLevel=java8`,
+    `&eeLevel=ee10`,
+    `&javaLevel=java21`,
   ].join('');
   let inAppDetail = false;
   try {
@@ -333,8 +333,8 @@ async function shot(page, name) {
     `&profileName=pedjasapp.zip`,
     `&targetEnv=websphereLiberty`,
     `&reportType=analysis_reports`,
-    `&eeLevel=ee7`,
-    `&javaLevel=java8`,
+    `&eeLevel=ee10`,
+    `&javaLevel=java21`,
   ].join('');
 
   try {

@@ -142,7 +142,7 @@ podman exec pedjasapp-twas \
   --dc \
   --sourceAppServer=was90 \
   --sourceJava=ibm8 \
-  --targetJava=java17 \
+  --targetJava=java21 \
   --output=/tmp/ta-output-pedjas \
   --noProgressIndicator
 
@@ -237,50 +237,57 @@ AMA genera un **Informe de Análisis HTML** completo para cada aplicación escan
 https://localhost/api/report?workspace=<id>&taskName=<taskId>
   &appName=pedjasapp.ear&profileName=pedjasapp.zip
   &targetEnv=websphereLiberty&reportType=analysis_reports
-  &eeLevel=ee7&javaLevel=java8
+  &eeLevel=ee10&javaLevel=java21
 ```
 
 La cabecera del informe muestra un resumen de severidad con el recuento de reglas por nivel:
 
 ![Informe de Análisis de AMA — cabecera con resumen de severidad](img/10-app-detail-pedjasapp.png)
 
-A continuación se describen las reglas que AMA generará para PedjasApp, junto con su nivel de severidad y la acción correctiva correspondiente:
+El informe real de PedjasApp genera **10 reglas disparadas / 24 resultados totales** con objetivo Jakarta EE 10 / Java 21:
+
+| Severidad | Reglas | Resultados |
+|-----------|--------|------------|
+| 🔴 Crítico | 3 | 14 |
+| 🟡 Advertencia | 1 | 1 |
+| 🔵 Informativo | 6 | 9 |
+
+A continuación se describen las reglas principales que AMA genera para PedjasApp:
 
 ---
 
-#### 🔴 RULE-0001 — IBM WebSphere API Usage (com.ibm.websphere.*)
+#### 🔴 CR-001 — Actualizar el nombre de paquete a Jakarta EE *(Jakarta EE 9)*
 
-**Ficheros afectados:**
-```
-pedjasapp-ejb/src/main/java/.../PedidoServiceBean.java
-pedjasapp-ejb/src/main/java/.../NotificacionBean.java
-```
+**Ficheros afectados:** 11 ocurrencias en toda la aplicación
 
 **Descripción:**
-La aplicación importa y utiliza clases del paquete `com.ibm.websphere.*`, que son exclusivas de WebSphere Application Server traditional y no existen en WebSphere Liberty.
+La aplicación usa el namespace `javax.*` de Java EE. A partir de Jakarta EE 9, todos los paquetes se renombraron de `javax.*` a `jakarta.*`. Este cambio es **obligatorio** para ejecutar en Liberty con Jakarta EE 9+.
 
 **Código problemático:**
 ```java
-import com.ibm.websphere.naming.JndiHelper;
-import com.ibm.websphere.cache.DistributedMap;
+import javax.ejb.Stateless;
+import javax.persistence.Entity;
+import javax.jms.Queue;
+import javax.servlet.http.HttpServlet;
 ```
 
-**Acción correctiva:**
-- Sustituir `JndiHelper` por la API estándar JNDI de Java EE (`javax.naming.InitialContext`)
-- Sustituir `DistributedMap` por una caché JCache (JSR-107) o un `HashMap` local simple
+**Acción correctiva (con OpenRewrite — automatizable):**
+```java
+import jakarta.ejb.Stateless;
+import jakarta.persistence.Entity;
+import jakarta.jms.Queue;
+import jakarta.servlet.http.HttpServlet;
+```
+> 💡 Esta regla tiene receta OpenRewrite asociada (icono ⚙️ en el informe). Puede aplicarse automáticamente con `mvn rewrite:run`.
 
 ---
 
-#### 🔴 RULE-0002 — EJB 2.x CMP Entity Beans
+#### 🔴 CR-002 — Entity Enterprise JavaBeans (EJB) no disponibles *(Java Technology Support for Liberty)*
 
-**Ficheros afectados:**
-```
-pedjasapp-ejb/src/main/java/.../ProductoBean.java
-pedjasapp-ejb/src/main/java/.../ClienteBean.java
-```
+**Ficheros afectados:** 1 resultado
 
 **Descripción:**
-Los Entity Beans con Container-Managed Persistence (CMP) de EJB 2.x no están soportados en WebSphere Liberty. Liberty soporta EJB 3.x con JPA para la capa de persistencia.
+Los Entity Beans con Container-Managed Persistence (CMP) de EJB 2.x (`ProductoBean implements EntityBean`) no están soportados en WebSphere Liberty. Liberty únicamente soporta EJB 3.x con Jakarta Persistence (JPA).
 
 **Código problemático:**
 ```java
@@ -297,71 +304,43 @@ public abstract class ProductoBean implements EntityBean {
 
 ---
 
-#### 🔴 RULE-0003 — WebSphere-specific JNDI Lookup
-
-**Ficheros afectados:**
-```
-pedjasapp-web/src/main/java/.../CatalogoServlet.java
-pedjasapp-ejb/src/main/java/.../PedidoServiceBean.java
-```
+#### 🔴 CR-003 — APIs y descriptores propietarios WebSphere *(WebSphere traditional to Liberty)*
 
 **Descripción:**
-La aplicación usa nombres JNDI con espacios de nombres propietarios de WAS que no son portables.
-
-**Código problemático:**
-```java
-Context ctx = new InitialContext();
-DataSource ds = (DataSource) ctx.lookup("jdbc/pedjasappDS");
-// En WAS el binding real es: cell/persistent/jdbc/pedjasappDS
-```
+La aplicación usa APIs `com.ibm.websphere.*`, descriptores de binding WAS (`ibm-web-bnd.xml`, `ibm-ejb-jar-bnd.xml`) y namespaces JNDI propietarios que no existen en Liberty.
 
 **Acción correctiva:**
-- Usar la inyección de dependencias estándar: `@Resource(name = "jdbc/pedjasappDS")`
-- Definir el recurso en `web.xml` con `<resource-ref>` portable
+- Eliminar imports `com.ibm.websphere.*` y sustituir por equivalentes estándar Jakarta EE
+- Mover los bindings de `ibm-web-bnd.xml` al elemento `<dataSource>` de `server.xml`
+- Usar `@Resource` injection estándar en lugar de lookups JNDI manuales
 
 ---
 
-#### 🟡 RULE-0004 — IBM Deployment Descriptor (ibm-web-bnd.xml)
+#### 🟡 WA-001 — Conectividad JMS *(WebSphere traditional to Liberty)*
 
-**Ficheros afectados:**
-```
-pedjasapp-web/src/main/webapp/WEB-INF/ibm-web-bnd.xml
-pedjasapp-ejb/src/main/resources/META-INF/ibm-ejb-jar-bnd.xml
-```
+**Ficheros afectados:** 1 resultado
 
 **Descripción:**
-Los ficheros de binding propietarios de WebSphere (`ibm-web-bnd.xml`, `ibm-ejb-jar-bnd.xml`) solo son procesados por tWAS y el motor de Liberty en modo compatibilidad. Su contenido debe migrarse a la configuración de `server.xml`.
-
-**Acción correctiva:**
-- Mover los bindings de DataSource y JMS al elemento `<dataSource>` de `server.xml`
-- Usar `<jndiEntry>` en `server.xml` para configurar entradas JNDI simples
-
----
-
-#### 🟡 RULE-0005 — JMS WAS MQ Queue Connection Factory
-
-**Ficheros afectados:**
-```
-pedjasapp-ejb/src/main/java/.../NotificacionBean.java
-```
-
-**Descripción:**
-La aplicación usa una `QueueConnectionFactory` configurada mediante recursos WAS. Liberty usa su propio proveedor JMS integrado o un adaptador de recursos externo.
+La aplicación usa una `QueueConnectionFactory` configurada mediante recursos WAS. Liberty usa su propio proveedor JMS integrado (`messagingServer-3.0`) o un adaptador externo.
 
 **Acción correctiva:**
 - Definir `<jmsConnectionFactory>` y `<jmsQueue>` en `server.xml`
-- Habilitar las features `messaging-3.1`, `messagingServer-3.0` y `messagingClient-3.0` en Liberty (Jakarta EE 10)
+- Habilitar las features `messaging-3.1`, `messagingServer-3.0` y `messagingClient-3.0`
 
 ---
 
-#### 🔵 RULE-0006 — EJB 2.x Home Interface Usage
+#### 🔵 IN-001 a IN-006 — Consideraciones informativas
 
-**Descripción:**
-El uso de EJB Home Interfaces (`create()`, `findByPrimaryKey()`) es la forma antigua de acceder a beans. En EJB 3.x y CDI, se usa inyección directa.
+| Regla informativa | Resultados | Categoría |
+|-------------------|------------|-----------|
+| Databases (conectividad cloud) | 4 | Technology connectivity for IBM Cloud |
+| Java Message Service (JMS) | 1 | Connectivity (not Liberty Core) |
+| Unmanaged threads | — | All application servers |
+| JVM configuration properties | — | All application servers |
+| System modules compatibility | — | All application servers |
+| URL host/port cloud access | — | Cloud connectivity |
 
-**Acción correctiva:**
-- Eliminar los Home Interfaces
-- Inyectar los beans directamente con `@EJB` o `@Inject`
+> Las reglas informativas no bloquean el despliegue pero deben revisarse antes de producción.
 
 ---
 
@@ -419,16 +398,20 @@ El ZIP incluye:
 
 ### 5.2 Tabla Resumen de Reglas Activadas
 
-| Regla | Severidad | Esfuerzo | Categoría |
-|-------|-----------|----------|-----------|
-| RULE-0001 — IBM WebSphere API | 🔴 Crítico | Alto | APIs propietarias |
-| RULE-0002 — EJB 2.x CMP | 🔴 Crítico | Alto | Modernización de EJBs |
-| RULE-0003 — JNDI propietario | 🔴 Crítico | Bajo | Configuración de recursos |
-| RULE-0004 — ibm-web-bnd.xml | 🟡 Advertencia | Bajo | Descriptores de despliegue |
-| RULE-0005 — JMS WAS | 🟡 Advertencia | Medio | Mensajería |
-| RULE-0006 — EJB Home Interface | 🔵 Informativo | Medio | Modernización de EJBs |
+*(Objetivo: Liberty + Jakarta EE 10 + Java 21 — 10 reglas / 24 resultados)*
+
+| Regla AMA | Severidad | Resultados | Categoría |
+|-----------|-----------|------------|-----------|
+| CR-001 — Actualizar a nombre de paquete Jakarta EE | 🔴 Crítico | 11 | Jakarta EE 9 |
+| CR-002 — Entity EJBs no disponibles (CMP) | 🔴 Crítico | 1 | Java Technology Support for Liberty |
+| CR-003 — APIs/descriptores propietarios WebSphere | 🔴 Crítico | 2 | WebSphere traditional to Liberty |
+| WA-001 — Conectividad JMS | 🟡 Advertencia | 1 | WebSphere traditional to Liberty |
+| IN-001 — Databases (cloud connectivity) | 🔵 Informativo | 4 | Technology connectivity for IBM Cloud |
+| IN-002 — Java Message Service (JMS) | 🔵 Informativo | 1 | Connectivity (not Liberty Core) |
+| IN-003 a IN-006 — Consideraciones generales | 🔵 Informativo | 4 | All application servers / Cloud |
 
 **Esfuerzo total estimado: 3-5 días de trabajo de desarrollo**
+*(La regla CR-001 puede aplicarse automáticamente con la receta OpenRewrite de Liberty Modernization)*
 
 ---
 
@@ -439,8 +422,8 @@ El ZIP incluye:
 
     - Instalado y arrancado IBM Transformation Advisor / AMA
     - Cargado el EAR de PedjasApp para su análisis
-    - Identificado las 6 reglas de modernización principales
-    - Comprendido el nivel de severidad y el esfuerzo de cada cambio
+    - Identificado las **10 reglas de modernización** (3 Críticas, 1 Advertencia, 6 Informativas)
+    - Comprendido el nivel de severidad, el recuento de resultados y el esfuerzo de cada cambio
     - Generado el plan de migración inicial
 
 ---
@@ -448,4 +431,4 @@ El ZIP incluye:
 
 ## Siguiente Paso
 
-Continúa con el **[Lab 3 — Modernización Manual](../lab3/index.md)** (o con el **[Lab 3B — Modernización con Bob](../lab3b/index.md)**) para aplicar en el código los 6 cambios identificados por AMA.
+Continúa con el **[Lab 3 — Modernización Manual](../lab3/index.md)** (o con el **[Lab 3B — Modernización con Bob](../lab3b/index.md)**) para aplicar en el código los cambios identificados por AMA.
