@@ -174,7 +174,7 @@
     <nav class="nav">
         <a href="${pageContext.request.contextPath}/catalogo" class="nav-link">🏷️ Catálogo</a>
         <a href="${pageContext.request.contextPath}/info" class="nav-link">ℹ️ Info</a>
-        <a href="/metrics" class="nav-link" target="_blank">📊 Métricas</a>
+        <a href="${pageContext.request.contextPath}/metrics-dashboard" class="nav-link">📊 Métricas</a>
         <a href="${pageContext.request.contextPath}/inicio?accion=logout" class="nav-link logout">Cerrar Sesión</a>
     </nav>
 </div>

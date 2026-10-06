@@ -223,9 +223,10 @@
     </a>
     <nav class="nav">
         <span style="color:#d0e2ff; font-size:0.95rem; font-weight:500;">👤 ${sessionScope.nombre}</span>
-        <a href="${pageContext.request.contextPath}/catalogo"  class="nav-link">🏷️ Catálogo</a>
-        <a href="${pageContext.request.contextPath}/pedidos/lista" class="nav-link">📦 Pedidos</a>
-        <a href="${pageContext.request.contextPath}/info"      class="nav-link active">ℹ️ Info</a>
+        <a href="${pageContext.request.contextPath}/catalogo"          class="nav-link">🏷️ Catálogo</a>
+        <a href="${pageContext.request.contextPath}/pedidos/lista"     class="nav-link">📦 Pedidos</a>
+        <a href="${pageContext.request.contextPath}/info"              class="nav-link active">ℹ️ Info</a>
+        <a href="${pageContext.request.contextPath}/metrics-dashboard" class="nav-link">📊 Métricas</a>
         <a href="${pageContext.request.contextPath}/inicio?accion=logout" class="nav-link logout">Cerrar Sesión</a>
     </nav>
 </div>
@@ -388,11 +389,11 @@
                     <span class="ep-url">/health/ready</span>
                     <span class="ep-desc">Probe de readiness para Kubernetes</span>
                 </a>
-                <a href="/metrics" target="_blank" class="endpoint-btn">
-                    <span class="ep-icon">📈</span>
-                    <span class="ep-name">Metrics</span>
-                    <span class="ep-url">/metrics</span>
-                    <span class="ep-desc">Métricas Prometheus (MicroProfile Metrics 5.0)</span>
+                <a href="${pageContext.request.contextPath}/metrics-dashboard" class="endpoint-btn">
+                    <span class="ep-icon">📊</span>
+                    <span class="ep-name">Dashboard</span>
+                    <span class="ep-url">/metrics-dashboard</span>
+                    <span class="ep-desc">Dashboard visual de métricas MicroProfile</span>
                 </a>
                 <a href="/openapi/ui/" target="_blank" class="endpoint-btn">
                     <span class="ep-icon">📋</span>

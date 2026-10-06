@@ -360,7 +360,7 @@
         <span class="user-greeting">👤 <span>Hola, <strong>${sessionScope.nombre}</strong></span></span>
         <a href="${pageContext.request.contextPath}/pedidos/lista" class="nav-link">📦 Mis Pedidos</a>
         <a href="${pageContext.request.contextPath}/info" class="nav-link">ℹ️ Info</a>
-        <a href="/metrics" class="nav-link" target="_blank">📊 Métricas</a>
+        <a href="${pageContext.request.contextPath}/metrics-dashboard" class="nav-link">📊 Métricas</a>
         <a href="${pageContext.request.contextPath}/inicio?accion=logout" class="nav-link logout">Cerrar Sesión</a>
     </nav>
 </div>
