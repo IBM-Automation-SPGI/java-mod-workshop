@@ -56,13 +56,13 @@ COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
 EXPOSE 9080 9443
 
-# IMPORTANTE: Los valores de las variables de entorno de base de datos
-# (PEDJASAPP_DB_HOST, PEDJASAPP_DB_USER, PEDJASAPP_DB_PASSWORD, etc.)
-# NO deben definirse aquí con valores reales.
-# Pasar estas variables en tiempo de ejecución mediante:
-#   docker run -e PEDJASAPP_DB_PASSWORD=<valor> ...
-# o mediante secretos de orquestador (Kubernetes Secrets, OpenShift Secrets).
-ENV PEDJASAPP_DB_HOST=localhost \
+# Valores de desarrollo por defecto — siempre sobreescribir en entornos reales.
+# PEDJASAPP_DB_HOST debe apuntar al nombre del contenedor/servicio de PostgreSQL
+# en la misma red de Podman/Docker (p. ej. "pedjasapp-postgres").
+# PEDJASAPP_DB_PASSWORD NO se incluye aquí; pasarla siempre en tiempo de ejecución:
+#   podman run -e PEDJASAPP_DB_PASSWORD=<valor> ...
+# o mediante secretos del orquestador (Kubernetes Secrets, OpenShift Secrets).
+ENV PEDJASAPP_DB_HOST=pedjasapp-postgres \
     PEDJASAPP_DB_PORT=5432 \
     PEDJASAPP_DB_NAME=pedjasapp \
     PEDJASAPP_DB_USER=pedjas

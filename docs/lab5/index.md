@@ -334,7 +334,7 @@ spec:
 ### Liberty no arranca (la aplicación no responde)
 
 ```bash
-# Ver los últimos 100 líneas de logs de Liberty
+# Ver las últimas 100 líneas de logs de Liberty
 podman logs --tail 100 pedjasapp-liberty
 
 # Buscar errores de conexión a la base de datos

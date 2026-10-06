@@ -301,8 +301,9 @@ COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
 
 # Copiar la configuración y la aplicación
 COPY server.xml /config/server.xml
-# bootstrap.properties es opcional: permite definir variables de entorno por defecto
-# en local sin exponerlas en el Dockerfile. Crear el fichero si es necesario.
+# bootstrap.properties define los valores por defecto de las variables de entorno para desarrollo local.
+# Sobreescribir en ejecución con: podman run -e PEDJASAPP_DB_PASSWORD=<valor> ...
+COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
 # La imagen "full" ya incluye todas las features. No se necesita installUtility.

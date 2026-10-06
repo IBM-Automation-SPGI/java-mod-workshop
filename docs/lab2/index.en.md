@@ -158,7 +158,7 @@ You have two methods available to ingest the `.zip` archive:
 
 #### Method A — Upload via Web GUI
 1. Open your browser and navigate to the AMA console at **[https://localhost/](https://localhost/)**.
-2. Open your Workspace (e.g. newly created or click **Add Workspace**).
+2. Open your Workspace (e.g. newly created or click **Create workspace**).
 3. On the Workspace landing screen, click the central button **Upload results** (or top bar **Bulk data → Upload**).
 4. In the **Upload data** modal, drag & drop or select your generated ZIP file (`pedjasapp.zip` / `pedjasapp-collection.zip` or `AppSrv01-collection.zip`).
 5. Keep **Autodetect collection** selected or provide a name (e.g. `PedjasApp_tWAS`) and click the blue **Upload** button.

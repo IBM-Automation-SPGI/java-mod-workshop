@@ -277,10 +277,11 @@ USER 1001
 COPY --from=build /build/jdbc/postgresql-42.7.0.jar \
      /opt/ibm/wlp/usr/shared/resources/jdbc/postgresql-42.7.0.jar
 
-# Copy configuration and WAR
+# Copy configuration and application
 COPY server.xml /config/server.xml
-# bootstrap.properties is optional — use it to set local default env vars
-# without hardcoding them in the Dockerfile. Create the file if needed.
+# bootstrap.properties provides default env-var values for local development.
+# Override at runtime with: podman run -e PEDJASAPP_DB_PASSWORD=<value> ...
+COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
 
 EXPOSE 9080 9443
