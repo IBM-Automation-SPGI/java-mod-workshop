@@ -10,13 +10,14 @@ Este workshop práctico te guiará por el proceso completo de modernización de 
 
 | Lab | Módulo | Lo que harás |
 |-----|--------|-------------|
-| **0** | **Requisitos Previos** | Configurar el entorno, revisar la arquitectura AS-IS/TO-BE y compilar PedjasApp |
-| **1** | **Despliegue en tWAS** | Desplegar y verificar PedjasApp en WebSphere Application Server tradicional |
-| **2** | **Análisis con AMA** | Ejecutar IBM AMA y comprender las reglas de modernización generadas |
-| **3** | **Modernización Manual** | Aplicar los cambios de código guiados por AMA |
-| **4** | **Despliegue en Liberty** | Construir el Dockerfile y desplegar en WebSphere Liberty 26.0.0.9 |
-| **5** | **Validación** | Verificar la migración funcional y planificar los próximos pasos |
-| **6** | **Kubernetes & OpenShift** | Desplegar en clúster cloud-native con Open Liberty Operator (Opcional) |
+| [**Lab 0**](lab0/index.md) | [**Requisitos Previos**](lab0/index.md) | Configurar el entorno, revisar la arquitectura AS-IS/TO-BE y compilar PedjasApp |
+| [**Lab 1**](lab1/index.md) | [**Despliegue en tWAS**](lab1/index.md) | Preparar y verificar la aplicación en WebSphere Application Server tradicional |
+| [**Lab 2**](lab2/index.md) | [**Análisis con AMA**](lab2/index.md) | Ejecutar IBM AMA y comprender las reglas de modernización generadas |
+| [**Lab 3**](lab3/index.md) | [**Modernización Manual**](lab3/index.md) | Aplicar los cambios de código guiados por AMA |
+| [**Lab 3B**](lab3b/index.md) | [**Modernización con Bob**](lab3b/index.md) | Modernización acelerada con IBM Bob y paquetes de IA |
+| [**Lab 4**](lab4/index.md) | [**Despliegue en Liberty**](lab4/index.md) | Construir el Dockerfile y desplegar en WebSphere Liberty 26.0.0.9 |
+| [**Lab 5**](lab5/index.md) | [**Validación**](lab5/index.md) | Verificar la migración funcional y planificar los próximos pasos |
+| [**Lab 6**](lab6/index.md) | [**Kubernetes & OpenShift**](lab6/index.md) | Desplegar en clúster cloud-native con Open Liberty Operator (Opcional) |
 
 ---
 
