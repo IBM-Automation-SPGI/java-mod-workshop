@@ -1,0 +1,1589 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modernización de aplicaciones Java de tWAS a WebSphere Liberty con IBM Application Modernization Accelerator">
+      
+      
+        <meta name="author" content="IBM Client Engineering">
+      
+      
+      
+        <link rel="prev" href="../lab4/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Lab 5 — Validación y Siguientes Pasos - Workshop de Modernización Java con AMA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/override-print.css">
+    
+      <link rel="stylesheet" href="../styles/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-5-validacion-y-siguientes-pasos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Workshop de Modernización Java con AMA" class="md-header__button md-logo" aria-label="Workshop de Modernización Java con AMA" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Workshop de Modernización Java con AMA
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 5 — Validación y Siguientes Pasos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IBM-Automation-SPGI/java-mod-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IBM-Automation-SPGI/java-mod-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Workshop de Modernización Java con AMA" class="md-nav__button md-logo" aria-label="Workshop de Modernización Java con AMA" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Workshop de Modernización Java con AMA
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IBM-Automation-SPGI/java-mod-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IBM-Automation-SPGI/java-mod-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 0 — Introducción y Requisitos Previos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 — Despliegue en tWAS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 — Análisis con AMA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 — Modernización Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 — Despliegue en Liberty
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 — Validación y Siguientes Pasos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 — Validación y Siguientes Pasos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-del-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo del Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-validacion-post-modernizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de Validación Post-Modernización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de Validación Post-Modernización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validacion-funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación Funcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-salud-del-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Salud del Servidor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-rendimiento-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Rendimiento Básico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-persistencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Persistencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparativa-funcional-twas-vs-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa Funcional tWAS vs Liberty
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones-de-rendimiento-en-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consideraciones de Rendimiento en Liberty
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consideraciones de Rendimiento en Liberty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arranque-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arranque Rápido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de Memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consejos-de-optimizacion-para-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consejos de Optimización para Liberty
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones-de-operacion-en-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consideraciones de Operación en Contenedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consideraciones de Operación en Contenedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#senales-de-parada-adecuadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Señales de Parada Adecuadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-de-entorno-y-secretos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables de Entorno y Secretos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-pasos-sugeridos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Próximos Pasos Sugeridos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Próximos Pasos Sugeridos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nivel-1-completar-la-contenedorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 1 — Completar la Contenedorización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-2-despliegue-en-kubernetes-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 2 — Despliegue en Kubernetes / OpenShift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-3-pipeline-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 3 — Pipeline CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-4-monitorizacion-y-observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 4 — Monitorización y Observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-5-modernizacion-adicional-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 5 — Modernización Adicional del Código
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-adicionales-y-referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos Adicionales y Referencias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursos Adicionales y Referencias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentacion-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación Oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repositorios-y-herramientas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repositorios y Herramientas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guias-openliberty-recomendadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guías OpenLiberty Recomendadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-workshop-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Workshop Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-del-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo del Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-de-validacion-post-modernizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist de Validación Post-Modernización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checklist de Validación Post-Modernización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validacion-funcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación Funcional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-salud-del-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Salud del Servidor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-rendimiento-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Rendimiento Básico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validacion-de-persistencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Validación de Persistencia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparativa-funcional-twas-vs-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa Funcional tWAS vs Liberty
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones-de-rendimiento-en-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consideraciones de Rendimiento en Liberty
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consideraciones de Rendimiento en Liberty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arranque-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arranque Rápido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de Memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consejos-de-optimizacion-para-liberty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consejos de Optimización para Liberty
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones-de-operacion-en-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consideraciones de Operación en Contenedores
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consideraciones de Operación en Contenedores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#senales-de-parada-adecuadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Señales de Parada Adecuadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-de-entorno-y-secretos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables de Entorno y Secretos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proximos-pasos-sugeridos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Próximos Pasos Sugeridos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Próximos Pasos Sugeridos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nivel-1-completar-la-contenedorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 1 — Completar la Contenedorización
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-2-despliegue-en-kubernetes-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 2 — Despliegue en Kubernetes / OpenShift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-3-pipeline-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 3 — Pipeline CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-4-monitorizacion-y-observabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 4 — Monitorización y Observabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nivel-5-modernizacion-adicional-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nivel 5 — Modernización Adicional del Código
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-adicionales-y-referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos Adicionales y Referencias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recursos Adicionales y Referencias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentacion-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación Oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repositorios-y-herramientas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repositorios y Herramientas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guias-openliberty-recomendadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guías OpenLiberty Recomendadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-workshop-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Workshop Completo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="lab-5-validacion-y-siguientes-pasos">Lab 5 — Validación y Siguientes Pasos<a class="headerlink" href="#lab-5-validacion-y-siguientes-pasos" title="Permanent link">¶</a></h1>
+<hr>
+<h2 id="objetivo-del-lab">Objetivo del Lab<a class="headerlink" href="#objetivo-del-lab" title="Permanent link">¶</a></h2>
+<p>En este último lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización.</p>
+<hr>
+<h2 id="checklist-de-validacion-post-modernizacion">Checklist de Validación Post-Modernización<a class="headerlink" href="#checklist-de-validacion-post-modernizacion" title="Permanent link">¶</a></h2>
+<p>Completa los siguientes puntos para confirmar que la migración ha sido exitosa:</p>
+<h3 id="validacion-funcional">✅ Validación Funcional<a class="headerlink" href="#validacion-funcional" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Inicio y navegación</strong> — La página de inicio carga correctamente en <code>http://localhost:9080/pedjasapp/</code></li>
+<li>[ ] <strong>Autenticación</strong> — Es posible iniciar sesión con el usuario <code>admin</code> / contraseña <code>admin123</code></li>
+<li>[ ] <strong>Catálogo de productos</strong> — Se muestran los productos de prueba cargados por <code>datos-prueba.sql</code></li>
+<li>[ ] <strong>Crear pedido</strong> — El flujo completo de creación de pedido funciona sin errores</li>
+<li>[ ] <strong>Consultar pedidos</strong> — La lista de pedidos muestra los datos correctos desde PostgreSQL</li>
+<li>[ ] <strong>Actualizar estado de pedido</strong> — El cambio de estado se persiste correctamente</li>
+<li>[ ] <strong>Notificación JMS</strong> — Al crear un pedido, se envía el mensaje a la cola <code>PedjasNotificaciones</code></li>
+<li>[ ] <strong>Errores controlados</strong> — Los errores de validación se muestran correctamente al usuario</li>
+</ul>
+<h3 id="validacion-de-salud-del-servidor">✅ Validación de Salud del Servidor<a class="headerlink" href="#validacion-de-salud-del-servidor" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Verificar liveness</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:9080/health/live<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Resultado esperado: { "status": "UP" }</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># 2. Verificar readiness</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:9080/health/ready<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Resultado esperado: { "status": "UP" }</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># 3. Verificar que PostgreSQL es accesible</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:9080/health<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"database"</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Debe aparecer el check de base de datos en UP</span>
+</code></pre></div>
+<h3 id="validacion-de-logs">✅ Validación de Logs<a class="headerlink" href="#validacion-de-logs" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># No deben aparecer errores críticos en los logs de Liberty</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>logs<span class="w"> </span>pedjasapp-liberty<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"ERROR\|SEVERE\|Exception"</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Salida esperada: (vacía — ningún error)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Verificar que las features se cargaron correctamente</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>docker<span class="w"> </span>logs<span class="w"> </span>pedjasapp-liberty<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"CWWKF0012I"</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Cada feature debe aparecer con estado "ready"</span>
+</code></pre></div>
+<h3 id="validacion-de-rendimiento-basico">✅ Validación de Rendimiento Básico<a class="headerlink" href="#validacion-de-rendimiento-basico" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Medir el tiempo de respuesta de la página principal</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>curl<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-s<span class="w"> </span>-w<span class="w"> </span><span class="s2">"Tiempo total: %{time_total}s\n"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>http://localhost:9080/pedjasapp/
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Resultado esperado: &lt; 500ms en la primera petición tras el arranque</span>
+</code></pre></div>
+<h3 id="validacion-de-persistencia">✅ Validación de Persistencia<a class="headerlink" href="#validacion-de-persistencia" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Comprobar que las tablas JPA se han creado en PostgreSQL</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pedjasapp-postgres<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>pedjas<span class="w"> </span>-d<span class="w"> </span>pedjasapp<span class="w"> </span>-c<span class="w"> </span><span class="s2">"\dt"</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Resultado esperado: tablas PRODUCTOS, CLIENTES, PEDIDOS, LINEAS_PEDIDO</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Comprobar que los datos de prueba se han cargado</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pedjasapp-postgres<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span>psql<span class="w"> </span>-U<span class="w"> </span>pedjas<span class="w"> </span>-d<span class="w"> </span>pedjasapp<span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT COUNT(*) FROM PRODUCTOS;"</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Resultado esperado: 20 (los 20 productos del script datos-prueba.sql)</span>
+</code></pre></div>
+<hr>
+<h2 id="comparativa-funcional-twas-vs-liberty">Comparativa Funcional tWAS vs Liberty<a class="headerlink" href="#comparativa-funcional-twas-vs-liberty" title="Permanent link">¶</a></h2>
+<p>Ejecuta las mismas pruebas en ambos entornos y registra los resultados:</p>
+<table>
+<thead>
+<tr>
+<th>Prueba Funcional</th>
+<th>tWAS 9.0</th>
+<th>Liberty 26.x</th>
+<th>¿Equivalente?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Listar productos</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Crear pedido</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Notificación JMS</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Gestión de sesión</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Manejo de errores</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Consulta con JPA</td>
+<td>N/A (EJB CMP)</td>
+<td>✅</td>
+<td>✅ Mejorado</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="consideraciones-de-rendimiento-en-liberty">Consideraciones de Rendimiento en Liberty<a class="headerlink" href="#consideraciones-de-rendimiento-en-liberty" title="Permanent link">¶</a></h2>
+<h3 id="arranque-rapido">Arranque Rápido<a class="headerlink" href="#arranque-rapido" title="Permanent link">¶</a></h3>
+<p>Liberty está diseñado para un arranque extremadamente rápido:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Medir el tiempo de arranque de Liberty</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>start<span class="w"> </span>pedjasapp-liberty
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Resultado esperado: 5-15 segundos hasta "server is ready"</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Comparar con tWAS</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>start<span class="w"> </span>pedjasapp-twas
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Resultado esperado: 3-5 minutos</span>
+</code></pre></div>
+<h3 id="uso-de-memoria">Uso de Memoria<a class="headerlink" href="#uso-de-memoria" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Ver el consumo de memoria de cada contenedor</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>docker<span class="w"> </span>stats<span class="w"> </span>pedjasapp-liberty<span class="w"> </span>pedjasapp-twas<span class="w"> </span>--no-stream
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Resultado esperado:</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># pedjasapp-liberty:  ~200-350 MB RSS</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># pedjasapp-twas:     ~1.2-2 GB RSS</span>
+</code></pre></div>
+<h3 id="consejos-de-optimizacion-para-liberty">Consejos de Optimización para Liberty<a class="headerlink" href="#consejos-de-optimizacion-para-liberty" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>JVM OpenJ9</strong>: Liberty usa OpenJ9 por defecto, que es más eficiente en memoria que HotSpot</li>
+<li><strong>Features mínimas</strong>: Activar únicamente las features necesarias reduce el tiempo de arranque</li>
+<li><strong>Shared Class Cache</strong>: OpenJ9 puede compartir clases JIT entre reinicios, acelerando el arranque</li>
+<li><strong>Class Data Sharing (CDS)</strong>: Configurable en Liberty para reducir el tiempo de primera respuesta</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cm">&lt;!-- Añadir a server.xml para habilitar Class Data Sharing --&gt;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">&lt;jvm&gt;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&lt;option</span><span class="w"> </span><span class="na">value=</span><span class="s">"-Xshareclasses:name=libertyShared,cacheDir=/tmp/liberty-cache"</span><span class="nt">/&gt;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nt">&lt;/jvm&gt;</span>
+</code></pre></div>
+<hr>
+<h2 id="consideraciones-de-operacion-en-contenedores">Consideraciones de Operación en Contenedores<a class="headerlink" href="#consideraciones-de-operacion-en-contenedores" title="Permanent link">¶</a></h2>
+<h3 id="senales-de-parada-adecuadas">Señales de Parada Adecuadas<a class="headerlink" href="#senales-de-parada-adecuadas" title="Permanent link">¶</a></h3>
+<p>Liberty respeta la señal <code>SIGTERM</code> de Docker para un apagado ordenado:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Apagado ordenado (graceful shutdown)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>docker<span class="w"> </span>stop<span class="w"> </span>pedjasapp-liberty<span class="w">   </span><span class="c1"># Envía SIGTERM, espera hasta 10s</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Liberty cerrará:</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># 1. Las conexiones HTTP activas</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># 2. Las transacciones JTA en curso</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 3. El pool de conexiones JDBC</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># 4. El cliente JMS</span>
+</code></pre></div>
+<h3 id="variables-de-entorno-y-secretos">Variables de Entorno y Secretos<a class="headerlink" href="#variables-de-entorno-y-secretos" title="Permanent link">¶</a></h3>
+<p>En producción, las credenciales NO deben pasarse como variables de entorno planas. Usa:</p>
+<div class="highlight"><span class="filename">Ejemplo con Kubernetes Secrets</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># kubernetes/pedjasapp-secret.yaml</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp-db-secret</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nt">stringData</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nt">PEDJASAPP_DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjas</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="nt">PEDJASAPP_DB_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="s">"contraseña-segura-produccion"</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">Ejemplo de referencia en Deployment</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">env</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PEDJASAPP_DB_USER</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">valueFrom</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">      </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp-db-secret</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PEDJASAPP_DB_USER</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PEDJASAPP_DB_PASSWORD</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nt">valueFrom</span><span class="p">:</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp-db-secret</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PEDJASAPP_DB_PASSWORD</span>
+</code></pre></div>
+<hr>
+<h2 id="proximos-pasos-sugeridos">Próximos Pasos Sugeridos<a class="headerlink" href="#proximos-pasos-sugeridos" title="Permanent link">¶</a></h2>
+<h3 id="nivel-1-completar-la-contenedorizacion">Nivel 1 — Completar la Contenedorización<a class="headerlink" href="#nivel-1-completar-la-contenedorizacion" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Publicar la imagen en un registro de contenedores</strong> (IBM Container Registry, Docker Hub, Quay.io)</li>
+<li>[ ] <strong>Crear un fichero <code>docker-compose.yml</code></strong> para ejecutar Liberty + PostgreSQL con un solo comando</li>
+<li>[ ] <strong>Implementar escaneo de vulnerabilidades</strong> en la imagen Docker (IBM VA, Trivy, Snyk)</li>
+</ul>
+<h3 id="nivel-2-despliegue-en-kubernetes-openshift">Nivel 2 — Despliegue en Kubernetes / OpenShift<a class="headerlink" href="#nivel-2-despliegue-en-kubernetes-openshift" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Crear los manifiestos Kubernetes</strong> (Deployment, Service, ConfigMap, Secret, HorizontalPodAutoscaler)</li>
+<li>[ ] <strong>Configurar un Ingress o Route</strong> para exponer la aplicación externamente</li>
+<li>[ ] <strong>Implementar Liveness/Readiness Probes</strong> apuntando a los endpoints MicroProfile Health</li>
+<li>[ ] <strong>Configurar PersistentVolumeClaims</strong> para los datos de PostgreSQL</li>
+</ul>
+<div class="highlight"><span class="filename">Ejemplo de manifiesto Kubernetes básico</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># kubernetes/pedjasapp-deployment.yaml</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-registry/pedjasapp-liberty:1.0</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">          </span><span class="nt">livenessProbe</span><span class="p">:</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health/live</span>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">            </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/health/ready</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">            </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">          </span><span class="nt">envFrom</span><span class="p">:</span>
+<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">secretRef</span><span class="p">:</span>
+<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pedjasapp-db-secret</span>
+</code></pre></div>
+<h3 id="nivel-3-pipeline-cicd">Nivel 3 — Pipeline CI/CD<a class="headerlink" href="#nivel-3-pipeline-cicd" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Crear un pipeline GitHub Actions o Tekton</strong> para:</li>
+<li>Ejecutar tests unitarios con Maven</li>
+<li>Construir y escanear la imagen Docker</li>
+<li>Publicar la imagen en el registro</li>
+<li>Desplegar automáticamente en un entorno de desarrollo</li>
+<li>[ ] <strong>Implementar GitOps</strong> con ArgoCD para sincronización automática del estado deseado</li>
+</ul>
+<h3 id="nivel-4-monitorizacion-y-observabilidad">Nivel 4 — Monitorización y Observabilidad<a class="headerlink" href="#nivel-4-monitorizacion-y-observabilidad" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Integrar Instana</strong> para monitorización APM end-to-end</li>
+<li>[ ] <strong>Configurar alertas</strong> basadas en los errores y latencia de PedjasApp</li>
+<li>[ ] <strong>Crear dashboards</strong> con las métricas MicroProfile expuestas en <code>/metrics</code></li>
+<li>[ ] <strong>Implementar trazado distribuido</strong> con OpenTelemetry y Jaeger</li>
+</ul>
+<div class="highlight"><span class="filename">Añadir a server.xml para OpenTelemetry</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cm">&lt;!-- Feature de MicroProfile Telemetry para trazado distribuido --&gt;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">&lt;feature&gt;</span>mpTelemetry-1.1<span class="nt">&lt;/feature&gt;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nt">&lt;mpTelemetry</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="na">exporter.otlp.endpoint=</span><span class="s">"http://jaeger:4318"</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="na">exporter.otlp.protocol=</span><span class="s">"http/protobuf"</span><span class="nt">/&gt;</span>
+</code></pre></div>
+<h3 id="nivel-5-modernizacion-adicional-del-codigo">Nivel 5 — Modernización Adicional del Código<a class="headerlink" href="#nivel-5-modernizacion-adicional-del-codigo" title="Permanent link">¶</a></h3>
+<ul>
+<li>[ ] <strong>Migrar a Jakarta EE 10</strong> (namespace <code>jakarta.*</code> en lugar de <code>javax.*</code>)</li>
+<li>[ ] <strong>Adoptar MicroProfile Config</strong> para toda la configuración externalizada</li>
+<li>[ ] <strong>Implementar Circuit Breaker</strong> con MicroProfile Fault Tolerance</li>
+<li>[ ] <strong>Añadir API REST</strong> con MicroProfile OpenAPI para exponer los servicios como API</li>
+</ul>
+<hr>
+<h2 id="recursos-adicionales-y-referencias">Recursos Adicionales y Referencias<a class="headerlink" href="#recursos-adicionales-y-referencias" title="Permanent link">¶</a></h2>
+<h3 id="documentacion-oficial">Documentación Oficial<a class="headerlink" href="#documentacion-oficial" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebSphere Liberty Documentation</td>
+<td><a href="https://www.ibm.com/docs/en/was-liberty">ibm.com/docs/was-liberty</a></td>
+</tr>
+<tr>
+<td>IBM Transformation Advisor</td>
+<td><a href="https://www.ibm.com/docs/en/wamt">ibm.com/docs/wamt</a></td>
+</tr>
+<tr>
+<td>Jakarta EE 10 Specification</td>
+<td><a href="https://jakarta.ee/specifications/">jakarta.ee/specifications</a></td>
+</tr>
+<tr>
+<td>MicroProfile Documentation</td>
+<td><a href="https://microprofile.io/specifications/">microprofile.io/specs</a></td>
+</tr>
+<tr>
+<td>OpenLiberty Guides</td>
+<td><a href="https://openliberty.io/guides/">openliberty.io/guides</a></td>
+</tr>
+<tr>
+<td>Liberty Feature List</td>
+<td><a href="https://openliberty.io/docs/latest/feature-overview.html">openliberty.io/docs/latest/feature-overview.html</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="repositorios-y-herramientas">Repositorios y Herramientas<a class="headerlink" href="#repositorios-y-herramientas" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenLiberty/open-liberty">Open Liberty</a></td>
+<td>Versión open source de WebSphere Liberty</td>
+</tr>
+<tr>
+<td><a href="https://openliberty.io/start/">Liberty Starter</a></td>
+<td>Generador de proyectos Liberty</td>
+</tr>
+<tr>
+<td><a href="https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor">Transformation Advisor</a></td>
+<td>Guía AMA en IBM Garage</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenLiberty/ci.docker/blob/main/docs/icr-images.md">Liberty Docker Images (ICR)</a></td>
+<td>Imágenes oficiales Docker en ICR</td>
+</tr>
+</tbody>
+</table>
+<h3 id="guias-openliberty-recomendadas">Guías OpenLiberty Recomendadas<a class="headerlink" href="#guias-openliberty-recomendadas" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://openliberty.io/guides/rest-intro.html">Crear un servicio REST con JAX-RS</a></li>
+<li><a href="https://openliberty.io/guides/cdi-intro.html">Inyectar dependencias con CDI</a></li>
+<li><a href="https://openliberty.io/guides/jpa-intro.html">Persistencia con JPA</a></li>
+<li><a href="https://openliberty.io/guides/kubernetes-intro.html">Despliegue en Kubernetes</a></li>
+<li><a href="https://openliberty.io/guides/microprofile-health.html">Health con MicroProfile</a></li>
+</ul>
+<hr>
+<h2 id="resumen-del-workshop-completo">Resumen del Workshop Completo<a class="headerlink" href="#resumen-del-workshop-completo" title="Permanent link">¶</a></h2>
+<div class="admonition success">
+<p class="admonition-title">¡Felicidades! Has completado el Workshop de Modernización Java</p>
+<p>A lo largo de los 6 labs has aprendido a:</p>
+<ol>
+<li>✅ <strong>[Lab 0]</strong> Configurar el entorno y entender la arquitectura de modernización</li>
+<li>✅ <strong>[Lab 1]</strong> Desplegar una aplicación Java EE en WebSphere Application Server tradicional</li>
+<li>✅ <strong>[Lab 2]</strong> Ejecutar IBM AMA y analizar los resultados de modernización</li>
+<li>✅ <strong>[Lab 3]</strong> Aplicar los cambios de código guiados por AMA para eliminar dependencias tWAS</li>
+<li>✅ <strong>[Lab 4]</strong> Construir y desplegar la aplicación modernizada en WebSphere Liberty</li>
+<li>✅ <strong>[Lab 5]</strong> Validar la migración y planificar los próximos pasos</li>
+</ol>
+<p>La aplicación PedjasApp ha pasado de ser una aplicación monolítica atada a tWAS a una aplicación moderna, lista para contenedores, con configuración declarativa y soporte nativo para observabilidad y Kubernetes.</p>
+</div>
+<hr>
+<p><a href="../lab4/">← Lab 4 — Despliegue en Liberty</a> | <a href="../">↑ Inicio</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab4/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab 4 — Despliegue en Liberty">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Lab 4 — Despliegue en Liberty
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 IBM
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.code.annotate", "content.code.copy", "content.code.select", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../_static/hide-toc-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

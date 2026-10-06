@@ -1,0 +1,134 @@
+/* ================================================================
+   Workshop de Modernización Java — Estilos personalizados IBM
+   ================================================================ */
+
+/* Paleta IBM Carbon */
+:root {
+  --ibm-blue-60: #0043ce;
+  --ibm-blue-50: #0f62fe;
+  --ibm-blue-40: #4589ff;
+  --ibm-gray-10: #f4f4f4;
+  --ibm-gray-20: #e0e0e0;
+  --ibm-gray-90: #262626;
+  --ibm-teal-50: #009d9a;
+  --ibm-green-50: #198038;
+  --ibm-red-50: #da1e28;
+  --ibm-yellow-30: #f1c21b;
+}
+
+/* Cabecera principal */
+.md-header {
+  background-color: var(--ibm-blue-60);
+}
+
+/* Título del sitio */
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Barra lateral de navegación */
+.md-nav__title {
+  font-weight: 700;
+  color: var(--ibm-blue-60);
+}
+
+/* Enlace activo de navegación */
+.md-nav__link--active {
+  color: var(--ibm-blue-50) !important;
+  font-weight: 600;
+}
+
+/* Contenido principal */
+.md-content {
+  max-width: 900px;
+}
+
+/* Cabeceras dentro del contenido */
+.md-content h1 {
+  border-bottom: 3px solid var(--ibm-blue-50);
+  padding-bottom: 0.4em;
+  color: var(--ibm-gray-90);
+}
+
+.md-content h2 {
+  border-left: 4px solid var(--ibm-blue-40);
+  padding-left: 0.6em;
+  color: var(--ibm-gray-90);
+}
+
+.md-content h3 {
+  color: var(--ibm-blue-60);
+}
+
+/* Bloques de código inline */
+code {
+  background-color: var(--ibm-gray-10);
+  border: 1px solid var(--ibm-gray-20);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-size: 0.88em;
+}
+
+/* Bloques pre/code */
+.highlight {
+  border-radius: 6px;
+  border: 1px solid var(--ibm-gray-20);
+}
+
+/* Admonitions personalizados */
+.admonition.tip > .admonition-title::before {
+  color: var(--ibm-teal-50);
+}
+
+.admonition.warning > .admonition-title::before {
+  color: var(--ibm-yellow-30);
+}
+
+.admonition.danger > .admonition-title::before {
+  color: var(--ibm-red-50);
+}
+
+/* Tablas */
+.md-typeset table:not([class]) th {
+  background-color: var(--ibm-blue-60);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background-color: var(--ibm-gray-10);
+}
+
+/* Botón de pie de página (anterior / siguiente) */
+.md-footer__link--next .md-footer__title,
+.md-footer__link--prev .md-footer__title {
+  font-weight: 600;
+}
+
+/* Badge de estado de lab */
+.lab-badge {
+  display: inline-block;
+  padding: 0.2em 0.7em;
+  border-radius: 12px;
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background-color: var(--ibm-blue-50);
+  color: #ffffff;
+  margin-right: 0.4em;
+}
+
+/* Caja resumen de objetivos */
+.objetivos-box {
+  background-color: #e8f1ff;
+  border-left: 5px solid var(--ibm-blue-50);
+  border-radius: 4px;
+  padding: 1em 1.2em;
+  margin: 1.2em 0;
+}
+
+.objetivos-box ul {
+  margin-bottom: 0;
+}

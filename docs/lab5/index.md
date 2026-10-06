@@ -1,0 +1,325 @@
+# Lab 5 — Validación y Siguientes Pasos
+
+---
+
+## Objetivo del Lab
+
+En este último lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización.
+
+---
+
+## Checklist de Validación Post-Modernización
+
+Completa los siguientes puntos para confirmar que la migración ha sido exitosa:
+
+### ✅ Validación Funcional
+
+- [ ] **Inicio y navegación** — La página de inicio carga correctamente en `http://localhost:9080/pedjasapp/`
+- [ ] **Autenticación** — Es posible iniciar sesión con el usuario `admin` / contraseña `admin123`
+- [ ] **Catálogo de productos** — Se muestran los productos de prueba cargados por `datos-prueba.sql`
+- [ ] **Crear pedido** — El flujo completo de creación de pedido funciona sin errores
+- [ ] **Consultar pedidos** — La lista de pedidos muestra los datos correctos desde PostgreSQL
+- [ ] **Actualizar estado de pedido** — El cambio de estado se persiste correctamente
+- [ ] **Notificación JMS** — Al crear un pedido, se envía el mensaje a la cola `PedjasNotificaciones`
+- [ ] **Errores controlados** — Los errores de validación se muestran correctamente al usuario
+
+### ✅ Validación de Salud del Servidor
+
+```bash
+# 1. Verificar liveness
+curl -s http://localhost:9080/health/live | python3 -m json.tool
+# Resultado esperado: { "status": "UP" }
+
+# 2. Verificar readiness
+curl -s http://localhost:9080/health/ready | python3 -m json.tool
+# Resultado esperado: { "status": "UP" }
+
+# 3. Verificar que PostgreSQL es accesible
+curl -s http://localhost:9080/health | grep -i "database"
+# Debe aparecer el check de base de datos en UP
+```
+
+### ✅ Validación de Logs
+
+```bash
+# No deben aparecer errores críticos en los logs de Liberty
+docker logs pedjasapp-liberty 2>&1 | grep -i "ERROR\|SEVERE\|Exception"
+# Salida esperada: (vacía — ningún error)
+
+# Verificar que las features se cargaron correctamente
+docker logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
+# Cada feature debe aparecer con estado "ready"
+```
+
+### ✅ Validación de Rendimiento Básico
+
+```bash
+# Medir el tiempo de respuesta de la página principal
+curl -o /dev/null -s -w "Tiempo total: %{time_total}s\n" \
+  http://localhost:9080/pedjasapp/
+
+# Resultado esperado: < 500ms en la primera petición tras el arranque
+```
+
+### ✅ Validación de Persistencia
+
+```bash
+# Comprobar que las tablas JPA se han creado en PostgreSQL
+docker exec pedjasapp-postgres \
+  psql -U pedjas -d pedjasapp -c "\dt"
+# Resultado esperado: tablas PRODUCTOS, CLIENTES, PEDIDOS, LINEAS_PEDIDO
+
+# Comprobar que los datos de prueba se han cargado
+docker exec pedjasapp-postgres \
+  psql -U pedjas -d pedjasapp -c "SELECT COUNT(*) FROM PRODUCTOS;"
+# Resultado esperado: 20 (los 20 productos del script datos-prueba.sql)
+```
+
+---
+
+## Comparativa Funcional tWAS vs Liberty
+
+Ejecuta las mismas pruebas en ambos entornos y registra los resultados:
+
+| Prueba Funcional | tWAS 9.0 | Liberty 26.x | ¿Equivalente? |
+|-----------------|----------|-------------|--------------|
+| Listar productos | ✅ | ✅ | ✅ Sí |
+| Crear pedido | ✅ | ✅ | ✅ Sí |
+| Notificación JMS | ✅ | ✅ | ✅ Sí |
+| Gestión de sesión | ✅ | ✅ | ✅ Sí |
+| Manejo de errores | ✅ | ✅ | ✅ Sí |
+| Consulta con JPA | N/A (EJB CMP) | ✅ | ✅ Mejorado |
+
+---
+
+## Consideraciones de Rendimiento en Liberty
+
+### Arranque Rápido
+
+Liberty está diseñado para un arranque extremadamente rápido:
+
+```bash
+# Medir el tiempo de arranque de Liberty
+time docker start pedjasapp-liberty
+# Resultado esperado: 5-15 segundos hasta "server is ready"
+
+# Comparar con tWAS
+time docker start pedjasapp-twas
+# Resultado esperado: 3-5 minutos
+```
+
+### Uso de Memoria
+
+```bash
+# Ver el consumo de memoria de cada contenedor
+docker stats pedjasapp-liberty pedjasapp-twas --no-stream
+
+# Resultado esperado:
+# pedjasapp-liberty:  ~200-350 MB RSS
+# pedjasapp-twas:     ~1.2-2 GB RSS
+```
+
+### Consejos de Optimización para Liberty
+
+1. **JVM OpenJ9**: Liberty usa OpenJ9 por defecto, que es más eficiente en memoria que HotSpot
+2. **Features mínimas**: Activar únicamente las features necesarias reduce el tiempo de arranque
+3. **Shared Class Cache**: OpenJ9 puede compartir clases JIT entre reinicios, acelerando el arranque
+4. **Class Data Sharing (CDS)**: Configurable en Liberty para reducir el tiempo de primera respuesta
+
+```xml
+<!-- Añadir a server.xml para habilitar Class Data Sharing -->
+<jvm>
+    <option value="-Xshareclasses:name=libertyShared,cacheDir=/tmp/liberty-cache"/>
+</jvm>
+```
+
+---
+
+## Consideraciones de Operación en Contenedores
+
+### Señales de Parada Adecuadas
+
+Liberty respeta la señal `SIGTERM` de Docker para un apagado ordenado:
+
+```bash
+# Apagado ordenado (graceful shutdown)
+docker stop pedjasapp-liberty   # Envía SIGTERM, espera hasta 10s
+
+# Liberty cerrará:
+# 1. Las conexiones HTTP activas
+# 2. Las transacciones JTA en curso
+# 3. El pool de conexiones JDBC
+# 4. El cliente JMS
+```
+
+### Variables de Entorno y Secretos
+
+En producción, las credenciales NO deben pasarse como variables de entorno planas. Usa:
+
+```yaml title="Ejemplo con Kubernetes Secrets"
+# kubernetes/pedjasapp-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pedjasapp-db-secret
+type: Opaque
+stringData:
+  PEDJASAPP_DB_USER: pedjas
+  PEDJASAPP_DB_PASSWORD: "contraseña-segura-produccion"
+```
+
+```yaml title="Ejemplo de referencia en Deployment"
+env:
+  - name: PEDJASAPP_DB_USER
+    valueFrom:
+      secretKeyRef:
+        name: pedjasapp-db-secret
+        key: PEDJASAPP_DB_USER
+  - name: PEDJASAPP_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: pedjasapp-db-secret
+        key: PEDJASAPP_DB_PASSWORD
+```
+
+---
+
+## Próximos Pasos Sugeridos
+
+### Nivel 1 — Completar la Contenedorización
+
+- [ ] **Publicar la imagen en un registro de contenedores** (IBM Container Registry, Docker Hub, Quay.io)
+- [ ] **Crear un fichero `docker-compose.yml`** para ejecutar Liberty + PostgreSQL con un solo comando
+- [ ] **Implementar escaneo de vulnerabilidades** en la imagen Docker (IBM VA, Trivy, Snyk)
+
+### Nivel 2 — Despliegue en Kubernetes / OpenShift
+
+- [ ] **Crear los manifiestos Kubernetes** (Deployment, Service, ConfigMap, Secret, HorizontalPodAutoscaler)
+- [ ] **Configurar un Ingress o Route** para exponer la aplicación externamente
+- [ ] **Implementar Liveness/Readiness Probes** apuntando a los endpoints MicroProfile Health
+- [ ] **Configurar PersistentVolumeClaims** para los datos de PostgreSQL
+
+```yaml title="Ejemplo de manifiesto Kubernetes básico"
+# kubernetes/pedjasapp-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedjasapp
+  labels:
+    app: pedjasapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pedjasapp
+  template:
+    metadata:
+      labels:
+        app: pedjasapp
+    spec:
+      containers:
+        - name: pedjasapp
+          image: your-registry/pedjasapp-liberty:1.0
+          ports:
+            - containerPort: 9080
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 9080
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 9080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          envFrom:
+            - secretRef:
+                name: pedjasapp-db-secret
+```
+
+### Nivel 3 — Pipeline CI/CD
+
+- [ ] **Crear un pipeline GitHub Actions o Tekton** para:
+  - Ejecutar tests unitarios con Maven
+  - Construir y escanear la imagen Docker
+  - Publicar la imagen en el registro
+  - Desplegar automáticamente en un entorno de desarrollo
+- [ ] **Implementar GitOps** con ArgoCD para sincronización automática del estado deseado
+
+### Nivel 4 — Monitorización y Observabilidad
+
+- [ ] **Integrar Instana** para monitorización APM end-to-end
+- [ ] **Configurar alertas** basadas en los errores y latencia de PedjasApp
+- [ ] **Crear dashboards** con las métricas MicroProfile expuestas en `/metrics`
+- [ ] **Implementar trazado distribuido** con OpenTelemetry y Jaeger
+
+```xml title="Añadir a server.xml para OpenTelemetry"
+<!-- Feature de MicroProfile Telemetry para trazado distribuido -->
+<feature>mpTelemetry-1.1</feature>
+
+<mpTelemetry
+    exporter.otlp.endpoint="http://jaeger:4318"
+    exporter.otlp.protocol="http/protobuf"/>
+```
+
+### Nivel 5 — Modernización Adicional del Código
+
+- [ ] **Migrar a Jakarta EE 10** (namespace `jakarta.*` en lugar de `javax.*`)
+- [ ] **Adoptar MicroProfile Config** para toda la configuración externalizada
+- [ ] **Implementar Circuit Breaker** con MicroProfile Fault Tolerance
+- [ ] **Añadir API REST** con MicroProfile OpenAPI para exponer los servicios como API
+
+---
+
+## Recursos Adicionales y Referencias
+
+### Documentación Oficial
+
+| Recurso | URL |
+|---------|-----|
+| WebSphere Liberty Documentation | [ibm.com/docs/was-liberty](https://www.ibm.com/docs/en/was-liberty) |
+| IBM Transformation Advisor | [ibm.com/docs/wamt](https://www.ibm.com/docs/en/wamt) |
+| Jakarta EE 10 Specification | [jakarta.ee/specifications](https://jakarta.ee/specifications/) |
+| MicroProfile Documentation | [microprofile.io/specs](https://microprofile.io/specifications/) |
+| OpenLiberty Guides | [openliberty.io/guides](https://openliberty.io/guides/) |
+| Liberty Feature List | [openliberty.io/docs/latest/feature-overview.html](https://openliberty.io/docs/latest/feature-overview.html) |
+
+### Repositorios y Herramientas
+
+| Herramienta | Descripción |
+|-------------|-------------|
+| [Open Liberty](https://github.com/OpenLiberty/open-liberty) | Versión open source de WebSphere Liberty |
+| [Liberty Starter](https://openliberty.io/start/) | Generador de proyectos Liberty |
+| [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) | Guía AMA en IBM Garage |
+| [Liberty Docker Images (ICR)](https://github.com/OpenLiberty/ci.docker/blob/main/docs/icr-images.md) | Imágenes oficiales Docker en ICR |
+
+### Guías OpenLiberty Recomendadas
+
+- [Crear un servicio REST con JAX-RS](https://openliberty.io/guides/rest-intro.html)
+- [Inyectar dependencias con CDI](https://openliberty.io/guides/cdi-intro.html)
+- [Persistencia con JPA](https://openliberty.io/guides/jpa-intro.html)
+- [Despliegue en Kubernetes](https://openliberty.io/guides/kubernetes-intro.html)
+- [Health con MicroProfile](https://openliberty.io/guides/microprofile-health.html)
+
+---
+
+## Resumen del Workshop Completo
+
+!!! success "¡Felicidades! Has completado el Workshop de Modernización Java"
+
+    A lo largo de los 6 labs has aprendido a:
+
+    1. ✅ **[Lab 0]** Configurar el entorno y entender la arquitectura de modernización
+    2. ✅ **[Lab 1]** Desplegar una aplicación Java EE en WebSphere Application Server tradicional
+    3. ✅ **[Lab 2]** Ejecutar IBM AMA y analizar los resultados de modernización
+    4. ✅ **[Lab 3]** Aplicar los cambios de código guiados por AMA para eliminar dependencias tWAS
+    5. ✅ **[Lab 4]** Construir y desplegar la aplicación modernizada en WebSphere Liberty
+    6. ✅ **[Lab 5]** Validar la migración y planificar los próximos pasos
+
+    La aplicación PedjasApp ha pasado de ser una aplicación monolítica atada a tWAS a una aplicación moderna, lista para contenedores, con configuración declarativa y soporte nativo para observabilidad y Kubernetes.
+
+---
+
+[← Lab 4 — Despliegue en Liberty](../lab4/index.md) | [↑ Inicio](../index.md)

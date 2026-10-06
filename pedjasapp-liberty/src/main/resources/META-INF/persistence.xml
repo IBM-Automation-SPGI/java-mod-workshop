@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  persistence.xml — Unidad de persistencia JPA para PedjasApp Liberty.
+
+  El DataSource "jdbc/pedjasappDS" está definido en server.xml.
+  EclipseLink es el proveedor JPA incluido en WebSphere Liberty.
+-->
+<persistence version="3.0"
+    xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                        https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="pedjasappPU" transaction-type="JTA">
+        <description>Unidad de persistencia JPA de PedjasApp — Liberty</description>
+
+        <!-- Liberty gestiona automáticamente la transacción JTA -->
+        <jta-data-source>jdbc/pedjasappDS</jta-data-source>
+
+        <!-- Entidades JPA del dominio -->
+        <class>com.pedjas.entity.Producto</class>
+        <class>com.pedjas.entity.Cliente</class>
+        <class>com.pedjas.entity.Pedido</class>
+        <class>com.pedjas.entity.LineaPedido</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- Crear tablas automáticamente si no existen -->
+            <property name="jakarta.persistence.schema-generation.database.action"
+                      value="create"/>
+
+            <!-- Cargar datos de prueba al arrancar -->
+            <property name="jakarta.persistence.sql-load-script-source"
+                      value="META-INF/datos-prueba.sql"/>
+
+            <!-- EclipseLink: nivel de log reducido en producción -->
+            <property name="eclipselink.logging.level"
+                      value="WARNING"/>
+            <property name="eclipselink.logging.level.sql"
+                      value="FINE"/>
+
+            <!-- EclipseLink: caché compartida por tipo de entidad -->
+            <property name="eclipselink.cache.shared.default"
+                      value="false"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  web.xml — Descriptor de despliegue estándar Java EE para el módulo Web de PedjasApp.
+
+  Versión: Servlet 3.1 / Java EE 7
+  Compatible con WebSphere Application Server 8.5 y 9.0.
+-->
+<web-app
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    version="3.1">
+
+    <display-name>PedjasApp Web</display-name>
+    <description>Sistema de Gestión de Pedidos — Capa de Presentación</description>
+
+    <!-- Servlet de inicio y autenticación -->
+    <servlet>
+        <servlet-name>InicioServlet</servlet-name>
+        <servlet-class>com.pedjas.web.InicioServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InicioServlet</servlet-name>
+        <url-pattern>/inicio</url-pattern>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet del catálogo de productos -->
+    <servlet>
+        <servlet-name>CatalogoServlet</servlet-name>
+        <servlet-class>com.pedjas.web.CatalogoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CatalogoServlet</servlet-name>
+        <url-pattern>/catalogo</url-pattern>
+    </servlet-mapping>
+
+    <!-- Servlet de pedidos -->
+    <servlet>
+        <servlet-name>PedidoServlet</servlet-name>
+        <servlet-class>com.pedjas.web.PedidoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PedidoServlet</servlet-name>
+        <url-pattern>/pedidos/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Configuración de la sesión HTTP -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+        </cookie-config>
+    </session-config>
+
+    <!-- Páginas de bienvenida -->
+    <welcome-file-list>
+        <welcome-file>inicio</welcome-file>
+    </welcome-file-list>
+
+    <!-- Páginas de error -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/views/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/views/error500.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/views/error500.jsp</location>
+    </error-page>
+
+    <!--
+      Referencias a recursos — NOTA AMA — RULE-0003
+      Estos resource-ref declaran los recursos que la aplicación necesita.
+      En tWAS los bindings reales se configuran en ibm-web-bnd.xml.
+      En Liberty se configuran en server.xml.
+    -->
+    <resource-ref>
+        <description>DataSource principal de PedjasApp</description>
+        <res-ref-name>jdbc/pedjasappDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
+    <!-- Referencia al Home del EJB ProductoBean (EJB 2.x) -->
+    <!-- NOTA AMA — RULE-0006 -->
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ProductoCatalogoHome</ejb-ref-name>
+        <ejb-ref-type>Entity</ejb-ref-type>
+        <local-home>com.pedjas.ejb.ProductoLocalHome</local-home>
+        <local>com.pedjas.ejb.ProductoLocal</local>
+        <ejb-link>ProductoEJB</ejb-link>
+    </ejb-local-ref>
+
+    <!-- Referencias a los Session Beans EJB 3.x -->
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/PedidoServiceEJB</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>com.pedjas.ejb.PedidoServiceLocal</local>
+        <ejb-link>PedidoServiceEJB</ejb-link>
+    </ejb-local-ref>
+
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/NotificacionEJB</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>com.pedjas.ejb.NotificacionLocal</local>
+        <ejb-link>NotificacionEJB</ejb-link>
+    </ejb-local-ref>
+
+</web-app>

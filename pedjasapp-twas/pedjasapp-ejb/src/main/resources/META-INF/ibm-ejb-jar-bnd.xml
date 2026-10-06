@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ibm-ejb-jar-bnd.xml — Descriptor de binding propietario de WebSphere para el módulo EJB.
+
+  NOTA AMA — RULE-0004: Este fichero es específico de WebSphere Application Server.
+  No es procesado por WebSphere Liberty (salvo en modo compatibilidad limitado).
+
+  Propósito: vincula los nombres JNDI de los recursos declarados en ejb-jar.xml
+  con los recursos reales configurados en el servidor tWAS.
+
+  En la versión Liberty, estos bindings se configuran directamente en server.xml
+  mediante los elementos <dataSource>, <jmsConnectionFactory> y <jmsQueue>.
+-->
+<ejb-jar-bnd
+    xmlns="http://websphere.ibm.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee
+                        http://websphere.ibm.com/xml/ns/javaee/ibm-ejb-jar-bnd_1_2.xsd"
+    version="1.2">
+
+    <!-- Binding del EJB ProductoEJB -->
+    <session name="ProductoEJB">
+        <interface
+            class="com.pedjas.ejb.ProductoLocalHome"
+            binding-name="ejb/ProductoEJBHome"/>
+    </session>
+
+    <!-- Binding del EJB PedidoServiceEJB -->
+    <session name="PedidoServiceEJB">
+        <!-- El DataSource jdbc/pedjasappDS debe estar configurado en tWAS -->
+        <resource-ref
+            name="jdbc/pedjasappDS"
+            binding-name="jdbc/pedjasappDS"/>
+
+        <!-- Referencia al EJB ProductoEJB dentro del mismo EAR -->
+        <ejb-local-ref
+            name="ejb/ProductoEJB"
+            binding-name="ejb/ProductoEJBHome"/>
+    </session>
+
+    <!-- Binding del EJB NotificacionEJB -->
+    <session name="NotificacionEJB">
+        <!-- La QueueConnectionFactory configurada en tWAS -->
+        <resource-ref
+            name="jms/PedjasQCF"
+            binding-name="jms/PedjasQCF"/>
+
+        <!-- La cola JMS configurada en tWAS mediante MQ o SI Bus -->
+        <message-destination-ref
+            name="jms/PedjasNotificacionesQ"
+            binding-name="jms/PedjasNotificaciones"/>
+    </session>
+
+</ejb-jar-bnd>

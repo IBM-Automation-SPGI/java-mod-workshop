@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  application.xml — Descriptor de despliegue del EAR de PedjasApp.
+  Define los módulos incluidos en el fichero EAR y la raíz de contexto del módulo Web.
+  Java EE 7 / EAR version 7.
+-->
+<application
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                        http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
+    version="7">
+
+    <display-name>PedjasApp</display-name>
+    <description>Sistema de Gestión de Pedidos Empresarial — Workshop de Modernización</description>
+
+    <!-- Módulo EJB — lógica de negocio y persistencia -->
+    <module>
+        <ejb>pedjasapp-ejb.jar</ejb>
+    </module>
+
+    <!-- Módulo Web — capa de presentación con raíz de contexto /pedjasapp -->
+    <module>
+        <web>
+            <web-uri>pedjasapp-web.war</web-uri>
+            <context-root>/pedjasapp</context-root>
+        </web>
+    </module>
+
+</application>

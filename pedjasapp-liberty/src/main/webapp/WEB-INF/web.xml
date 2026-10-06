@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  web.xml — Descriptor de despliegue estándar Jakarta EE 10 para PedjasApp Liberty.
+  Versión: Servlet 6.0.
+  Todos los Servlets están registrados mediante anotaciones @WebServlet;
+  este fichero solo declara las referencias a recursos necesarios.
+-->
+<web-app
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                        https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+    version="6.0">
+
+    <display-name>PedjasApp Liberty</display-name>
+    <description>Sistema de Gestión de Pedidos — Versión Liberty modernizada</description>
+
+    <!-- Configuración de la sesión HTTP -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <!-- Páginas de error -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/views/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/views/error500.jsp</location>
+    </error-page>
+
+    <!--
+      Referencias a recursos estándar.
+      El binding real se realiza en server.xml de Liberty
+      mediante jndiName="jdbc/pedjasappDS".
+    -->
+    <resource-ref>
+        <description>DataSource principal de PedjasApp</description>
+        <res-ref-name>jdbc/pedjasappDS</res-ref-name>
+        <res-type>jakarta.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
+    <message-destination-ref>
+        <message-destination-ref-name>jms/PedjasNotificacionesQ</message-destination-ref-name>
+        <message-destination-type>jakarta.jms.Queue</message-destination-type>
+        <message-destination-usage>Produces</message-destination-usage>
+    </message-destination-ref>
+
+</web-app>

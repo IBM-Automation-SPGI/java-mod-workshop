@@ -1,0 +1,1587 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Modernización de aplicaciones Java de tWAS a WebSphere Liberty con IBM Application Modernization Accelerator">
+      
+      
+        <meta name="author" content="IBM Client Engineering">
+      
+      
+      
+        <link rel="prev" href="../lab1/">
+      
+      
+        <link rel="next" href="../lab3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Lab 2 — Análisis con AMA - Workshop de Modernización Java con AMA</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/override-print.css">
+    
+      <link rel="stylesheet" href="../styles/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-2-analisis-con-ibm-application-modernization-accelerator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Workshop de Modernización Java con AMA" class="md-header__button md-logo" aria-label="Workshop de Modernización Java con AMA" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Workshop de Modernización Java con AMA
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 2 — Análisis con AMA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IBM-Automation-SPGI/java-mod-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IBM-Automation-SPGI/java-mod-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Workshop de Modernización Java con AMA" class="md-nav__button md-logo" aria-label="Workshop de Modernización Java con AMA" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Workshop de Modernización Java con AMA
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IBM-Automation-SPGI/java-mod-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IBM-Automation-SPGI/java-mod-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 0 — Introducción y Requisitos Previos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 1 — Despliegue en tWAS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 — Análisis con AMA
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 2 — Análisis con AMA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-del-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo del Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-ibm-ama-transformation-advisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es IBM AMA / Transformation Advisor?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-1-instalacion-de-ama-transformation-advisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1 — Instalación de AMA (Transformation Advisor)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 1 — Instalación de AMA (Transformation Advisor)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-instalacion-local-recomendada-para-el-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción A — Instalación Local (Recomendada para el Workshop)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-ibm-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción B — IBM Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-2-crear-un-nuevo-workspace-en-ama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2 — Crear un Nuevo Workspace en AMA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 2 — Crear un Nuevo Workspace en AMA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-crear-un-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Crear un Workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-crear-una-coleccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Crear una Colección
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-3-cargar-el-ear-de-pedjasapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3 — Cargar el EAR de PedjasApp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 3 — Cargar el EAR de PedjasApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metodo-a-subir-el-fichero-directamente-desde-la-interfaz-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Método A — Subir el fichero directamente desde la interfaz web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodo-b-usando-el-data-collector-para-aplicaciones-en-servidor-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Método B — Usando el Data Collector (para aplicaciones en servidor activo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-4-interpretar-los-resultados-del-analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4 — Interpretar los Resultados del Análisis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 4 — Interpretar los Resultados del Análisis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pantalla-de-resumen-de-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Pantalla de Resumen de Aplicaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-clasificacion-de-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Clasificación de Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-reglas-disparadas-en-pedjasapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Reglas Disparadas en PedjasApp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Reglas Disparadas en PedjasApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-0001-ibm-websphere-api-usage-comibmwebsphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0001 — IBM WebSphere API Usage (com.ibm.websphere.*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0002-ejb-2x-cmp-entity-beans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0002 — EJB 2.x CMP Entity Beans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0003-websphere-specific-jndi-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0003 — WebSphere-specific JNDI Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0004-ibm-deployment-descriptor-ibm-web-bndxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 RULE-0004 — IBM Deployment Descriptor (ibm-web-bnd.xml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0005-jms-was-mq-queue-connection-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 RULE-0005 — JMS WAS MQ Queue Connection Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0006-ejb-2x-home-interface-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔵 RULE-0006 — EJB 2.x Home Interface Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-panel-de-analisis-detallado-vista-de-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Panel de Análisis Detallado — Vista de Fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-5-generar-el-plan-de-migracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5 — Generar el Plan de Migración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 5 — Generar el Plan de Migración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-descargar-la-guia-de-migracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Descargar la Guía de Migración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tabla-resumen-de-reglas-activadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Tabla Resumen de Reglas Activadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-lab-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Lab 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 3 — Modernización Manual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 4 — Despliegue en Liberty
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab 5 — Validación y Siguientes Pasos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-del-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivo del Lab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-ibm-ama-transformation-advisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es IBM AMA / Transformation Advisor?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-1-instalacion-de-ama-transformation-advisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1 — Instalación de AMA (Transformation Advisor)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 1 — Instalación de AMA (Transformation Advisor)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-instalacion-local-recomendada-para-el-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción A — Instalación Local (Recomendada para el Workshop)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-ibm-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción B — IBM Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-2-crear-un-nuevo-workspace-en-ama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2 — Crear un Nuevo Workspace en AMA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 2 — Crear un Nuevo Workspace en AMA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-crear-un-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Crear un Workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-crear-una-coleccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Crear una Colección
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-3-cargar-el-ear-de-pedjasapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3 — Cargar el EAR de PedjasApp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 3 — Cargar el EAR de PedjasApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metodo-a-subir-el-fichero-directamente-desde-la-interfaz-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Método A — Subir el fichero directamente desde la interfaz web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodo-b-usando-el-data-collector-para-aplicaciones-en-servidor-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Método B — Usando el Data Collector (para aplicaciones en servidor activo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-4-interpretar-los-resultados-del-analisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4 — Interpretar los Resultados del Análisis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 4 — Interpretar los Resultados del Análisis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pantalla-de-resumen-de-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Pantalla de Resumen de Aplicaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-clasificacion-de-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Clasificación de Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-reglas-disparadas-en-pedjasapp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Reglas Disparadas en PedjasApp
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Reglas Disparadas en PedjasApp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-0001-ibm-websphere-api-usage-comibmwebsphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0001 — IBM WebSphere API Usage (com.ibm.websphere.*)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0002-ejb-2x-cmp-entity-beans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0002 — EJB 2.x CMP Entity Beans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0003-websphere-specific-jndi-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔴 RULE-0003 — WebSphere-specific JNDI Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0004-ibm-deployment-descriptor-ibm-web-bndxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 RULE-0004 — IBM Deployment Descriptor (ibm-web-bnd.xml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0005-jms-was-mq-queue-connection-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🟡 RULE-0005 — JMS WAS MQ Queue Connection Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-0006-ejb-2x-home-interface-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔵 RULE-0006 — EJB 2.x Home Interface Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-panel-de-analisis-detallado-vista-de-fichero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Panel de Análisis Detallado — Vista de Fichero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paso-5-generar-el-plan-de-migracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5 — Generar el Plan de Migración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paso 5 — Generar el Plan de Migración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-descargar-la-guia-de-migracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Descargar la Guía de Migración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tabla-resumen-de-reglas-activadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Tabla Resumen de Reglas Activadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-lab-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Lab 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="lab-2-analisis-con-ibm-application-modernization-accelerator">Lab 2 — Análisis con IBM Application Modernization Accelerator<a class="headerlink" href="#lab-2-analisis-con-ibm-application-modernization-accelerator" title="Permanent link">¶</a></h1>
+<hr>
+<h2 id="objetivo-del-lab">Objetivo del Lab<a class="headerlink" href="#objetivo-del-lab" title="Permanent link">¶</a></h2>
+<p>En este lab ejecutarás <strong>IBM Application Modernization Accelerator (AMA)</strong> sobre el fichero EAR de PedjasApp, interpretarás los resultados del análisis y priorizarás los cambios necesarios para la migración a WebSphere Liberty.</p>
+<hr>
+<h2 id="que-es-ibm-ama-transformation-advisor">¿Qué es IBM AMA / Transformation Advisor?<a class="headerlink" href="#que-es-ibm-ama-transformation-advisor" title="Permanent link">¶</a></h2>
+<p><strong>IBM Application Modernization Accelerator</strong> es una herramienta de análisis estático que:</p>
+<ul>
+<li>Escanea los binarios de una aplicación Java EE (EAR, WAR, JAR) sin necesidad de acceso al código fuente</li>
+<li>Detecta dependencias propietarias del servidor de aplicaciones de origen (tWAS, JBoss, WebLogic, etc.)</li>
+<li>Genera reglas de modernización específicas para cada problema encontrado</li>
+<li>Estima el nivel de esfuerzo (bajo / medio / alto) de la migración</li>
+<li>Produce un plan de acción priorizado con los cambios más críticos primero</li>
+<li>Genera ficheros de configuración de destino (p. ej., <code>server.xml</code> para Liberty) como punto de partida</li>
+</ul>
+<hr>
+<h2 id="paso-1-instalacion-de-ama-transformation-advisor">Paso 1 — Instalación de AMA (Transformation Advisor)<a class="headerlink" href="#paso-1-instalacion-de-ama-transformation-advisor" title="Permanent link">¶</a></h2>
+<h3 id="opcion-a-instalacion-local-recomendada-para-el-workshop">Opción A — Instalación Local (Recomendada para el Workshop)<a class="headerlink" href="#opcion-a-instalacion-local-recomendada-para-el-workshop" title="Permanent link">¶</a></h3>
+<p>La imagen <code>ibmcom/transformation-advisor-dev</code> ya no está disponible públicamente. Transformation Advisor Local se instala mediante un script oficial descargado desde IBM:</p>
+<ol>
+<li>
+<p>Descarga el instalador desde:
+   <strong><a href="https://www.ibm.com/support/pages/ibm-transformation-advisor-downloads">ibm.com/support/pages/ibm-transformation-advisor-downloads</a></strong></p>
+</li>
+<li>
+<p>Extrae y lanza el instalador:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>unzip<span class="w"> </span>transformationAdvisor.zip
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>transformationAdvisor
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>sh<span class="w"> </span>launchTransformationAdvisor.sh
+</code></pre></div>
+<ol start="3">
+<li>Sigue el menú interactivo:
+   - Selecciona <strong><code>1) Install Transformation Advisor</code></strong>
+   - Acepta la licencia
+   - Selecciona <strong><code>5) Start Transformation Advisor</code></strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Verificar que los contenedores están activos</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>transformation
+</code></pre></div>
+<p>Accede a la interfaz en: <strong><a href="http://localhost:3000">http://localhost:3000</a></strong></p>
+<div class="admonition note">
+<p class="admonition-title">Requisitos</p>
+<p>Requiere Docker o Podman instalado. El script descarga automáticamente las imágenes necesarias desde ICR.</p>
+</div>
+<h3 id="opcion-b-ibm-cloud">Opción B — IBM Cloud<a class="headerlink" href="#opcion-b-ibm-cloud" title="Permanent link">¶</a></h3>
+<ol>
+<li>Inicia sesión en <a href="https://cloud.ibm.com">cloud.ibm.com</a></li>
+<li>Busca <strong>Transformation Advisor</strong> en el catálogo</li>
+<li>Crea una instancia en el plan gratuito (Lite)</li>
+<li>Accede desde el panel de control de IBM Cloud</li>
+</ol>
+<hr>
+<h2 id="paso-2-crear-un-nuevo-workspace-en-ama">Paso 2 — Crear un Nuevo Workspace en AMA<a class="headerlink" href="#paso-2-crear-un-nuevo-workspace-en-ama" title="Permanent link">¶</a></h2>
+<p>Cuando accedas a la interfaz de Transformation Advisor por primera vez:</p>
+<h3 id="21-crear-un-workspace">2.1 Crear un Workspace<a class="headerlink" href="#21-crear-un-workspace" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Transformation Advisor → Add Workspace
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  Nombre: "PedjasApp-Migration"
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  Descripción: "Análisis de modernización de PedjasApp tWAS → Liberty"
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → Create
+</code></pre></div>
+<p><strong>Vista esperada del workspace vacío:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│  IBM Transformation Advisor                                  │
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│  Workspace: PedjasApp-Migration                             │
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│                                                             │
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│  [ No hay colecciones todavía ]                             │
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│                                                             │
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│  [ + Add Collection ]                                       │
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="22-crear-una-coleccion">2.2 Crear una Colección<a class="headerlink" href="#22-crear-una-coleccion" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>→ Add Collection
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  Nombre: "analisis-inicial"
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  → Create
+</code></pre></div>
+<hr>
+<h2 id="paso-3-cargar-el-ear-de-pedjasapp">Paso 3 — Cargar el EAR de PedjasApp<a class="headerlink" href="#paso-3-cargar-el-ear-de-pedjasapp" title="Permanent link">¶</a></h2>
+<h3 id="metodo-a-subir-el-fichero-directamente-desde-la-interfaz-web">Método A — Subir el fichero directamente desde la interfaz web<a class="headerlink" href="#metodo-a-subir-el-fichero-directamente-desde-la-interfaz-web" title="Permanent link">¶</a></h3>
+<ol>
+<li>En la colección <code>analisis-inicial</code>, haz clic en <strong>Upload data</strong></li>
+<li>Selecciona el fichero <code>pedjasapp-para-ama.ear</code> que generaste en el Lab 1</li>
+<li>Haz clic en <strong>Upload</strong></li>
+</ol>
+<p><strong>Vista esperada durante la carga:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌─────────────────────────────────────────────────────────────┐
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│  Uploading: pedjasapp-para-ama.ear                          │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│  ████████████████████████████████░░░░░░  85%               │
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│  Analizando módulos EJB...                                  │
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="metodo-b-usando-el-data-collector-para-aplicaciones-en-servidor-activo">Método B — Usando el Data Collector (para aplicaciones en servidor activo)<a class="headerlink" href="#metodo-b-usando-el-data-collector-para-aplicaciones-en-servidor-activo" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Descargar el Data Collector de la interfaz de TA</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># (botón "Download data collector" en la pantalla principal)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Ejecutar el Data Collector apuntando al perfil de tWAS</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>./transformationadvisor-Linux_AppSrv01<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span>-w<span class="w"> </span>/opt/IBM/WebSphere/AppServer<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span>-p<span class="w"> </span>AppSrv01
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Esto genera un fichero .zip que se sube a TA</span>
+</code></pre></div>
+<hr>
+<h2 id="paso-4-interpretar-los-resultados-del-analisis">Paso 4 — Interpretar los Resultados del Análisis<a class="headerlink" href="#paso-4-interpretar-los-resultados-del-analisis" title="Permanent link">¶</a></h2>
+<p>Tras completar el análisis, Transformation Advisor mostrará un resumen con la siguiente estructura:</p>
+<h3 id="41-pantalla-de-resumen-de-aplicaciones">4.1 Pantalla de Resumen de Aplicaciones<a class="headerlink" href="#41-pantalla-de-resumen-de-aplicaciones" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│  Colección: analisis-inicial                                        │
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│                                                                     │
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│  Aplicación          │ Complejidad │ Issues │ Advertencias │ Info  │
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│  ─────────────────── │ ─────────── │ ─────── │ ──────────── │ ───── │
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│  pedjasapp.ear       │  Moderada  │   12   │      8       │  15   │
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│                                                                     │
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│  Esfuerzo estimado: 3-5 días                                        │
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│  Destino recomendado: WebSphere Liberty                             │
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>└─────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="42-clasificacion-de-issues">4.2 Clasificación de Issues<a class="headerlink" href="#42-clasificacion-de-issues" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Color</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Crítico</strong></td>
+<td>🔴 Rojo</td>
+<td>Bloqueante — la aplicación no arrancará en Liberty sin este cambio</td>
+</tr>
+<tr>
+<td><strong>Advertencia</strong></td>
+<td>🟡 Amarillo</td>
+<td>Comportamiento diferente — necesita pruebas adicionales</td>
+</tr>
+<tr>
+<td><strong>Informativo</strong></td>
+<td>🔵 Azul</td>
+<td>Mejora recomendada — no bloquea el despliegue</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-reglas-disparadas-en-pedjasapp">4.3 Reglas Disparadas en PedjasApp<a class="headerlink" href="#43-reglas-disparadas-en-pedjasapp" title="Permanent link">¶</a></h3>
+<p>A continuación se describen las reglas que AMA generará para PedjasApp, junto con su nivel de severidad y la acción correctiva correspondiente:</p>
+<hr>
+<h4 id="rule-0001-ibm-websphere-api-usage-comibmwebsphere">🔴 RULE-0001 — IBM WebSphere API Usage (com.ibm.websphere.*)<a class="headerlink" href="#rule-0001-ibm-websphere-api-usage-comibmwebsphere" title="Permanent link">¶</a></h4>
+<p><strong>Ficheros afectados:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pedjasapp-ejb/src/main/java/.../PedidoServiceBean.java
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pedjasapp-ejb/src/main/java/.../NotificacionBean.java
+</code></pre></div><p></p>
+<p><strong>Descripción:</strong>
+La aplicación importa y utiliza clases del paquete <code>com.ibm.websphere.*</code>, que son exclusivas de WebSphere Application Server traditional y no existen en WebSphere Liberty.</p>
+<p><strong>Código problemático:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.ibm.websphere.naming.JndiHelper</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.ibm.websphere.cache.DistributedMap</span><span class="p">;</span>
+</code></pre></div><p></p>
+<p><strong>Acción correctiva:</strong>
+- Sustituir <code>JndiHelper</code> por la API estándar JNDI de Java EE (<code>javax.naming.InitialContext</code>)
+- Sustituir <code>DistributedMap</code> por una caché JCache (JSR-107) o un <code>HashMap</code> local simple</p>
+<hr>
+<h4 id="rule-0002-ejb-2x-cmp-entity-beans">🔴 RULE-0002 — EJB 2.x CMP Entity Beans<a class="headerlink" href="#rule-0002-ejb-2x-cmp-entity-beans" title="Permanent link">¶</a></h4>
+<p><strong>Ficheros afectados:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pedjasapp-ejb/src/main/java/.../ProductoBean.java
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pedjasapp-ejb/src/main/java/.../ClienteBean.java
+</code></pre></div><p></p>
+<p><strong>Descripción:</strong>
+Los Entity Beans con Container-Managed Persistence (CMP) de EJB 2.x no están soportados en WebSphere Liberty. Liberty soporta EJB 3.x con JPA para la capa de persistencia.</p>
+<p><strong>Código problemático:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ProductoBean</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">EntityBean</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getNombre</span><span class="p">();</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setNombre</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">);</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Collection</span><span class="w"> </span><span class="nf">ejbSelectByCategoria</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">cat</span><span class="p">);</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
+</code></pre></div><p></p>
+<p><strong>Acción correctiva:</strong>
+- Convertir los Entity Beans CMP a entidades JPA (<code>@Entity</code>)
+- Reemplazar el Home Interface por un DAO o un <code>@Stateless</code> Session Bean</p>
+<hr>
+<h4 id="rule-0003-websphere-specific-jndi-lookup">🔴 RULE-0003 — WebSphere-specific JNDI Lookup<a class="headerlink" href="#rule-0003-websphere-specific-jndi-lookup" title="Permanent link">¶</a></h4>
+<p><strong>Ficheros afectados:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pedjasapp-web/src/main/java/.../CatalogoServlet.java
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pedjasapp-ejb/src/main/java/.../PedidoServiceBean.java
+</code></pre></div><p></p>
+<p><strong>Descripción:</strong>
+La aplicación usa nombres JNDI con espacios de nombres propietarios de WAS que no son portables.</p>
+<p><strong>Código problemático:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Context</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InitialContext</span><span class="p">();</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">DataSource</span><span class="w"> </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">DataSource</span><span class="p">)</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="na">lookup</span><span class="p">(</span><span class="s">"jdbc/pedjasappDS"</span><span class="p">);</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1">// En WAS el binding real es: cell/persistent/jdbc/pedjasappDS</span>
+</code></pre></div><p></p>
+<p><strong>Acción correctiva:</strong>
+- Usar la inyección de dependencias estándar: <code>@Resource(name = "jdbc/pedjasappDS")</code>
+- Definir el recurso en <code>web.xml</code> con <code>&lt;resource-ref&gt;</code> portable</p>
+<hr>
+<h4 id="rule-0004-ibm-deployment-descriptor-ibm-web-bndxml">🟡 RULE-0004 — IBM Deployment Descriptor (ibm-web-bnd.xml)<a class="headerlink" href="#rule-0004-ibm-deployment-descriptor-ibm-web-bndxml" title="Permanent link">¶</a></h4>
+<p><strong>Ficheros afectados:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pedjasapp-web/src/main/webapp/WEB-INF/ibm-web-bnd.xml
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>pedjasapp-ejb/src/main/resources/META-INF/ibm-ejb-jar-bnd.xml
+</code></pre></div><p></p>
+<p><strong>Descripción:</strong>
+Los ficheros de binding propietarios de WebSphere (<code>ibm-web-bnd.xml</code>, <code>ibm-ejb-jar-bnd.xml</code>) solo son procesados por tWAS y el motor de Liberty en modo compatibilidad. Su contenido debe migrarse a la configuración de <code>server.xml</code>.</p>
+<p><strong>Acción correctiva:</strong>
+- Mover los bindings de DataSource y JMS al elemento <code>&lt;dataSource&gt;</code> de <code>server.xml</code>
+- Usar <code>&lt;jndiEntry&gt;</code> en <code>server.xml</code> para configurar entradas JNDI simples</p>
+<hr>
+<h4 id="rule-0005-jms-was-mq-queue-connection-factory">🟡 RULE-0005 — JMS WAS MQ Queue Connection Factory<a class="headerlink" href="#rule-0005-jms-was-mq-queue-connection-factory" title="Permanent link">¶</a></h4>
+<p><strong>Ficheros afectados:</strong>
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>pedjasapp-ejb/src/main/java/.../NotificacionBean.java
+</code></pre></div><p></p>
+<p><strong>Descripción:</strong>
+La aplicación usa una <code>QueueConnectionFactory</code> configurada mediante recursos WAS. Liberty usa su propio proveedor JMS integrado o un adaptador de recursos externo.</p>
+<p><strong>Acción correctiva:</strong>
+- Definir <code>&lt;jmsConnectionFactory&gt;</code> y <code>&lt;jmsQueue&gt;</code> en <code>server.xml</code>
+- Habilitar la feature <code>jms-2.0</code> o <code>messagingServer-3.0</code> en Liberty</p>
+<hr>
+<h4 id="rule-0006-ejb-2x-home-interface-usage">🔵 RULE-0006 — EJB 2.x Home Interface Usage<a class="headerlink" href="#rule-0006-ejb-2x-home-interface-usage" title="Permanent link">¶</a></h4>
+<p><strong>Descripción:</strong>
+El uso de EJB Home Interfaces (<code>create()</code>, <code>findByPrimaryKey()</code>) es la forma antigua de acceder a beans. En EJB 3.x y CDI, se usa inyección directa.</p>
+<p><strong>Acción correctiva:</strong>
+- Eliminar los Home Interfaces
+- Inyectar los beans directamente con <code>@EJB</code> o <code>@Inject</code></p>
+<hr>
+<h3 id="44-panel-de-analisis-detallado-vista-de-fichero">4.4 Panel de Análisis Detallado — Vista de Fichero<a class="headerlink" href="#44-panel-de-analisis-detallado-vista-de-fichero" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>┌─────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>│  pedjasapp.ear / pedjasapp-ejb.jar                                  │
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>│  PedidoServiceBean.java                                             │
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>│                                                                     │
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>│  Línea 34: import com.ibm.websphere.naming.JndiHelper;              │
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>│  ▲ CRÍTICO — IBM WebSphere API Usage                               │
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>│    Esta clase no está disponible en WebSphere Liberty.              │
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>│    Acción: Sustituir por javax.naming.InitialContext                │
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>│    [ Ver Detalle ] [ Ver Solución Sugerida ] [ Marcar Resuelto ]    │
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>│                                                                     │
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>│  Línea 67: DistributedMap cache = JndiHelper.lookup("cache/main");  │
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>│  ▲ CRÍTICO — Distributed Cache IBM API                             │
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>│    Ver: RULE-0001                                                   │
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>└─────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr>
+<h2 id="paso-5-generar-el-plan-de-migracion">Paso 5 — Generar el Plan de Migración<a class="headerlink" href="#paso-5-generar-el-plan-de-migracion" title="Permanent link">¶</a></h2>
+<p>Transformation Advisor puede generar automáticamente los artefactos de partida para Liberty:</p>
+<h3 id="51-descargar-la-guia-de-migracion">5.1 Descargar la Guía de Migración<a class="headerlink" href="#51-descargar-la-guia-de-migracion" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Aplicación: pedjasapp.ear
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>→ View migration plan
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>→ Download migration plan (ZIP)
+</code></pre></div>
+<p>El ZIP incluye:
+- <code>server.xml</code> — configuración inicial de Liberty (puede necesitar ajustes)
+- <code>Dockerfile</code> — imagen Docker Liberty básica
+- <code>migration-plan.md</code> — descripción de los cambios necesarios</p>
+<h3 id="52-tabla-resumen-de-reglas-activadas">5.2 Tabla Resumen de Reglas Activadas<a class="headerlink" href="#52-tabla-resumen-de-reglas-activadas" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Regla</th>
+<th>Severidad</th>
+<th>Esfuerzo</th>
+<th>Categoría</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RULE-0001 — IBM WebSphere API</td>
+<td>🔴 Crítico</td>
+<td>Alto</td>
+<td>APIs propietarias</td>
+</tr>
+<tr>
+<td>RULE-0002 — EJB 2.x CMP</td>
+<td>🔴 Crítico</td>
+<td>Alto</td>
+<td>Modernización de EJBs</td>
+</tr>
+<tr>
+<td>RULE-0003 — JNDI propietario</td>
+<td>🔴 Crítico</td>
+<td>Bajo</td>
+<td>Configuración de recursos</td>
+</tr>
+<tr>
+<td>RULE-0004 — ibm-web-bnd.xml</td>
+<td>🟡 Advertencia</td>
+<td>Bajo</td>
+<td>Descriptores de despliegue</td>
+</tr>
+<tr>
+<td>RULE-0005 — JMS WAS</td>
+<td>🟡 Advertencia</td>
+<td>Medio</td>
+<td>Mensajería</td>
+</tr>
+<tr>
+<td>RULE-0006 — EJB Home Interface</td>
+<td>🔵 Info</td>
+<td>Medio</td>
+<td>Modernización de EJBs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Esfuerzo total estimado: 3-5 días de trabajo de desarrollo</strong></p>
+<hr>
+<h2 id="resumen-del-lab-2">Resumen del Lab 2<a class="headerlink" href="#resumen-del-lab-2" title="Permanent link">¶</a></h2>
+<div class="admonition success">
+<p class="admonition-title">Completado</p>
+<p>En este lab has:</p>
+<ul>
+<li>Instalado y arrancado IBM Transformation Advisor / AMA</li>
+<li>Cargado el EAR de PedjasApp para su análisis</li>
+<li>Identificado las 6 reglas de modernización principales</li>
+<li>Comprendido el nivel de severidad y el esfuerzo de cada cambio</li>
+<li>Generado el plan de migración inicial</li>
+</ul>
+</div>
+<hr>
+<p><a href="../lab1/">← Lab 1 — Despliegue en tWAS</a> | <a href="../lab3/">Lab 3 — Modernización Manual →</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab 1 — Despliegue en tWAS">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Lab 1 — Despliegue en tWAS
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lab3/" class="md-footer__link md-footer__link--next" aria-label="Next: Lab 3 — Modernización Manual">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Lab 3 — Modernización Manual
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 IBM
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "content.code.annotate", "content.code.copy", "content.code.select", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../_static/hide-toc-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

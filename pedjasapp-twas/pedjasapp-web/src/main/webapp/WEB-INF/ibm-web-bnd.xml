@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ibm-web-bnd.xml — Descriptor de binding propietario de WebSphere para el módulo Web.
+
+  NOTA AMA — RULE-0004: Este fichero es específico de WebSphere Application Server.
+  No es reconocido por Liberty salvo en modo de compatibilidad limitado.
+
+  Propósito: vincula los nombres lógicos de los recursos declarados en web.xml
+  con los recursos físicos configurados en el servidor tWAS (JNDI global).
+
+  En la versión Liberty, estos bindings se trasladan directamente a server.xml
+  mediante los elementos <dataSource jndiName="..."> y <jmsConnectionFactory jndiName="...">.
+-->
+<web-bnd
+    xmlns="http://websphere.ibm.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee
+                        http://websphere.ibm.com/xml/ns/javaee/ibm-web-bnd_1_2.xsd"
+    version="1.2">
+
+    <!-- Raíz de contexto de la aplicación web en tWAS -->
+    <virtual-host name="default_host"/>
+
+    <!--
+      Binding del DataSource.
+      El nombre lógico "jdbc/pedjasappDS" (declarado en web.xml)
+      se vincula al recurso JDBC real configurado en la consola de tWAS.
+    -->
+    <resource-ref
+        name="jdbc/pedjasappDS"
+        binding-name="jdbc/pedjasappDS"/>
+
+    <!--
+      Binding del Home del EJB ProductoBean.
+      El nombre lógico "ejb/ProductoCatalogoHome" se vincula al EJB
+      del módulo EJB del mismo EAR.
+    -->
+    <ejb-local-ref
+        name="ejb/ProductoCatalogoHome"
+        binding-name="ejb/ProductoEJBHome"/>
+
+    <!-- Binding de los Session Beans EJB 3.x -->
+    <ejb-local-ref
+        name="ejb/PedidoServiceEJB"
+        binding-name="ejb/PedidoServiceEJB"/>
+
+    <ejb-local-ref
+        name="ejb/NotificacionEJB"
+        binding-name="ejb/NotificacionEJB"/>
+
+</web-bnd>
