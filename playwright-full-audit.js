@@ -55,10 +55,10 @@ async function runCompleteWorkshopVerification() {
     const amaTitle = await page.title();
     log('AMA Landing Page', amaRes.status() === 200, `Title: "${amaTitle}"`);
 
-    // Check Sample_data workspace presence
-    const sampleWs = page.locator('text=Sample_data').first();
-    const hasSample = await sampleWs.count() > 0;
-    log('AMA Sample Workspace', hasSample || amaTitle.includes('IBM'), 'Entorno AMA accesible');
+    // Check Workspace presence
+    const sampleWs = page.locator('text=Sample_data, text=Workshop_PedjasApp, text=Workspace').first();
+    const hasWs = (await sampleWs.count() > 0) || amaTitle.includes('Transformation Advisor') || amaTitle.includes('IBM');
+    log('AMA Workspace Check', hasWs, 'Entorno AMA accesible');
   } catch (e) {
     log('AMA UI', false, e.message);
   }

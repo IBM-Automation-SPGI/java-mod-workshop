@@ -93,40 +93,65 @@ En la interfaz moderna de AMA (v4.x/v5.x):
 El **Data Collector de AMA** permite escanear servidores WebSphere tradicionales completos o binarios de aplicaciones (`.ear`, `.war`), evaluando incompatibilidades, reglas de arquitectura y dependencias hacia Liberty.
 
 El flujo de trabajo consta de dos partes:
+
 1. **Generación del archivo `.zip` de la colección** con el analizador de binarios / Data Collector.
+
 2. **Subida del `.zip` a AMA** (a través de la **interfaz gráfica Web** o mediante la **API REST**).
 
 ---
 
 ### 3.1 Cómo Generar el Archivo ZIP con el Data Collector
 
-Puedes ejecutar el motor de análisis directamente en el entorno donde reside la aplicación o el servidor tWAS.
+El Data Collector viene empaquetado en el contenedor de AMA (`taserver`). Para ejecutar el escaneo directamente sobre el contenedor `pedjasapp-twas`, extraemos el bundle del recolector y ejecutamos el análisis con los comandos completos a continuación.
 
-#### Opción 1 — Escaneo directo del servidor WebSphere tradicional (todos los perfiles)
+#### Paso previo: Extraer el Data Collector en el contenedor de tWAS
 ```bash
-# Ejecutar el collector sobre la instalación de WebSphere tWAS
-java -jar /ruta/a/transformationadvisor/lib/ta.binaryAppScanner-26.3.1.0.jar \
+# 1. Crear directorio en el contenedor de tWAS
+podman exec pedjasapp-twas mkdir -p /tmp/ta-collector
+
+# 2. Extraer el paquete del collector de Linux desde el servidor AMA hacia el contenedor tWAS
+podman exec taserver cat /opt/ibm/wlp/usr/servers/defaultServer/apps/expanded/lands_advisor.war/transformationadvisor-Linux.tgz | podman exec -i pedjasapp-twas tar -xzf - -C /tmp/ta-collector
+```
+
+---
+
+#### Opción 1 — Escaneo del servidor tWAS completo desde el contenedor (todos los perfiles)
+```bash
+# Ejecutar el collector sobre la instalación del servidor en /opt/IBM/WebSphere/AppServer
+podman exec pedjasapp-twas \
+  /tmp/ta-collector/transformationadvisor-5.1.0/jre/bin/java \
+  -jar /tmp/ta-collector/transformationadvisor-5.1.0/lib/ta.binaryAppScanner-26.3.1.0.jar \
   /opt/IBM/WebSphere/AppServer \
   --dc \
   --all-profiles \
   --output=/tmp/ta-output \
   --noProgressIndicator
+
+# Copiar el ZIP generado al host local
+podman exec pedjasapp-twas cat /tmp/ta-output/AppSrv01.zip > ./AppSrv01-collection.zip
 ```
-> Genera el archivo: `/tmp/ta-output/AppSrv01.zip`
+> Genera el archivo: `./AppSrv01-collection.zip`
+
+---
 
 #### Opción 2 — Escaneo del artefacto empresarial (`pedjasapp.ear`) hacia Liberty (Jakarta EE 10 / Java 17)
 ```bash
-# Escanear el EAR especificando origen WAS 9.0 (Java 8) y destino Liberty (Java 17)
-java -jar /ruta/a/transformationadvisor/lib/ta.binaryAppScanner-26.3.1.0.jar \
-  pedjasapp-para-ama.ear \
+# Ejecutar el escaneo del EAR con destino Liberty y Java 17
+podman exec pedjasapp-twas \
+  /tmp/ta-collector/transformationadvisor-5.1.0/jre/bin/java \
+  -jar /tmp/ta-collector/transformationadvisor-5.1.0/lib/ta.binaryAppScanner-26.3.1.0.jar \
+  /tmp/pedjasapp.ear \
   --dc \
   --sourceAppServer=was90 \
   --sourceJava=ibm8 \
   --targetJava=java17 \
-  --output=./ta-output-pedjas \
+  --output=/tmp/ta-output-pedjas \
   --noProgressIndicator
+
+# Copiar el ZIP generado al host local
+podman exec pedjasapp-twas cat /tmp/ta-output-pedjas/pedjasapp.zip > ./pedjasapp-collection.zip
 ```
-> Genera el archivo de colección: `./ta-output-pedjas/pedjasapp.zip` (o `pedjasapp-collection.zip`).
+> Genera el archivo: `./pedjasapp-collection.zip`
 
 ---
 
