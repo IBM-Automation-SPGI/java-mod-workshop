@@ -31,7 +31,6 @@ nav:
 theme:
   name: material
   features:
-    - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.indexes
@@ -45,6 +44,33 @@ theme:
 plugins:
   - search
   - glightbox
+  - i18n:
+      languages:
+        - locale: es
+          name: Español
+          default: true
+          build: true
+        - locale: en
+          name: English
+          build: true
+          nav:
+            - Introduction: 'index.en.md'
+            - Lab 0 — Prerequisites:
+              - Overview & Environment: 'lab0/index.en.md'
+            - Lab 1 — Deploy on tWAS:
+              - Deploy PedjasApp on tWAS: 'lab1/index.en.md'
+            - Lab 2 — AMA Analysis:
+              - Run IBM AMA: 'lab2/index.en.md'
+            - Lab 3 — Manual Modernization:
+              - Apply Code Changes: 'lab3/index.en.md'
+            - Lab 3B — Modernization with Bob:
+              - AI Modernization with Bob: 'lab3b/index.en.md'
+            - Lab 4 — Deploy on Liberty:
+              - Deploy on WebSphere Liberty: 'lab4/index.en.md'
+            - Lab 5 — Validation:
+              - Validation & Next Steps: 'lab5/index.en.md'
+            - Lab 6 — Kubernetes & OpenShift:
+              - Deploy with Open Liberty Operator: 'lab6/index.en.md'
 
 markdown_extensions:
   - sane_lists

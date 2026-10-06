@@ -72,7 +72,7 @@ cd pedjasapp-liberty
 mvn clean package -DskipTests
 
 # 2. Construir la imagen de contenedor
-podman build -t pedjasapp-liberty:latest -f Dockerfile.liberty .
+podman build -t pedjasapp-liberty:latest -f Dockerfile .
 
 # 3. Etiquetar y publicar en el registry (ejemplo para OpenShift internal registry o Quay.io)
 # oc registry login
