@@ -270,6 +270,9 @@ RUN mkdir -p /build/jdbc && \
     https://jdbc.postgresql.org/download/postgresql-42.7.0.jar
 
 # ---- Stage 2: Final WebSphere Liberty Image ----
+# Tag: 26.0.0.9-full-java17-openj9-ubi-minimal
+# The "full" variant includes all Jakarta EE 10 + MicroProfile 6.1 features
+# without needing to run installUtility.
 FROM icr.io/appcafe/websphere-liberty:26.0.0.9-full-java17-openj9-ubi-minimal
 
 LABEL maintainer="IBM Client Engineering"
@@ -295,6 +298,8 @@ COPY server.xml /config/server.xml
 # Override at runtime with: podman run -e PEDJASAPP_DB_PASSWORD=<value> ...
 COPY src/main/resources/bootstrap.properties /config/bootstrap.properties
 COPY --from=build /build/target/pedjasapp.war /config/apps/pedjasapp.war
+
+# The "full" image already includes all features. No installUtility step needed.
 
 EXPOSE 9080 9443
 
