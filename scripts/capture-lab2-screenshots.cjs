@@ -125,8 +125,18 @@ async function shot(page, name) {
   await wait(600);
   await shot(page, '03-create-workspace-name-filled');
 
-  // Cerrar el diálogo con Escape (sin crear nada)
-  await page.keyboard.press('Escape');
+  // Cerrar el modal via JS directo — más fiable que localizar el botón Cancel
+  await page.evaluate(() => {
+    // Quitar la clase is-visible del modal de workspace para cerrarlo
+    document.querySelectorAll('.addWsModal, .cds--modal.is-visible, .bx--modal.is-visible')
+      .forEach(el => {
+        el.classList.remove('is-visible');
+        el.style.display = 'none';
+      });
+    // Restaurar el scroll del body por si el modal lo bloqueó
+    document.body.style.overflow = '';
+    document.body.classList.remove('bx--body--with-modal-open', 'cds--body--with-modal-open');
+  });
   await wait(600);
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -156,73 +166,23 @@ async function shot(page, name) {
   await shot(page, '04-workspace-interior-empty');
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 04 — Botón "Upload results" / subida del ZIP
+  // 04 — Navegar a Assessment para mostrar la tabla de aplicaciones
   // ══════════════════════════════════════════════════════════════════════════
-  console.log('04. Subir colección ZIP a AMA');
-
-  // Buscar el botón de upload en la vista del workspace
-  const uploadBtn = page.locator([
-    'button:has-text("Upload results")',
-    'button:has-text("Upload")',
-    'a:has-text("Upload results")',
-  ].join(', ')).first();
-
-  if (await uploadBtn.isVisible({ timeout: 5000 })) {
-    await uploadBtn.click();
-    await wait(800);
-    await shot(page, '05-upload-dialog-open');
-
-    // Subir el fichero
-    const fileInput = page.locator('input[type="file"]').first();
-    if (await fileInput.count() > 0) {
-      await fileInput.setInputFiles(ZIP_PATH);
-    } else {
-      // Trigger file chooser vía clic en la zona de drop
-      const [fc] = await Promise.all([
-        page.waitForEvent('filechooser', { timeout: 6000 }),
-        page.locator('.bx--file-input, [data-testid="file-uploader"], .drop-zone, label[for*="file"]').first().click(),
-      ]);
-      await fc.setFiles(ZIP_PATH);
-    }
-    await wait(800);
-    await shot(page, '06-upload-file-selected');
-
-    // Pulsar Upload / Submit
-    const submitBtn = page.locator([
-      'button:has-text("Upload"):not(:has-text("results"))',
-      'button:has-text("Submit")',
-      'button[type="submit"]',
-    ].join(', ')).last();
-    if (await submitBtn.isVisible({ timeout: 3000 })) {
-      await submitBtn.click();
-      await page.waitForLoadState('networkidle');
-      await wait(3000);
-      await shot(page, '07-upload-processing');
-    }
-  } else {
-    console.warn('  ⚠️  Botón Upload no visible — capturando estado actual');
-    await shot(page, '05-workspace-upload-state');
-  }
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // 05 — Vista Recommendations / pantalla de resultados
-  // ══════════════════════════════════════════════════════════════════════════
-  console.log('05. Pantalla Recommendations (resultados del análisis)');
-  await page.waitForLoadState('networkidle');
-  await wait(1500);
-  // Intentar navegar a Recommendations si hay pestaña
+  console.log('04. Pestaña Assessment — vista de tabla de aplicaciones');
   try {
-    const recTab = page.locator([
-      '[role="tab"]:has-text("Recommendations")',
-      'a:has-text("Recommendations")',
-      'button:has-text("Recommendations")',
+    const assessTab = page.locator([
+      '[role="tab"]:has-text("Assessment")',
+      'a:has-text("Assessment")',
+      'button:has-text("Assessment")',
     ].join(', ')).first();
-    if (await recTab.isVisible({ timeout: 4000 })) {
-      await recTab.click();
+    if (await assessTab.isVisible({ timeout: 4000 })) {
+      await assessTab.click();
       await page.waitForLoadState('networkidle');
-      await wait(1000);
+      await wait(1200);
     }
   } catch (_) {}
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await wait(400);
   await shot(page, '08-recommendations-overview');
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -234,46 +194,56 @@ async function shot(page, name) {
   await shot(page, '09-applications-table');
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 07 — Entrar al detalle de pedjasapp
+  // 07 — Detalle de pedjasapp: scroll a la fila de la app con sus métricas
   // ══════════════════════════════════════════════════════════════════════════
-  console.log('07. Detalle de pedjasapp.ear');
+  console.log('07. Detalle de pedjasapp.ear — fila con métricas');
+  // Intentar navegar al detalle si existe enlace
+  let inAppDetail = false;
   try {
     const appLink = page.locator([
       'a:has-text("pedjasapp")',
       'td:has-text("pedjasapp") a',
       'button:has-text("pedjasapp")',
-      'span:has-text("pedjasapp.ear")',
     ].join(', ')).first();
     if (await appLink.isVisible({ timeout: 5000 })) {
       await appLink.click();
       await page.waitForLoadState('networkidle');
       await wait(1200);
-      await shot(page, '10-app-detail-pedjasapp');
-    } else {
-      await shot(page, '10-app-detail-state');
+      inAppDetail = true;
     }
-  } catch (e) {
-    console.warn('  ⚠️  No se pudo abrir detalle:', e.message);
-    await shot(page, '10-app-detail-state');
+  } catch (_) {}
+  // Si no navegó, hacer scroll a la fila de la aplicación para que sea visible
+  if (!inAppDetail) {
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await wait(400);
   }
+  await shot(page, '10-app-detail-pedjasapp');
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 08 — Lista de Issues / Rules
+  // 08 — Lista de Issues / Rules: volver atrás si es necesario y hacer scroll
   // ══════════════════════════════════════════════════════════════════════════
-  console.log('08. Pestaña Issues / Rules');
+  console.log('08. Lista de Issues / Rules');
+  // Si estamos en el detalle de la app, volver a la vista de Assessment
+  if (inAppDetail) {
+    try {
+      await page.goBack({ waitUntil: 'networkidle' });
+      await wait(800);
+    } catch (_) {}
+  }
+  // Intentar clic en pestaña Issues/Rules si existe
   try {
     const issuesTab = page.locator([
       '[role="tab"]:has-text("Issues")',
       '[role="tab"]:has-text("Rules")',
       'a:has-text("Issues")',
-      'button:has-text("Issues")',
     ].join(', ')).first();
-    if (await issuesTab.isVisible({ timeout: 4000 })) {
+    if (await issuesTab.isVisible({ timeout: 3000 })) {
       await issuesTab.click();
       await wait(1000);
     }
   } catch (_) {}
-  await page.evaluate(() => window.scrollTo(0, 0));
+  // Scroll hacia abajo para mostrar las reglas/issues (zona diferente al detalle de app)
+  await page.evaluate(() => window.scrollTo(0, 500));
   await wait(600);
   await shot(page, '11-issues-rules-list');
 

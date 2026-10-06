@@ -164,8 +164,6 @@ You have two methods available to ingest the `.zip` archive:
 5. Keep **Autodetect collection** selected or provide a name (e.g. `PedjasApp_tWAS`) and click the blue **Upload** button.
 6. Within seconds, the UI processes the binaries and displays the **Recommendations** view, **Visualization** charts, and modernization rule breakdown.
 
-![Workspace state after collection upload](img/05-workspace-upload-state.png)
-
 ---
 
 #### Method B — Automated Upload via CLI / AMA REST API

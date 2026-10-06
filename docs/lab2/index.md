@@ -165,8 +165,6 @@ Tienes dos métodos disponibles para ingestar el archivo `.zip`:
 5. Puedes dejar marcada la opción **Autodetect collection** o asignarle un nombre (p. ej., `PedjasApp_tWAS`) y pulsa en el botón azul **Upload**.
 6. En unos segundos, la interfaz procesará los binarios y mostrará automáticamente la vista de **Recommendations**, los gráficos de **Visualization** y el desglose de reglas de modernización.
 
-![Estado del workspace tras la subida de la colección](img/05-workspace-upload-state.png)
-
 ---
 
 #### Método B — Subida Automatizada por Línea de Comandos / API REST de AMA
