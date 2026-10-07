@@ -8,16 +8,16 @@
 
 This hands-on workshop guides you through the end-to-end modernization journey of an enterprise Java application from **traditional WebSphere Application Server (tWAS)** to **WebSphere Liberty**, using **IBM Application Modernization Accelerator (AMA)** as the analysis and acceleration engine.
 
-| Lab | Module | What you will do |
-|-----|--------|------------------|
-| [**Lab 0**](lab0/index.en.md) | [**Prerequisites**](lab0/index.en.md) | Configure the environment, review AS-IS / TO-BE architectures, and build PedjasApp |
-| [**Lab 1**](lab1/index.en.md) | [**Deploy on tWAS**](lab1/index.en.md) | Package and inspect the legacy EAR application running on traditional WebSphere |
-| [**Lab 2**](lab2/index.en.md) | [**AMA Analysis**](lab2/index.en.md) | Run IBM AMA scanner and understand the modernization report and rule definitions |
-| [**Lab 3**](lab3/index.en.md) | [**Manual Modernization**](lab3/index.en.md) | Apply step-by-step code modernizations guided by AMA |
-| [**Lab 3B**](lab3b/index.en.md) | [**Modernization with Bob**](lab3b/index.en.md) | Accelerated agentic modernization using IBM Bob and AI packages |
-| [**Lab 4**](lab4/index.en.md) | [**Deploy on Liberty**](lab4/index.en.md) | Build container image and run on WebSphere Liberty 26.0.0.9 |
-| [**Lab 5**](lab5/index.en.md) | [**Validation**](lab5/index.en.md) | Test functional equivalence, health endpoints, and plan next modernization phases |
-| [**Lab 6**](lab6/index.en.md) | [**Kubernetes & OpenShift**](lab6/index.en.md) | Deploy to cloud-native cluster using the Open Liberty Operator (Optional) |
+| Lab | Module | What you will do | ⏱ Duration |
+|-----|--------|------------------|-----------|
+| [**Lab 0**](lab0/index.en.md) | [**Prerequisites**](lab0/index.en.md) | Configure the environment, review AS-IS / TO-BE architectures, and build PedjasApp | 20–30 min |
+| [**Lab 1**](lab1/index.en.md) | [**Deploy on tWAS**](lab1/index.en.md) | Package and inspect the legacy EAR application running on traditional WebSphere | 30–45 min |
+| [**Lab 2**](lab2/index.en.md) | [**AMA Analysis**](lab2/index.en.md) | Run IBM AMA scanner and understand the modernization report and rule definitions | 30–45 min |
+| [**Lab 3**](lab3/index.en.md) | [**Manual Modernization**](lab3/index.en.md) | Apply step-by-step code modernizations guided by AMA | 90–120 min |
+| [**Lab 3B**](lab3b/index.en.md) | [**Modernization with Bob**](lab3b/index.en.md) | Accelerated agentic modernization using IBM Bob and AI packages | 20–40 min |
+| [**Lab 4**](lab4/index.en.md) | [**Deploy on Liberty**](lab4/index.en.md) | Build container image and run on WebSphere Liberty 26.0.0.9 | 30–45 min |
+| [**Lab 5**](lab5/index.en.md) | [**Validation**](lab5/index.en.md) | Test functional equivalence, health endpoints, and plan next modernization phases | 20–30 min |
+| [**Lab 6**](lab6/index.en.md) | [**Kubernetes & OpenShift**](lab6/index.en.md) | Deploy to cloud-native cluster using the Open Liberty Operator (Optional) | 45–60 min |
 
 ---
 

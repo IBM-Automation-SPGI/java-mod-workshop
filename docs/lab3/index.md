@@ -6,6 +6,9 @@
 
 En este lab aplicarás los cambios de código identificados por AMA en el Lab 2. Al finalizar, tendrás la versión **Liberty-compatible** de PedjasApp, con todas las dependencias propietarias de tWAS eliminadas o sustituidas por equivalentes estándar Jakarta EE.
 
+!!! tip "⏱ Duración estimada: 90–120 minutos"
+    Es el lab más extenso del workshop. Cubre 6 cambios de código principales (EJB 2.x → JPA, APIs IBM, JNDI, descriptores WAS, JMS y EJB Home Interface), cada uno con ejemplos detallados de antes/después.
+
 ---
 
 ## Estrategia de Modernización

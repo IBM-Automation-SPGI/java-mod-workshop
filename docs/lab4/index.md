@@ -6,6 +6,9 @@
 
 En este lab construirás la imagen de contenedor de la aplicación PedjasApp modernizada y la desplegarás en **WebSphere Liberty 26.0.0.9**. Verificarás que la funcionalidad es equivalente a la versión tWAS y analizarás las diferencias de configuración.
 
+!!! tip "⏱ Duración estimada: 30–45 minutos"
+    Incluye la revisión de la estructura del proyecto Liberty, la comprensión del `server.xml` y el `Dockerfile`, la construcción de la imagen y el primer arranque del contenedor con PostgreSQL.
+
 ---
 
 ## Estructura del Proyecto Liberty

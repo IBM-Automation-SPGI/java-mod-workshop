@@ -15,6 +15,8 @@ Al finalizar, serás capaz de:
 
 ### Duración Estimada por Lab
 
+!!! tip "⏱ Duración estimada de este lab: 20–30 minutos"
+
 | Lab | Título | Tiempo estimado |
 |-----|--------|----------------|
 | Lab 0 | Requisitos Previos | 20–30 min |

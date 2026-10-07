@@ -6,6 +6,12 @@
 
 In this lab you will leverage **IBM Bob** and the **Premium Package for Java Modernization** (`IBM.bob-java`) to accelerate and automate the code transformations identified by AMA in Lab 2. Instead of applying changes manually as in Lab 3, Bob acts as your intelligent modernization agent: it uses the **Liberty Modernization** workflow guided by the AMA assessment export, applies OpenRewrite recipes, resolves remaining semantic incompatibilities agentically, and generates the resulting `server.xml` and container configurations.
 
+!!! tip "⏱ Estimated duration: 20–40 minutes"
+    Alternative to Lab 3 (Manual). Bob's workflow automates the most repetitive transformations; actual time depends on project complexity and any additional manual adjustments needed.
+
+!!! note "Alternative to Lab 3"
+    This lab is an **alternative** to Lab 3 (Manual Modernization). You can complete one or both to compare the two approaches.
+
 ---
 
 ## What is the IBM Bob Premium Package for Java Modernization

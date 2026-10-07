@@ -6,6 +6,9 @@
 
 In this advanced lab you will deploy the modernized **PedjasApp Liberty** application on a **Kubernetes** or **Red Hat OpenShift** cluster, taking full advantage of the **Open Liberty Operator** for lifecycle management, high availability, horizontal pod autoscaling (HPA), and automated health probes.
 
+!!! tip "⏱ Estimated duration: 45–60 minutes"
+    Optional advanced lab. Requires access to a Kubernetes or OpenShift cluster. Covers Open Liberty Operator installation, Kubernetes/PostgreSQL manifests, and cloud-native deployment verification.
+
 ```mermaid
 graph TB
     subgraph OCP["Red Hat OpenShift / Kubernetes Cluster"]

@@ -6,6 +6,9 @@
 
 En este lab compilarás el monolito legado **PedjasApp (EAR)**, arrancarás una instancia de **WebSphere Application Server tradicional (tWAS 9.0)** en contenedor y prepararás el entorno y artefactos de origen que serán analizados en profundidad mediante **IBM Application Modernization Accelerator (AMA)** en el Lab 2.
 
+!!! tip "⏱ Duración estimada: 30–45 minutos"
+    Incluye la descarga de la imagen de tWAS (~1,5 GB en el primer pull), la compilación del EAR y la verificación del servidor.
+
 ---
 
 ## Descripción de PedjasApp

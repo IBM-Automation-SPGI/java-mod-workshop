@@ -6,6 +6,9 @@
 
 En este lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización. Es el último lab del flujo principal; el Lab 6 (opcional) cubre el despliegue en Kubernetes/OpenShift.
 
+!!! tip "⏱ Duración estimada: 20–30 minutos"
+    Cubre el checklist de validación funcional, las pruebas de endpoints MicroProfile (health, métricas, OpenAPI) y la revisión del dashboard de métricas. Incluye además una sección de diagnóstico en caso de problemas.
+
 ---
 
 ## Checklist de Validación Post-Modernización

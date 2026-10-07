@@ -6,6 +6,9 @@
 
 En este lab ejecutarás **IBM Application Modernization Accelerator (AMA)** sobre el fichero EAR de PedjasApp, interpretarás los resultados del análisis y priorizarás los cambios necesarios para la migración a WebSphere Liberty.
 
+!!! tip "⏱ Duración estimada: 30–45 minutos"
+    Incluye la instalación de AMA (si es la primera vez), el escaneo del EAR, la lectura del informe y la revisión de las reglas de modernización generadas.
+
 ---
 
 ## ¿Qué es IBM AMA / Transformation Advisor?

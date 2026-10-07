@@ -6,6 +6,9 @@
 
 In this lab you will package the modernized **PedjasApp Liberty** container image and deploy it on **WebSphere Liberty 26.0.0.9** backed by a **PostgreSQL** relational database. You will verify that the runtime functionality is fully equivalent to the legacy tWAS deployment, validate operational metrics, and inspect configuration differences.
 
+!!! tip "⏱ Estimated duration: 30–45 minutes"
+    Includes reviewing the Liberty project layout, understanding `server.xml` and the `Dockerfile`, building the container image, and running the first Liberty+PostgreSQL deployment.
+
 ---
 
 ## Liberty Project Structure

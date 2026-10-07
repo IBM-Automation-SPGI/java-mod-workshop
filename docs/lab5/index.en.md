@@ -6,6 +6,9 @@
 
 In this final lab you will thoroughly validate that the modernized **PedjasApp Liberty** application is functionally equivalent to the legacy tWAS deployment, review operational performance and memory improvements, and map out next architectural stages in your modernization journey.
 
+!!! tip "⏱ Estimated duration: 20–30 minutes"
+    Covers the functional validation checklist, MicroProfile endpoint tests (health, metrics, OpenAPI), and the metrics dashboard review. Includes a troubleshooting section if any check does not pass.
+
 ---
 
 ## Post-Modernization Validation Checklist

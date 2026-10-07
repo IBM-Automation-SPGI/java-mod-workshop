@@ -15,6 +15,8 @@ By the end of this workshop, you will be able to:
 
 ### Estimated Lab Duration
 
+!!! tip "⏱ Estimated duration of this lab: 20–30 minutes"
+
 | Lab | Title | Estimated Time |
 |-----|-------|---------------|
 | Lab 0 | Prerequisites | 20–30 min |
