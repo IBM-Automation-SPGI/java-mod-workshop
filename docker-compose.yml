@@ -1,4 +1,6 @@
-version: '3.8'
+# docker-compose.yml — PedjasApp Liberty + PostgreSQL
+# Uso: podman-compose up -d  |  docker compose up -d
+# Nota: construir la imagen antes: cd pedjasapp-liberty && podman build -t pedjasapp-liberty:1.0 .
 
 services:
   # Base de datos PostgreSQL para PedjasApp Liberty

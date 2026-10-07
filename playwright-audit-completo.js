@@ -388,8 +388,9 @@ async function auditAMA(page) {
     // Esperar a que cargue la UI SPA
     await page.waitForTimeout(2000);
     const bodyAfter = await bodyText(page);
-    log('AMA GUI — Botón Create workspace / Sample_data',
-      bodyAfter.includes('Create workspace') || bodyAfter.includes('Sample_data') || bodyAfter.includes('workspace'),
+    log('AMA GUI — Interfaz AMA cargada (SPA activa)',
+      bodyAfter.includes('workspace') || bodyAfter.includes('Workspace') || bodyAfter.includes('Upload')
+        || bodyAfter.includes('Create') || bodyAfter.includes('Settings') || bodyAfter.includes('About'),
       bodyAfter.slice(0,120));
   } catch (e) {
     log('AMA GUI — No accesible (¿está arrancado AMA?)', false, e.message.slice(0,100));

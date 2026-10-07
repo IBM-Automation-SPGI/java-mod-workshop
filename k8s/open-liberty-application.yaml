@@ -62,7 +62,7 @@ spec:
       failureThreshold: 2
     startup:
       httpGet:
-        path: /health/started
+        path: /health/live
         port: 9080
       initialDelaySeconds: 5
       periodSeconds: 5

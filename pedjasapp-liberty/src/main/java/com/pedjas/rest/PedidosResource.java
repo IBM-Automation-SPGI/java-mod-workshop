@@ -76,6 +76,12 @@ public class PedidosResource {
     @APIResponse(responseCode = "400", description = "Datos inválidos o stock insuficiente")
     public Response crear(Map<String, Object> body) {
         try {
+            if (body == null || !body.containsKey("clienteId")
+                    || !body.containsKey("productoId") || !body.containsKey("cantidad")) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                               .entity("{\"error\":\"Campos obligatorios: clienteId, productoId, cantidad\"}")
+                               .build();
+            }
             Long clienteId  = Long.valueOf(body.get("clienteId").toString());
             Long productoId = Long.valueOf(body.get("productoId").toString());
             int  cantidad   = Integer.parseInt(body.get("cantidad").toString());

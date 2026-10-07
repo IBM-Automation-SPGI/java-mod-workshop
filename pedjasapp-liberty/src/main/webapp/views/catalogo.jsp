@@ -96,6 +96,9 @@
             background: rgba(255, 255, 255, 0.22);
             transform: translateY(-1px);
         }
+        .nav a.nav-link.active {
+            background: rgba(255, 255, 255, 0.25);
+        }
         .nav a.nav-link.logout {
             background: rgba(218, 30, 40, 0.35);
             border: 1px solid rgba(218, 30, 40, 0.5);
@@ -358,6 +361,7 @@
     </a>
     <nav class="nav">
         <span class="user-greeting">👤 <span>Hola, <strong>${sessionScope.nombre}</strong></span></span>
+        <a href="${pageContext.request.contextPath}/catalogo" class="nav-link active">🏷️ Catálogo</a>
         <a href="${pageContext.request.contextPath}/pedidos/lista" class="nav-link">📦 Mis Pedidos</a>
         <a href="${pageContext.request.contextPath}/info" class="nav-link">ℹ️ Info</a>
         <a href="${pageContext.request.contextPath}/metrics-dashboard" class="nav-link">📊 Métricas</a>
