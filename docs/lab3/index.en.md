@@ -1,5 +1,7 @@
 # Lab 3 — Manual Modernization Guided by AMA
 
+<span class="lab-badge">Lab 3</span><span class="lab-time">⏱ 90–120 minutes</span>
+
 ---
 
 ## Lab Objective

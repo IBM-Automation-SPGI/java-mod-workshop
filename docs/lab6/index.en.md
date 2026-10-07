@@ -1,5 +1,7 @@
 # Lab 6 (Optional) — Deploy on Kubernetes / Red Hat OpenShift with Open Liberty Operator
 
+<span class="lab-badge">Lab 6</span><span class="lab-time">⏱ 45–60 minutes</span>
+
 ---
 
 ## Lab Objective

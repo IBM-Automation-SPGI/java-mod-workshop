@@ -1,5 +1,7 @@
 # Lab 3B — AI-Assisted Modernization with IBM Bob
 
+<span class="lab-badge">Lab 3B</span><span class="lab-time">⏱ 20–40 minutes</span>
+
 ---
 
 ## Lab Objective

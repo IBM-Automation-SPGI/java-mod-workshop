@@ -1,5 +1,7 @@
 # Lab 0 — Introducción y Requisitos Previos
 
+<span class="lab-badge">Lab 0</span><span class="lab-time">⏱ 20–30 minutos</span>
+
 ---
 
 ## Descripción del Workshop

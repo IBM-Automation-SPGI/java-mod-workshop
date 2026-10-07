@@ -1,5 +1,7 @@
 # Lab 5 — Validación y Siguientes Pasos
 
+<span class="lab-badge">Lab 5</span><span class="lab-time">⏱ 20–30 minutos</span>
+
 ---
 
 ## Objetivo del Lab

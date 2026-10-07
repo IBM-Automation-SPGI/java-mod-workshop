@@ -1,5 +1,7 @@
 # Lab 2 — Análisis con IBM Application Modernization Accelerator
 
+<span class="lab-badge">Lab 2</span><span class="lab-time">⏱ 30–45 minutos</span>
+
 ---
 
 ## Objetivo del Lab

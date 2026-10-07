@@ -1,5 +1,7 @@
 # Lab 3B — Modernización Asistida con IBM Bob
 
+<span class="lab-badge">Lab 3B</span><span class="lab-time">⏱ 20–40 minutos</span>
+
 ---
 
 ## Objetivo del Lab

@@ -1,5 +1,7 @@
 # Lab 4 — Despliegue en WebSphere Liberty
 
+<span class="lab-badge">Lab 4</span><span class="lab-time">⏱ 30–45 minutos</span>
+
 ---
 
 ## Objetivo del Lab

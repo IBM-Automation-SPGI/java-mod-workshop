@@ -1,5 +1,7 @@
 # Lab 1 — Despliegue de la Aplicación en tWAS
 
+<span class="lab-badge">Lab 1</span><span class="lab-time">⏱ 30–45 minutos</span>
+
 ---
 
 ## Objetivo del Lab
