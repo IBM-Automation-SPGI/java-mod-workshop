@@ -1,8 +1,8 @@
 /* ================================================================
-   Workshop de Modernización Java — Estilos personalizados IBM
+   Workshop de Modernización Java — Estilos personalizados IBM Carbon
    ================================================================ */
 
-/* Paleta IBM Carbon */
+/* Colores y estilos corporativos IBM Plex & Material */
 :root {
   --ibm-blue-60: #0043ce;
   --ibm-blue-50: #0f62fe;
@@ -14,11 +14,27 @@
   --ibm-green-50: #198038;
   --ibm-red-50: #da1e28;
   --ibm-yellow-30: #f1c21b;
+
+  --md-primary-fg-color: #0f62fe;
+  --md-primary-fg-color--light: #4589ff;
+  --md-primary-fg-color--dark: #0043ce;
+  --md-accent-fg-color: #0f62fe;
 }
 
-/* Cabecera principal */
-.md-header {
-  background-color: var(--ibm-blue-60);
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #0f62fe;
+  --md-accent-fg-color: #78a9ff;
+}
+
+/* Tipografía IBM Plex */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+body, input {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+}
+
+code, kbd, pre {
+  font-family: 'IBM Plex Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 /* Título del sitio */
@@ -30,13 +46,16 @@
 /* Barra lateral de navegación */
 .md-nav__title {
   font-weight: 700;
-  color: var(--ibm-blue-60);
 }
 
 /* Enlace activo de navegación */
 .md-nav__link--active {
   color: var(--ibm-blue-50) !important;
   font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: var(--ibm-blue-40) !important;
 }
 
 /* Contenido principal */
@@ -48,21 +67,23 @@
 .md-content h1 {
   border-bottom: 3px solid var(--ibm-blue-50);
   padding-bottom: 0.4em;
-  color: var(--ibm-gray-90);
 }
 
 .md-content h2 {
   border-left: 4px solid var(--ibm-blue-40);
   padding-left: 0.6em;
-  color: var(--ibm-gray-90);
 }
 
 .md-content h3 {
-  color: var(--ibm-blue-60);
+  color: var(--ibm-blue-50);
+}
+
+[data-md-color-scheme="slate"] .md-content h3 {
+  color: var(--ibm-blue-40);
 }
 
 /* Bloques de código inline */
-code {
+[data-md-color-scheme="default"] code {
   background-color: var(--ibm-gray-10);
   border: 1px solid var(--ibm-gray-20);
   border-radius: 3px;
@@ -73,7 +94,6 @@ code {
 /* Bloques pre/code */
 .highlight {
   border-radius: 6px;
-  border: 1px solid var(--ibm-gray-20);
 }
 
 /* Admonitions personalizados */
@@ -96,7 +116,7 @@ code {
   font-weight: 600;
 }
 
-.md-typeset table:not([class]) tr:nth-child(even) {
+[data-md-color-scheme="default"] .md-typeset table:not([class]) tr:nth-child(even) {
   background-color: var(--ibm-gray-10);
 }
 
@@ -131,8 +151,13 @@ code {
   color: var(--ibm-gray-90);
 }
 
+[data-md-color-scheme="slate"] .lab-time {
+  background-color: #262626;
+  color: #f4f4f4;
+}
+
 /* Caja resumen de objetivos */
-.objetivos-box {
+[data-md-color-scheme="default"] .objetivos-box {
   background-color: #e8f1ff;
   border-left: 5px solid var(--ibm-blue-50);
   border-radius: 4px;
@@ -140,6 +165,35 @@ code {
   margin: 1.2em 0;
 }
 
+[data-md-color-scheme="slate"] .objetivos-box {
+  background-color: #1a2744;
+  border-left: 5px solid var(--ibm-blue-40);
+  border-radius: 4px;
+  padding: 1em 1.2em;
+  margin: 1.2em 0;
+}
+
 .objetivos-box ul {
   margin-bottom: 0;
+}
+
+/* Mejoras de contraste y legibilidad para diagramas Mermaid */
+.mermaid {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon {
+  stroke-width: 1.5px !important;
+}
+
+.mermaid .node .label {
+  font-weight: 500;
+  font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .node .label {
+  color: #f4f4f4 !important;
 }

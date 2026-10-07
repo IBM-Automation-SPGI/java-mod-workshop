@@ -40,7 +40,23 @@ theme:
     - content.code.select
     - navigation.footer
   palette:
-    scheme: default
+    # Modo claro
+    - scheme: default
+      primary: custom
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    # Modo oscuro
+    - scheme: slate
+      primary: custom
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
 
 plugins:
   - search
