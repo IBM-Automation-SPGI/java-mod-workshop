@@ -380,7 +380,7 @@
 
     <div class="page-header">
         <div class="page-title">
-            <h2>Catálogo de Productos</h2>
+            <h1>Catálogo de Productos</h1>
             <p>Selecciona la cantidad y realiza tu pedido al instante</p>
         </div>
 

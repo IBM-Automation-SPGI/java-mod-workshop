@@ -197,7 +197,7 @@
     </c:if>
 
     <div class="page-header">
-        <h2>📦 Mis Pedidos — ${sessionScope.nombre}</h2>
+        <h1>📦 Mis Pedidos — ${sessionScope.nombre}</h1>
         <p>Historial completo de pedidos realizados</p>
     </div>
 

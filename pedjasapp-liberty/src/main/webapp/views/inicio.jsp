@@ -218,7 +218,7 @@
     <div class="card">
         <div class="card-header">
             <div class="icon-wrap">🔐</div>
-            <h2>Iniciar Sesión</h2>
+            <h1>Iniciar Sesión</h1>
             <p>Accede al panel de gestión y catálogo modernizado</p>
         </div>
 

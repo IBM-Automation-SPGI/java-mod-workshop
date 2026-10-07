@@ -1,6 +1,6 @@
 # Lab 3 — Manual Modernization Guided by AMA
 
-<span class="lab-badge">Lab 3</span><span class="lab-time">⏱ 90–120 minutes</span>
+<span class="lab-badge">Lab 3</span><span class="lab-time">⏱ 25–35 minutes</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 In this lab you will apply the code changes identified by AMA in Lab 2. Upon completion, you will have the **Liberty-compatible** version of PedjasApp, with all proprietary tWAS dependencies removed or replaced by standard Jakarta EE equivalents.
 
-!!! tip "⏱ Estimated duration: 90–120 minutes"
+!!! tip "⏱ Estimated duration: 25–35 minutes"
     This is the most intensive lab in the workshop. It covers 6 core code changes (EJB 2.x → JPA, IBM APIs, JNDI, WAS descriptors, JMS, and EJB Home Interface), each with detailed before/after examples.
 
 ---

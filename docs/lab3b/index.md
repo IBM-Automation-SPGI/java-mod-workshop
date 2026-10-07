@@ -1,6 +1,6 @@
 # Lab 3B — Modernización Asistida con IBM Bob
 
-<span class="lab-badge">Lab 3B</span><span class="lab-time">⏱ 20–40 minutos</span>
+<span class="lab-badge">Lab 3B</span><span class="lab-time">⏱ 10–15 minutos</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 En este lab utilizarás **IBM Bob** y el **Premium Package for Java Modernization** (`IBM.bob-java`) para acelerar y automatizar los cambios de código identificados por AMA en el Lab 2. En lugar de aplicar los cambios manualmente como en el Lab 3, Bob actuará como tu agente de modernización: utilizará el workflow **Liberty Modernization** guiado por el informe AMA, aplicará recetas OpenRewrite, resolverá incompatibilidades de forma agéntica y generará el `server.xml` resultante.
 
-!!! tip "⏱ Duración estimada: 20–40 minutos"
+!!! tip "⏱ Duración estimada: 10–15 minutos"
     Alternativa al Lab 3 Manual. El workflow de Bob automatiza los cambios más repetitivos; el tiempo varía según la complejidad del proyecto y los ajustes manuales adicionales que se necesiten.
 
 !!! note "Lab alternativo al Lab 3"
@@ -125,7 +125,7 @@ Bob ejecutará el build, analizará cualquier error y propondrá correcciones ad
 
 | Aspecto | Lab 3 — Manual | Lab 3B — Con Bob Premium |
 |---------|---------------|--------------------------|
-| Tiempo estimado | 2-3 horas | 20-40 minutos |
+| Tiempo estimado | 25-35 minutos | 10-15 minutos |
 | Riesgo de error | Alto (cambios manuales) | Bajo (recetas OpenRewrite + agente AI) |
 | Comprensión del código | Profunda (lees cada fichero) | Media (revisas diffs propuestos) |
 | Generación de `server.xml` | Manual, basada en la guía | Automática desde el ZIP de AMA |

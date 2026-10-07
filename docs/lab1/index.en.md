@@ -1,6 +1,6 @@
 # Lab 1 — Deploying the Application on tWAS
 
-<span class="lab-badge">Lab 1</span><span class="lab-time">⏱ 30–45 minutes</span>
+<span class="lab-badge">Lab 1</span><span class="lab-time">⏱ 15–20 minutes</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 In this lab you will compile the legacy monolith **PedjasApp (EAR)**, start an instance of **traditional WebSphere Application Server (tWAS 9.0)** inside a container, and prepare the source artifacts and environment that will be scanned and analyzed in depth using **IBM Application Modernization Accelerator (AMA)** in Lab 2.
 
-!!! tip "⏱ Estimated duration: 30–45 minutes"
+!!! tip "⏱ Estimated duration: 15–20 minutes"
     Includes pulling the tWAS image (~1.5 GB on first pull), building the EAR, and verifying the server.
 
 ---

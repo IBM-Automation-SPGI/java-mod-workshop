@@ -1,6 +1,6 @@
 # Lab 0 — Introducción y Requisitos Previos
 
-<span class="lab-badge">Lab 0</span><span class="lab-time">⏱ 20–30 minutos</span>
+<span class="lab-badge">Lab 0</span><span class="lab-time">⏱ 10–15 minutos</span>
 
 ---
 
@@ -17,20 +17,20 @@ Al finalizar, serás capaz de:
 
 ### Duración Estimada por Lab
 
-!!! tip "⏱ Duración estimada de este lab: 20–30 minutos"
+!!! tip "⏱ Duración estimada de este lab: 10–15 minutos"
 
 | Lab | Título | Tiempo estimado |
 |-----|--------|----------------|
-| Lab 0 | Requisitos Previos | 20–30 min |
-| Lab 1 | Despliegue en tWAS | 30–45 min |
-| Lab 2 | Análisis con AMA | 30–45 min |
-| Lab 3 | Modernización Manual | 90–120 min |
-| Lab 3B | Modernización con Bob | 20–40 min |
-| Lab 4 | Despliegue en Liberty | 30–45 min |
-| Lab 5 | Validación | 20–30 min |
-| Lab 6 | Kubernetes & OpenShift (Opcional) | 45–60 min |
+| Lab 0 | Requisitos Previos | 10–15 min |
+| Lab 1 | Despliegue en tWAS | 15–20 min |
+| Lab 2 | Análisis con AMA | 15–20 min |
+| Lab 3 | Modernización Manual | 25–35 min |
+| Lab 3B | Modernización con Bob | 10–15 min |
+| Lab 4 | Despliegue en Liberty | 15–20 min |
+| Lab 5 | Validación | 10–15 min |
+| Lab 6 | Kubernetes & OpenShift (Opcional) | 20–30 min |
 
-**Duración total del workshop (Labs 0–5):** aproximadamente **4–5 horas**.
+**Duración total del workshop (Labs 0–5):** aproximadamente **2 horas**.
 
 ---
 

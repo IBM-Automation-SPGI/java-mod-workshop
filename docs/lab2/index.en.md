@@ -1,6 +1,6 @@
 # Lab 2 — Assessment with IBM Application Modernization Accelerator
 
-<span class="lab-badge">Lab 2</span><span class="lab-time">⏱ 30–45 minutes</span>
+<span class="lab-badge">Lab 2</span><span class="lab-time">⏱ 15–20 minutes</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 In this lab you will run **IBM Application Modernization Accelerator (AMA)** against the PedjasApp EAR artifact, interpret the migration analysis results, and prioritize the required code and configuration transformations for WebSphere Liberty.
 
-!!! tip "⏱ Estimated duration: 30–45 minutes"
+!!! tip "⏱ Estimated duration: 15–20 minutes"
     Includes AMA installation (first time only), EAR scan, reading the assessment report, and reviewing the modernization rules generated.
 
 ---
