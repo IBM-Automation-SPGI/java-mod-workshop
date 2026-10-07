@@ -73,13 +73,13 @@ podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 ```bash
 # Confirm that /metrics is active and returns Prometheus-format data
 curl -s http://localhost:${LIBERTY_PORT}/metrics | head -20
-# Expected: lines like:
-# # HELP base_classloader_loadedClasses_count ...
-# # TYPE base_classloader_loadedClasses_count gauge
-# base_classloader_loadedClasses_count 8351.0
+# Expected (MicroProfile Metrics 5.0 format):
+# # HELP classloader_loadedClasses_count ...
+# # TYPE classloader_loadedClasses_count gauge
+# classloader_loadedClasses_count{mp_scope="base",} 8351.0
 
-# Confirm JVM metrics are exposed
-curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_"
+# Confirm JVM uptime metric is exposed
+curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_uptime"
 ```
 
 ### ✅ Basic Performance Validation

@@ -26,6 +26,7 @@ pedjasapp-liberty/
     │   │       │   └── LineaPedido.java
     │   │       ├── service/                   # Session Beans EJB 3.x
     │   │       │   ├── CatalogoService.java
+    │   │       │   ├── ClienteService.java
     │   │       │   ├── PedidoService.java
     │   │       │   └── NotificacionService.java
     │   │       ├── rest/                      # API REST JAX-RS
@@ -36,6 +37,7 @@ pedjasapp-liberty/
     │   │           ├── CatalogoServlet.java
     │   │           ├── InfoServlet.java
     │   │           ├── InicioServlet.java
+    │   │           ├── MetricsDashboardServlet.java
     │   │           └── PedidoServlet.java
     │   ├── resources/
     │   │   └── META-INF/
@@ -48,7 +50,10 @@ pedjasapp-liberty/
     │           ├── inicio.jsp
     │           ├── catalogo.jsp
     │           ├── pedidos.jsp
-    │           └── versioninfo.jsp
+    │           ├── versioninfo.jsp
+    │           ├── metrics-dashboard.jsp
+    │           ├── error404.jsp
+    │           └── error500.jsp
     └── test/
         └── java/                              # Tests unitarios
 ```

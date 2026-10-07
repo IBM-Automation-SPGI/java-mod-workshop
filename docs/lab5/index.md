@@ -73,13 +73,13 @@ podman logs pedjasapp-liberty 2>&1 | grep "CWWKF0012I"
 ```bash
 # Verificar que el endpoint /metrics está activo y devuelve datos Prometheus
 curl -s http://localhost:${LIBERTY_PORT}/metrics | head -20
-# Resultado esperado: líneas del tipo:
-# # HELP base_classloader_loadedClasses_count ...
-# # TYPE base_classloader_loadedClasses_count gauge
-# base_classloader_loadedClasses_count 8351.0
+# Resultado esperado: líneas del tipo (formato MicroProfile Metrics 5.0):
+# # HELP classloader_loadedClasses_count ...
+# # TYPE classloader_loadedClasses_count gauge
+# classloader_loadedClasses_count{mp_scope="base",} 8351.0
 
 # Verificar que Liberty expone métricas de JVM
-curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_"
+curl -s http://localhost:${LIBERTY_PORT}/metrics | grep "jvm_uptime"
 ```
 
 ### ✅ Validación de Rendimiento Básico
