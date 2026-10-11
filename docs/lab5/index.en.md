@@ -1,6 +1,6 @@
 # Lab 5 — Validation and Next Steps
 
-<span class="lab-badge">Lab 5</span><span class="lab-time">⏱ 20–30 minutes</span>
+<span class="lab-badge">Lab 5</span><span class="lab-time">⏱ 10–15 minutes</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 In this final lab you will thoroughly validate that the modernized **PedjasApp Liberty** application is functionally equivalent to the legacy tWAS deployment, review operational performance and memory improvements, and map out next architectural stages in your modernization journey.
 
-!!! tip "⏱ Estimated duration: 20–30 minutes"
+!!! tip "⏱ Estimated duration: 10–15 minutes"
     Covers the functional validation checklist, MicroProfile endpoint tests (health, metrics, OpenAPI), and the metrics dashboard review. Includes a troubleshooting section if any check does not pass.
 
 ---

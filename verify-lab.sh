@@ -177,6 +177,32 @@ verify_lab5() {
 }
 
 # ------------------------------------------------------------------------------
+# LAB 6: Kubernetes / OpenShift y Open Liberty Operator (Opcional)
+# ------------------------------------------------------------------------------
+verify_lab6() {
+    echo -e "\n${YELLOW}--- Verificando Lab 6: Manifiestos Kubernetes / OpenShift ---${NC}"
+    if [ -f "k8s/postgres-deployment.yaml" ]; then
+        pass "Manifiesto PostgreSQL presente (k8s/postgres-deployment.yaml)"
+    else
+        fail "Falta k8s/postgres-deployment.yaml"
+    fi
+
+    if [ -f "k8s/open-liberty-application.yaml" ]; then
+        pass "Custom Resource Open Liberty presente (k8s/open-liberty-application.yaml)"
+    else
+        fail "Falta k8s/open-liberty-application.yaml"
+    fi
+
+    if command -v oc &> /dev/null; then
+        pass "CLI OpenShift detectado ($(oc version --client 2>/dev/null | head -n 1 || echo 'oc client'))"
+    elif command -v kubectl &> /dev/null; then
+        pass "CLI Kubernetes detectado ($(kubectl version --client 2>/dev/null | head -n 1 || echo 'kubectl client'))"
+    else
+        info "CLI kubectl/oc no detectado en el host (requerido para clúster real)."
+    fi
+}
+
+# ------------------------------------------------------------------------------
 # Dispatcher
 # ------------------------------------------------------------------------------
 case "$LAB" in
@@ -186,6 +212,7 @@ case "$LAB" in
     lab3|3|lab3b|3b) verify_lab3 ;;
     lab4|4) verify_lab4 ;;
     lab5|5) verify_lab5 ;;
+    lab6|6) verify_lab6 ;;
     all)
         verify_lab0
         verify_lab1
@@ -193,9 +220,10 @@ case "$LAB" in
         verify_lab3
         verify_lab4
         verify_lab5
+        verify_lab6
         ;;
     *)
-        echo "Uso: $0 [lab0|lab1|lab2|lab3|lab4|lab5|all]"
+        echo "Uso: $0 [lab0|lab1|lab2|lab3|lab4|lab5|lab6|all]"
         exit 1
         ;;
 esac

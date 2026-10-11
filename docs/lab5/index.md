@@ -1,6 +1,6 @@
 # Lab 5 — Validación y Siguientes Pasos
 
-<span class="lab-badge">Lab 5</span><span class="lab-time">⏱ 20–30 minutos</span>
+<span class="lab-badge">Lab 5</span><span class="lab-time">⏱ 10–15 minutos</span>
 
 ---
 
@@ -8,7 +8,7 @@
 
 En este lab validarás exhaustivamente que la aplicación PedjasApp modernizada es funcionalmente equivalente a la versión tWAS, revisarás las mejoras de rendimiento y operación, y planificarás los próximos pasos en el viaje de modernización. Es el último lab del flujo principal; el Lab 6 (opcional) cubre el despliegue en Kubernetes/OpenShift.
 
-!!! tip "⏱ Duración estimada: 20–30 minutos"
+!!! tip "⏱ Duración estimada: 10–15 minutos"
     Cubre el checklist de validación funcional, las pruebas de endpoints MicroProfile (health, métricas, OpenAPI) y la revisión del dashboard de métricas. Incluye además una sección de diagnóstico en caso de problemas.
 
 ---
