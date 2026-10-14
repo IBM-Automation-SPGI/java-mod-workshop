@@ -180,7 +180,7 @@ cd pedjasapp-twas
 mvn clean package -DskipTests
 ```
 
-Tras la compilación, encontrarás el fichero EAR en `pedjasapp-ear/target/pedjasapp.ear`.
+Tras la compilación, encontrarás el fichero EAR en `pedjasapp-ear/target/pedjasapp.ear`[../pedjasapp-twas/pedjasapp.ear].
 
 !!! tip "Archivos ZIP pre-generados incluidos"
     El repositorio ya incluye los archivos de colección AMA pre-generados para que puedas avanzar al Lab 2 sin necesidad de ejecutar el Data Collector desde cero:
