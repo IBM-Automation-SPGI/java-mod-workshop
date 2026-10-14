@@ -175,7 +175,7 @@ cd pedjasapp-twas
 mvn clean package -DskipTests
 ```
 
-After compilation, verify that `pedjasapp-ear/target/pedjasapp.ear` is present.
+After compilation, verify that `pedjasapp-ear/target/pedjasapp.ear` is present. If you prefer to skip the build, you can download the pre-built EAR directly from GitHub: [pedjasapp.ear](https://github.com/IBM-Automation-SPGI/java-mod-workshop/raw/main/pedjasapp-twas/pedjasapp.ear).
 
 !!! tip "Pre-generated ZIP archives included"
     The repository already ships pre-generated AMA collection archives so you can proceed directly to Lab 2 without running the Data Collector from scratch:
